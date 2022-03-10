@@ -12,6 +12,10 @@
     The COVID-19 situation is constantly evolving and knowing information on
     global news and statistics can help you make better travel decisions.
   </p>
+  <h3>{{ totalCases }}</h3>
+  <p>GLOBAL TOTAL CASES</p>
+  <h3>{{ newCases }}</h3>
+  <p>GLOBAL NEW CASES</p>
   <h1>Keeping Up With COVID-19 News</h1>
   <div v-for="item in news" :key="item.id">
     <h3>{{ item.title }}</h3>
@@ -43,7 +47,9 @@ export default {
       options: { 
         chart: {},
         colorAxis: {colors: ['#4374e0', '#e7711c']} // orange to blue
-      }
+      },
+      totalCases: 0,
+      newCases: 0
     };
   },
 
@@ -51,7 +57,6 @@ export default {
     async displayNews() {
       let z = await getDocs(query(collection(db, "News"), limit(5)));
       z.forEach((doc) => {
-        //console.log(doc.data());
         this.news.push(doc.data());
       });
     },
@@ -67,22 +72,29 @@ export default {
       let url = 'https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/' + this.getDate() + '/' + this.getDate() + '';
       let received  = await axios.get(url)
       let data = received.data.data[this.getDate()]
-      //console.log(data)
       Object.keys(data).forEach((key) => {
         let countryCode = getCountryISO2(data[key].country_code) // convert a country code ISO 3166-1 Alpha-3 to ISO 3166-1 Alpha-2
         if (typeof countryCode == 'undefined') {
-          console.log(data[key].country_code)
           return;
         }
         let stringencyIndex = data[key].stringency
         this.stringency.push([countryCode, stringencyIndex])
       });
-      console.log(this.stringency)
+    },
+
+    async displayCovidStats() {
+      let url = 'https://api.covid19api.com/summary'
+      let received  = await axios.get(url)
+      let data = received.data.Global
+      this.totalCases = data.TotalConfirmed
+      this.newCases = data.NewConfirmed
+      console.log(data.NewConfirmed)
     },
 
     display() {
       this.displayNews();
       this.displayMap();
+      this.displayCovidStats();
     }
 
   },
@@ -93,4 +105,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
