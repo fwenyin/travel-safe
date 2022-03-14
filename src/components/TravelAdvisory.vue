@@ -10,7 +10,7 @@
         <option value='KOR'> Republic of Korea </option>
         
     </select> 
-    <button id='submitBtn' v-on:click.prevent="getRiskAssLevel()"> Submit </button>
+    <button id='submitBtn'> Submit </button>
     <br><br>    
 
     <div class='header'>
@@ -41,13 +41,13 @@
     </section>
 
     <div class='header'>
-        {{countrySearch}} 
+        {{ countrySearch }} 
         Travel Notice
     </div>
         
     <div class='travelNotice'>
-        <div v-for="item in items" :key="item.id">
-            <li v-for="notice in item.travelNotice" :key="notice">
+        <div v-for="adv in travelAdv" :key="adv.id">
+            <li v-for="notice in adv.travelNotice" :key="notice">
             {{ notice }}
             </li>
         </div>
@@ -56,9 +56,10 @@
     <section class=docsLanesComb>
         <div class='header' id="docsLanes">
             Documents CheckList
-                <div id="details" v-for="item in items" :key="item.id">
-                    <li v-for="doc in item.documents" :key="doc">
-                    {{ doc.doc}}
+                <div id="details" v-for="adv in travelAdv" :key="adv.id">
+                    <li v-for="doc in adv.documents" :key="doc">
+                    {{ doc.doc}} <br>
+                    {{ doc.desc }} <br>
                     {{ doc.link }}
                     </li>
                 </div>
@@ -66,26 +67,17 @@
 
         <div class='header' id="docsLanes">
             Available Travel Lanes
-            <div id="details" v-for="item in items" :key="item.id">
-                    <div v-for="lane in item.travelLane" :key="lane">
-                        <li v-for="detail in lane" :key="detail">
-                            <u>Eligibility</u><br>
-                            {{ detail.eligibility }}
-                        </li>
-                        
-                        <li v-for="detail in lane" :key="detail">
-                            <u>Application</u><br>
-                                <u>Singapore Citizens (SC) / Permanent Residents (PR)</u><br>
-                                    {{ detail.application.sgpr }}<br>
-                                <u>Foreign Visitors (e.g. Short-Term Visitors / Long-Term Pass Holders)</u><br>
-                                    {{ detail.application.foreigner }}<br>
-                        </li>
-                    </div>
-                </div>
+            <div id="details" v-for="lane in travelLanes" :key="lane.id">
+                <b>{{ lane.laneName }}</b><br>
+                <u>Eligibility</u><br>
+                {{ lane.eligibility }} <br>
+
+                <u>Singapore Citizens (SC) / Permanent Residents (PR)</u><br>
+                {{ lane.application }}
+            
+            </div>
         </div>
     </section>
-
-
 </template>
 
 
@@ -98,21 +90,31 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
         return {
-            items: [],
+            travelAdv: [],
+            travelLanes: [],
         }
     },
     methods: {
-        async display() {
+        async getTravelAdvisory() {
             let z = await getDocs(collection(db, "TravelAdvisory"));
             z.forEach((doc) => {
             console.log(doc.id, "=>", doc.data());
-            this.items.push(doc.data());
+            this.travelAdv.push(doc.data());
+            }); 
+        },
+
+        async getTravelLanes() {
+            let y = await getDocs(collection(db, "TravelLanes"));
+            y.forEach((doc) => {
+            console.log(doc.id, "=>", doc.data());
+            this.travelLanes.push(doc.data());
             }); 
         },
     },
 
     created() {
-        this.display();
+        this.getTravelAdvisory();
+        this.getTravelLanes();
     }
 }
 </script>
@@ -161,6 +163,9 @@ export default {
 #details {
     background-color: #AEC4DA;
     margin-top: 8px;
+    color: black;
+    font-size: 14px;
+    text-align: left;
 }
 
 h1 {
