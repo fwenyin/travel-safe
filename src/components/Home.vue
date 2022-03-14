@@ -1,5 +1,18 @@
 <template>
   <h1>ONE-STOP PORTAL FOR TRAVELLING AMIDST COVID-19</h1>
+  <div>
+    <select v-model="selected">
+      <option disabled value="">Select Destination</option>
+      <option>Australia</option>
+      <option>Denmark</option>
+      <option>Finland</option>
+      <option>Malaysia</option>
+      <option>South Korea</option>
+      <option>United States</option>
+      <option>United Kingdom</option>
+    </select>
+    <button @click="goToCountry(selected)">SEARCH</button>
+  </div>
   <h2>COVID-19 Stringency Index</h2>
   <div>
     <GChart :data = "stringency"
@@ -95,6 +108,10 @@ export default {
       this.displayNews();
       this.displayMap();
       this.displayCovidStats();
+    }
+
+    goToCountry(country) {
+
     }
 
   },
