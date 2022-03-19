@@ -108,11 +108,11 @@ export default {
       this.displayNews();
       this.displayMap();
       this.displayCovidStats();
-    }
+    },
 
-    goToCountry(country) {
+    // goToCountry(country) {
 
-    }
+    // }
 
   },
 
