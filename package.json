@@ -10,6 +10,7 @@
   "dependencies": {
     "@fire-ui/fire-ui": "^0.2.7",
     "axios": "^0.26.1",
+    "bootstrap": "^5.1.3",
     "core-js": "^3.6.5",
     "country-iso-3-to-2": "^1.1.0",
     "firebase": "^9.6.8",
