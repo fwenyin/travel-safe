@@ -14,7 +14,7 @@
       <div class = "signUpButton">
         <button id="signUpButton" type="button" v-on:click="savetofs()">Sign Up</button>
       </div>
-      <p>Already have an account? <router-link to="/login">Log In</router-link></p>
+      <p>Already have an account? <router-link to="/">Log In</router-link></p>
     </form>
   </div>
 </div>
@@ -26,7 +26,9 @@ import { getFirestore } from "firebase/firestore"
 import { doc, setDoc } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
+
 export default {
+  name: "Signup",
     methods: {
         async savetofs() {
             var a = document.getElementById("username").value;
