@@ -42,7 +42,6 @@ import firebaseApp from "../firebase.js";
 import { collection, getDocs, query, limit, getFirestore } from "firebase/firestore";
 import { GChart } from "vue-google-charts";
 import axios from 'axios'
-
 const db = getFirestore(firebaseApp);
 const getCountryISO2 = require("country-iso-3-to-2");
 
@@ -73,14 +72,12 @@ export default {
         this.news.push(doc.data());
       });
     },
-
     // covid19 API data accurate to one day before current day
     getDate() {
       let currentDate = new Date();
 			currentDate.setDate(currentDate.getDate() - 2);
 			return currentDate.toISOString().slice(0, 10);
     },
-
     async displayMap() {
       let url = 'https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/' + this.getDate() + '/' + this.getDate() + '';
       let received  = await axios.get(url)
