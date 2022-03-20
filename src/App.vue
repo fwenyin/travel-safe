@@ -1,4 +1,45 @@
 <template>
+  <div id="nav">
+      <router-link to="/">Home</router-link> | 
+      <router-link to="/searched-country">Searched Country</router-link>
+  </div>
+  <router-view />
+</template>
+
+<script>
+console.log("in App")
+
+export default {
+  name: 'App',
+}
+</script>
+
+<style scoped>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>
+
+
+<!--
+<template>
 <h1>ONE-STOP PORTAL FOR TRAVELLING AMIDST COVID-19</h1>
 <div class = "login">
   <h2>Log In</h2>
@@ -55,3 +96,6 @@ export default {
   margin-top: 60px;
 }
 </style>
+-->
+
+
