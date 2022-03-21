@@ -27,7 +27,6 @@
     </section>
 
     <div class='header'>
-        {{ countrySearch }} 
         Travel Notice
     </div>
         
@@ -40,11 +39,15 @@
     <section class=docsLanesComb>
         <div class='header' id="docsLanes">
             Documents CheckList
-                <li v-for="doc in travelDocs" :key="doc.id">
-                {{ doc.doc }}<br>
-                {{ doc.desc }} <br>
-                {{ doc.link }}
-                </li>
+                <div class="docsCheckList" v-for="doc in travelDocs" :key="doc.id">
+                    <input class="checkbox" type="checkbox" value="" id="flexCheckDefault">
+                    <div class="docName">
+                        {{ doc.doc }} 
+                        <a v-bind:href="''+doc.link+''" style="font-size: 12px"> Link </a>
+                    </div>
+                    <div class="docDesc"> {{ doc.desc }} <br> </div>
+                    <b-icon-chevron-right></b-icon-chevron-right>
+                </div>
             </div>
 
         <div class='header' id="docsLanes">
@@ -72,8 +75,7 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
         return {
-            country: this.$route.params.country,
-            travelLanes: {},
+            travelLanes: [],
             travelNotice: {},
             travelDocs: {},
         }
@@ -102,9 +104,9 @@ export default {
         async getLanes() {
             let y = await getDocs(collection(db, "TravelLanes"));
             y.forEach((doc) => {
-            //console.log(doc.id, "=>", doc.data());
-            this.travelLanes = doc.data();
-            }); 
+            console.log(doc.id, "=>", doc.data());
+            this.travelLanes.push(doc.data());
+        }); 
         }
     },
 
@@ -151,6 +153,38 @@ export default {
     display: flex; 
 }
 
+.docsCheckList {
+    background-color: #AEC4DA8F
+}
+
+.checkbox {
+    margin-top: 50px;
+    float: left;
+    width: 50px;
+    transform: scale(2);
+    display: inline-flex;
+}
+
+input[type=checkbox] {
+  accent-color: green;
+}
+
+.docName {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+    padding-top: 15px;
+}
+
+.docDesc {
+    color: #5B5B5B;
+    font-size: 14px; 
+    text-align: left;
+    margin-left: 55px;
+    line-height: 1.5
+}
+
 #docsLanes {
     float: left;
     width: 50%;
@@ -188,6 +222,9 @@ li {
     margin-left: 5px;
     color: black;
     font-size: 14px;
+    list-style-type: none;
 }    
+
+
 
 </style>
