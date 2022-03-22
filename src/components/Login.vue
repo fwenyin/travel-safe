@@ -58,10 +58,12 @@ import firebase from '@/uifire.js';
 import 'firebase/compat/auth';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css'
+import "firebaseui/dist/firebaseui.css";
 
 export default {
   name: "Login", 
-  
+  name: "Login",
+
   mounted() {
     // calling the ui instance
     var ui = firebaseui.auth.AuthUI.getInstance();
@@ -70,15 +72,15 @@ export default {
     }
 
     var uiConfig = {
-      signInSuccessUrl: '/home',
+      signInSuccessUrl: "/home",
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-      ]
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      ],
     };
     ui.start("#firebaseui-auth-container", uiConfig);
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -129,4 +131,19 @@ export default {
 }
 
 
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
 </style>
