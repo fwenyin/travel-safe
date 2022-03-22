@@ -54,14 +54,12 @@
 </template>
 
 <script>
-import firebase from '@/uifire.js';
-import 'firebase/compat/auth';
-import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css'
+import firebase from "@/uifire.js";
+import "firebase/compat/auth";
+import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 
 export default {
-  name: "Login", 
   name: "Login",
 
   mounted() {
