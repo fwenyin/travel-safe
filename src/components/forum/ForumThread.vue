@@ -1,4 +1,5 @@
 <template>
+  <p>This is Forum Thread</p>
   <div id="threadPage">
     <link
       rel="stylesheet"
@@ -44,10 +45,7 @@
 </template>
 
 <script>
-// import home from "@/assets/home2.jpg";
 import CommentBlock from "@/components/CommentBlock";
-// import database from "@/firebase";
-// import { mapGetters } from "vuex";
 
 export default {
   name: "ForumThread",
@@ -146,12 +144,10 @@ export default {
 #mainThread {
   width: 60%;
   max-height: 40%;
-  background-color: #e6f7ff;
-  /* min-height: 15%; */
+  border-radius: 20px;
+  background: #e6f7ff;
   position: relative;
-  /* border-radius: 5px; */
   display: inline-block;
-  /* margin-bottom: 10%; */
 }
 
 #forumContent {
@@ -165,14 +161,14 @@ export default {
   position: absolute;
   top: 10px;
   left: 10px;
-  height: 100%;
+  height: 50%;
   width: 10%;
 }
 
-/* #forumCountry {
-  position: absolute;
-  display: inline;
-} */
+#forumCountry {
+  background: #dda375;
+  border-radius: 10px;
+}
 
 /* #icon {
   height: 60px;

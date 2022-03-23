@@ -63,6 +63,7 @@ export default {
 <style scoped>
 #placeholder {
   width: 100%;
+  border-radius: 20px;
   height: auto;
   margin-bottom: 4px;
 }
