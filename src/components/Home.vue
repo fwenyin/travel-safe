@@ -69,7 +69,9 @@
             id="total"
             style="height: 100px"
           >
-            <h4 class="card-title" style="margin-top:12px">{{ totalCases }}</h4>
+            <h4 class="card-title" style="margin-top: 12px">
+              {{ totalCases }}
+            </h4>
             <p>GLOBAL TOTAL CASES</p>
           </div>
           <div
@@ -77,7 +79,7 @@
             id="new"
             style="height: 100px"
           >
-            <h4 class="card-title" style="margin-top:12px">{{ newCases }}</h4>
+            <h4 class="card-title" style="margin-top: 12px">{{ newCases }}</h4>
             <p>GLOBAL NEW CASES</p>
           </div>
         </div>
@@ -87,15 +89,22 @@
     <br />
     <br />
     <div>
-        <h2><b>Keeping Up With COVID-19 News</b></h2>
-        <hr style="width: 50%; margin-left: 25%"> <br> <br>
+      <h2><b>Keeping Up With COVID-19 News</b></h2>
+      <hr style="width: 50%; margin-left: 25%" />
+      <br />
+      <br />
       <div
         class="card text-start mx-auto mb-2 p-2 justify-content-center"
         style="width: 65%"
         v-for="item in news"
-        :key="item.id">
-        <h5 style="margin-top:12px"><b>{{ item.title }}</b></h5>
-        <p style="font-size:13px">{{ item.news_agency + " - " + item.time }}</p>
+        :key="item.id"
+      >
+        <h5 style="margin-top: 12px">
+          <b>{{ item.title }}</b>
+        </h5>
+        <p style="font-size: 13px">
+          {{ item.news_agency + " - " + item.time }}
+        </p>
         <p>{{ item.description }}</p>
       </div>
     </div>
@@ -197,9 +206,8 @@ export default {
     },
 
     goToCountry(c) {
-      this.$router.push({name:'Searched Country', params: {country: c}}); 
-    }
-
+      this.$router.push({ name: "Searched Country", params: { country: c } });
+    },
   },
 
   created() {
