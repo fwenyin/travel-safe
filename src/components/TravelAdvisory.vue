@@ -1,6 +1,6 @@
 <template>
     <div class='header'>
-        COVID-19 Risk Assessment Level
+        COVID-19 Risk Assessment
     </div>
 
     <section class='riskAssLevel'>
