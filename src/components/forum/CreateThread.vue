@@ -5,7 +5,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <div id="iconDiv">
-      <span id="icon"><i id="userIcon" class="fa fa-user"></i></span>
+      <img
+        id="userIcon"
+        :src="require('@/assets/profilephoto.png')"
+        alt="home"
+      />
     </div>
     <div id="titleContainer">
       <input
@@ -13,39 +17,132 @@
         type="text"
         placeholder="Title"
         v-on:keypress.enter="submit"
-        v-model="subject"
+        v-model="title"
+        required
       />
     </div>
     <div id="contentContainer">
-      <textarea
-        id="forumContent"
-        placeholder="Text (optional)"
-        cols="40"
-        rows="5"
-        v-on:keypress.enter="submit"
-        v-model="body"
-      ></textarea>
+      <input id="forumContent" type="text" placeholder="Text" v-model="body" />
     </div>
     <div id="selectCountry">
-      <label for="countries">Select country:</label>
-      <select id="countries" name="countries">
+      <label for="countries">Select country: </label>
+      <select id="countries" name="countries" @change="saveCountry($event)">
+        <option value="None">None</option>
         <option value="Malaysia">Malaysia</option>
-        <option value="England">England</option>
         <option value="Finland">Finland</option>
         <option value="Australia">Australia</option>
+        <option value="Denmark">Denmark</option>
+        <option value="United States">United States</option>
+        <option value="South Korea">South Korea</option>
+        <option value="United Kingdom">United Kingdom</option>
       </select>
-      <input type="submit" />
+      <input id="submitButton" type="submit" @click="submit()" />
     </div>
   </div>
 </template>
 
+<script>
+import firebaseApp from "../firebase.js";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+const db = getFirestore(firebaseApp);
+
+export default {
+  name: "CreateThread.vue",
+  data() {
+    return {
+      postCounter: "",
+      title: "",
+      body: "",
+      country: "",
+      validTitle: false,
+      validBody: false,
+    };
+  },
+  methods: {
+    saveCountry: function (event) {
+      console.log("Saving country ", event.target.value);
+      this.country = event.target.value;
+    },
+
+    async submit() {
+      console.log("This is submit function ");
+      if (!this.validTitle || !this.validBody) {
+        alert("Please fill in the necessary fields");
+      } else {
+        console.log("Else part");
+        var updatedCounter = parseInt(this.postCounter) + 1;
+        var post = {
+          id: updatedCounter + "",
+          user: "Bandy",
+          title: this.title,
+          body: this.body,
+          timestamp: new Date().toDateString(),
+          likes: 0,
+          country: this.country + "",
+          comments: {
+            commentId: 0,
+            responses: {
+              commentBody: "",
+              commentDate: "",
+              sender: "",
+            },
+          },
+        };
+        // console.log("Before setDoc");
+        // console.log("Post is ", post);
+        // console.log("updatedCounter is ", updatedCounter);
+
+        await setDoc(doc(db, "Posts", updatedCounter + ""), post);
+        console.log(this.postCounter + " --> " + updatedCounter);
+        this.postCounter = updatedCounter + "";
+        console.log("new count: " + this.postCounter);
+        alert("Pushing to firestore ");
+        location.reload();
+      }
+    },
+    getCounter: async function () {
+      let z = await getDocs(collection(db, "Posts"));
+      z.forEach((doc) => {
+        // console.log(doc.data().id);
+        this.postCounter = doc.data().id;
+      });
+      console.log("Lastest post id is ", this.postCounter);
+    },
+  },
+  watch: {
+    title: function (val) {
+      if (val === "") {
+        this.validTitle = false;
+      } else {
+        this.validTitle = true;
+      }
+    },
+    body: function (val) {
+      if (val === "") {
+        this.validBody = false;
+      } else {
+        this.validBody = true;
+      }
+    },
+  },
+  created() {
+    this.getCounter();
+  },
+};
+</script>
+
 <style scoped>
 #mainContainer {
-  position: absolute;
-  width: 895px;
-  height: 256px;
-  left: 472px;
-  top: 314px;
+  position: relative;
+  margin-top: 2em;
+  width: 60vw;
+  height: 30vh;
 
   background: #aec4da;
   border: 2px solid #aec4da;
@@ -55,15 +152,17 @@
 
 #userIcon {
   position: absolute;
+  size: 50px;
   width: 50px;
   height: 50px;
-  left: 59px;
-  top: 36px;
+  left: 5%;
+  top: 9%;
+  border-radius: 1000px;
 }
 
 #forumTitle {
   position: absolute;
-  width: 60%;
+  width: 70%;
   height: 20%;
   left: 20%;
   top: 10%;
@@ -72,9 +171,9 @@
   box-sizing: border-box;
   border-radius: 10px;
 }
-#contentContainer {
+#forumContent {
   position: absolute;
-  width: 60%;
+  width: 70%;
   height: 40%;
   left: 20%;
   top: 40%;
@@ -91,5 +190,9 @@
   height: 40%;
   left: 20%;
   top: 85%;
+}
+#submitButton {
+  position: absolute;
+  left: 115%;
 }
 </style>
