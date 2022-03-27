@@ -203,16 +203,10 @@ export default {
       this.displayCovidStats();
     },
 
-<<<<<<< HEAD
     goToCountry(country) {
       this.$router.push({ name: 'Searched Country', params: {country: country}})
     }
 
-=======
-    goToCountry(c) {
-      this.$router.push({ name: "Searched Country", params: { country: c } });
-    },
->>>>>>> a585fc7d660dc77cc40cb6c17592f88658f41e68
   },
 
   created() {
