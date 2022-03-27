@@ -19,7 +19,7 @@
             <h3> High Level </h3>
             <p> Make sure you are fully vaccinated. Unvaccinated travelers should avoid nonessential travel </p>
         </div>
-        <div class='riskAssBox' style="background-color:#A03F3E">
+        <div class='riskAssBox' style="background-color:#A03F3E; border-style:solid; border-color:black; border-width: 8px;">
             <h1> 4 </h1>
             <h3> Very High Level </h3>
             <p> Avoid travel </p>
