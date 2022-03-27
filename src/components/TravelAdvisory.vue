@@ -52,6 +52,7 @@
                     {{ doc.desc }} 
                 </div> <br>
             </label>
+            <hr>
         </form>         
     </div>
 </template>
@@ -164,6 +165,7 @@ input[type=checkbox]:checked {
     display: inline-block;
     margin-left: 20px;
     margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .docDesc {
@@ -179,9 +181,8 @@ input[type=checkbox]:checked {
     font-size:24px; 
     color:black; 
     float: right;
-    margin-top: 25px;
+    margin-top: 35px;
     margin-right: 15px;
-    
 }
 
 h1 {
@@ -215,6 +216,14 @@ li {
 label {
     display: block;
     width: 100%;
+}
+
+hr {
+    margin-left: 50px;
+    margin-right: 55px;
+    margin-bottom: 0px;
+    margin-top: -10px;
+    color: grey;
 }
 
 </style>
