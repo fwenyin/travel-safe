@@ -156,16 +156,16 @@ export default {
 
 .dropdown-menu {
   width: 200px;
-  background-color: #aec4da;
+  background-color: #aec4da !important;
 }
 
 .btn-secondary {
   width: 200px;
-  background-color: #8caccb;
+  background-color: #8caccb !important;
 }
 
 .card-header {
-  background-color: hsl(217, 34%, 34%);
+  background-color: #394F73 !important
 }
 
 .card-body {

@@ -1,18 +1,4 @@
 <template>
-
-    <select v-model="countrySearch">
-        <option value='AUS'> Australia </option>
-        <option value='USA'> United States </option>
-        <option value='GBR'> United Kingdom </option>
-        <option value='DNK'> Denmark </option>
-        <option value='FIN'> Finland </option>
-        <option value='MYS'> Malaysia </option>
-        <option value='KOR'> Republic of Korea </option>
-        
-    </select> 
-    <button id='submitBtn'> Submit </button>
-    <br><br>    
-
     <div class='header'>
         COVID-19 Risk Assessment Level
     </div>
@@ -41,27 +27,26 @@
     </section>
 
     <div class='header'>
-        {{ countrySearch }} 
         Travel Notice
     </div>
         
     <div class='travelNotice'>
-        <div v-for="adv in travelAdv" :key="adv.id">
-            <li v-for="notice in adv.travelNotice" :key="notice">
-            {{ notice }}
-            </li>
-        </div>
+        <li v-for="doc in travelNotice" :key="doc.id">
+            {{ doc }}<br>
+        </li>
     </div>
 
     <section class=docsLanesComb>
         <div class='header' id="docsLanes">
             Documents CheckList
-                <div id="details" v-for="adv in travelAdv" :key="adv.id">
-                    <li v-for="doc in adv.documents" :key="doc">
-                    {{ doc.doc}} <br>
-                    {{ doc.desc }} <br>
-                    {{ doc.link }}
-                    </li>
+                <div class="docsCheckList" v-for="doc in travelDocs" :key="doc.id">
+                    <input class="checkbox" type="checkbox" value="" id="flexCheckDefault">
+                    <div class="docName">
+                        {{ doc.doc }} 
+                        <a v-bind:href="''+doc.link+''" style="font-size: 12px"> Link </a>
+                    </div>
+                    <div class="docDesc"> {{ doc.desc }} <br> </div>
+                    <b-icon-chevron-right></b-icon-chevron-right>
                 </div>
             </div>
 
@@ -84,37 +69,51 @@
 <script>
 import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, where, query } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
 
 export default {
     data() {
         return {
-            travelAdv: [],
             travelLanes: [],
+            travelNotice: {},
+            travelDocs: {},
         }
     },
     methods: {
-        async getTravelAdvisory() {
-            let z = await getDocs(collection(db, "TravelAdvisory"));
-            z.forEach((doc) => {
-            console.log(doc.id, "=>", doc.data());
-            this.travelAdv.push(doc.data());
-            }); 
+        async getNotice(c) {
+            this.country = c
+            const q = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data().travelNotice);
+                this.travelNotice = doc.data().travelNotice;
+            })
         },
 
-        async getTravelLanes() {
+        async getDocuments(c) {
+            this.country = c
+            const q = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data().documents);
+                this.travelDocs = doc.data().documents;
+            })
+        },
+            
+        async getLanes() {
             let y = await getDocs(collection(db, "TravelLanes"));
             y.forEach((doc) => {
             console.log(doc.id, "=>", doc.data());
             this.travelLanes.push(doc.data());
-            }); 
-        },
+        }); 
+        }
     },
 
     created() {
-        this.getTravelAdvisory();
-        this.getTravelLanes();
+        this.getNotice("Korea");
+        this.getDocuments("Korea");
+        this.getLanes("Korea");
     }
 }
 </script>
@@ -154,6 +153,38 @@ export default {
     display: flex; 
 }
 
+.docsCheckList {
+    background-color: #AEC4DA8F
+}
+
+.checkbox {
+    margin-top: 50px;
+    float: left;
+    width: 50px;
+    transform: scale(2);
+    display: inline-flex;
+}
+
+input[type=checkbox] {
+  accent-color: green;
+}
+
+.docName {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+    padding-top: 15px;
+}
+
+.docDesc {
+    color: #5B5B5B;
+    font-size: 14px; 
+    text-align: left;
+    margin-left: 55px;
+    line-height: 1.5
+}
+
 #docsLanes {
     float: left;
     width: 50%;
@@ -191,6 +222,9 @@ li {
     margin-left: 5px;
     color: black;
     font-size: 14px;
+    list-style-type: none;
 }    
+
+
 
 </style>
