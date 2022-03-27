@@ -29,7 +29,7 @@
       </button>
 
       <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user">
         <img
           style="width: 5%; height: 5%"
           :src="require(`../assets/logo.png`)"
@@ -49,7 +49,7 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="padding-left: 50px" href="/aboutus"
+            <a class="nav-link" style="padding-left: 50px" href="/forumpage"
               >Forum</a
             >
           </li>
@@ -58,9 +58,9 @@
       <!-- Collapsible wrapper -->
 
       <!-- Right elements -->
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" v-if="user">
         <!-- Icon -->
-        <a class="me-5" style="color: aliceblue"> Name </a>
+        <a class="me-5" style="color: aliceblue"> {{user.displayName}} </a>
 
         <!-- Avatar -->
         <div class="dropdown">
@@ -99,6 +99,37 @@
     <!-- Container wrapper -->
   </nav>
 </template>
+
+<script>
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+
+export default {
+    name: 'NavBar',
+    data() {
+        return {
+            user:false,
+            refreshComp:0,
+        }
+    },
+    methods: {
+        change() {
+            this.refreshComp += 1
+        }
+    },
+
+    mounted() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.user = user;
+            }
+        })
+        
+    }
+}
+</script>
+
+
 <style>
 .navbar {
   background-color: #8caccb;

@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <div id="forumPage">
     <ForumHeader />
     <div class="body">
@@ -25,11 +26,12 @@
 </template>
 
 <script>
-import ForumHeader from "@/components/ForumHeader";
-import ShortenedThread from "@/components/ShortenedThread";
+import NavBar from "../components/NavBar.vue";
+import ForumHeader from "../components/forum/ForumHeader.vue";
+import ShortenedThread from "../components/forum/ShortenedThread.vue";
 // import Thread from "@/components/Thread";
-import CreateThread from "@/components/CreateThread";
-import firebaseApp from "../firebase.js";
+import CreateThread from "../components/forum/CreateThread.vue";
+import firebaseApp from "../firebase";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
@@ -44,6 +46,7 @@ export default {
     };
   },
   components: {
+    NavBar,
     ShortenedThread,
     CreateThread,
     ForumHeader,
