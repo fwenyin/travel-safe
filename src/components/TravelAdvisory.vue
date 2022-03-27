@@ -1,6 +1,6 @@
 <template>
     <div class='header'>
-        COVID-19 Risk Assessment
+        COVID-19 Risk Assessment Level
     </div>
 
     <section class='riskAssLevel'>
@@ -36,33 +36,24 @@
         </li>
     </div>
 
-    <section class=docsLanesComb>
-        <div class='header' id="docsLanes">
-            Documents CheckList
-                <div class="docsCheckList" v-for="doc in travelDocs" :key="doc.id">
-                    <input class="checkbox" type="checkbox" value="" id="flexCheckDefault">
-                    <div class="docName">
-                        {{ doc.doc }} 
-                        <a v-bind:href="''+doc.link+''" style="font-size: 12px"> Link </a>
-                    </div>
-                    <div class="docDesc"> {{ doc.desc }} <br> </div>
-                    <b-icon-chevron-right></b-icon-chevron-right>
+    <div class='header'>
+        Documents Checklist
+    </div>
+
+    <div class='docs'>
+        <form class='docsCheckList' v-for="doc in travelDocs" :key="doc.id">
+            <label>
+                <input class="checkbox" type="checkbox" value="">
+                <div class="docName">
+                    {{ doc.doc }}
                 </div>
-            </div>
-
-        <div class='header' id="docsLanes">
-            Available Travel Lanes
-            <div id="details" v-for="lane in travelLanes" :key="lane.id">
-                <b>{{ lane.laneName }}</b><br>
-                <u>Eligibility</u><br>
-                {{ lane.eligibility }} <br>
-
-                <u>Singapore Citizens (SC) / Permanent Residents (PR)</u><br>
-                {{ lane.application }}
-            
-            </div>
-        </div>
-    </section>
+                <a v-bind:href="''+doc.link+''" target="_blank"><i class="fa-solid fa-chevron-right"></i></a>
+                <div class="docDesc"> 
+                    {{ doc.desc }} 
+                </div> <br>
+            </label>
+        </form>         
+    </div>
 </template>
 
 
@@ -149,71 +140,68 @@ export default {
     background-color: #E5E5E5
 }
 
-.docsLanesComb {
-    display: flex; 
-}
-
 .docsCheckList {
-    background-color: #AEC4DA8F
-}
-
-.checkbox {
-    margin-top: 50px;
-    float: left;
-    width: 50px;
-    transform: scale(2);
-    display: inline-flex;
+    background-color: #AEC4DA8F;
 }
 
 input[type=checkbox] {
+    margin-left: 20px;
+    margin-top: 25px;
+    vertical-align: middle;
+    transform: scale(2);
+}
+
+input[type=checkbox]:checked {
   accent-color: green;
+
 }
 
 .docName {
+    color: black;
     font-size: 20px;
     font-weight: bold;
-    color: black;
     text-align: left;
-    padding-top: 15px;
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 5px;
 }
 
 .docDesc {
     color: #5B5B5B;
     font-size: 14px; 
     text-align: left;
-    margin-left: 55px;
-    line-height: 1.5
+    margin-left: 52px;
+    margin-top: 0px;
+    margin-right: 30px;
 }
 
-#docsLanes {
-    float: left;
-    width: 50%;
-    margin-right: 2px;
-}
-
-#details {
-    background-color: #AEC4DA;
-    margin-top: 8px;
-    color: black;
-    font-size: 14px;
-    text-align: left;
+.fa-chevron-right {
+    font-size:24px; 
+    color:black; 
+    float: right;
+    margin-top: 25px;
+    margin-right: 15px;
+    
 }
 
 h1 {
     font-size: 55px;
     margin-top: 10px;
     margin-bottom: 0px;
+    text-align: center;
 }
 h3 {
     font-size: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
+    text-align: center;
 }
 
 p {
     margin-top: 10px;
     color: black;
     font-size: 14px;
+    text-align: center;
 }
 
 li {
@@ -222,9 +210,11 @@ li {
     margin-left: 5px;
     color: black;
     font-size: 14px;
-    list-style-type: none;
 }    
 
-
+label {
+    display: block;
+    width: 100%;
+}
 
 </style>
