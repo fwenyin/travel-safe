@@ -1,205 +1,241 @@
 <template>
-  <p>This is Forum Thread</p>
+  <ForumHeader />
   <div id="threadPage">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <div class="blockElements">
-      <div id="mainThread">
-        <div id="iconDiv">
-          <span id="icon"><i id="userIcon" class="fa fa-user"></i></span>
-        </div>
-        <div id="forumHeader">
-          <p id="forumAuthorAndDate" class="displayText">
-            Posted by @{{ userName }} {{ getDateDisplay() }}
-            {{ getTimeDisplay() }} ago
-          </p>
-          <h4 id="forumTitle" class="displayText">{{ subject }}</h4>
-          <span id="forumCountry">{{ country }}</span>
-        </div>
+    <div id="mainThread">
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <div class="topHalf">
         <div id="buttonsDiv">
-          <i
-            id="likeButton"
-            class="fa fa-thumbs-up"
-            v-on:click="pressLike()"
-          ></i>
-          <p id="likeCounter">{{ likes }}</p>
-          <i id="replyButton" class="fa fa-reply"></i>
-          <p id="replyCounter">{{ numReplies }}</p>
+          <p id="likeButton" class="fa fa-thumbs-up" @click="pressLike()"></p>
+          <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
+          <p id="likeCounter" v-else>{{ likes }}</p>
         </div>
-        <div id="forumContentDiv">
-          <p id="forumContent" class="displayText">{{ body }}</p>
+
+        <div id="forumHeader">
+          <div id="authorAndDate">
+            <p id="forumAuthorAndDate" class="displayText">
+              Posted by @{{ user }} - {{ timestamp }}
+            </p>
+          </div>
+          <div id="forumTitle" class="displayText">{{ title }}</div>
+          <div id="countryContainer">
+            <p id="countryText">{{ country }}</p>
+          </div>
         </div>
       </div>
-      <div class="comments" id="commentsDiv">
-        <CommentBlock
-          :sender="commentSender"
-          :date="commentDate"
-          :body="commentBody"
-        ></CommentBlock>
+      <div class="bottomHalf">
+        <div id="forumContent">
+          <p id="forumDetailsText" class="displayText">{{ body }}</p>
+        </div>
       </div>
     </div>
-    <p></p>
+    <div class="comments" id="commentsDiv">
+      <CommentBlock
+        v-for="response in responses"
+        :sender="response.sender"
+        :commentDate="response.commentDate"
+        :commentBody="response.commentBody"
+        :key="response.key"
+      ></CommentBlock>
+    </div>
   </div>
 </template>
 
 <script>
 import CommentBlock from "@/components/CommentBlock";
+import ForumHeader from "@/components/ForumHeader";
+import firebaseApp from "../firebase.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
+const db = getFirestore(firebaseApp);
 export default {
   name: "ForumThread",
   components: {
     CommentBlock,
+    ForumHeader,
   },
   data() {
     return {
-      id: "ID",
-      replyBody: "",
+      posts: [],
+      id: this.$route.params.id,
       isValid: false,
       hasLiked: false,
-      userName: "Bandy",
-      subject: "VTL exprience to Malaysia",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, voluptate aliquid nesciunt doloribus est eius facilis eaque, eveniet doloremque, voluptatum iste hic! Numquam accusantium mollitia laborum cum. Ipsam, exercitationem modi!",
+      user: "",
+      title: "",
+      body: "",
       timestamp: "",
-      likes: "2",
-      numReplies: 69,
-      country: "Malaysia",
-      commentSender: "Bob",
-      commentDate: "11/03/2022",
-      commentBody: "This is comment body",
+      likes: 0,
+      country: "",
+      responses: [],
+      pressedLike: false,
+      updatedLikeCount: 0,
     };
   },
   methods: {
+    fetchItems: async function () {
+      console.log("This is fetch items");
+      let posts = await getDocs(collection(db, String("Posts")));
+      console.log("ForumThread Fetched result is ", posts);
+      let item = {};
+      posts.forEach((doc) => {
+        item = doc.data();
+        if (this.id == item.id) {
+          console.log("Post data is ", item);
+          this.user = item.user;
+          this.country = item.country;
+          this.title = item.title;
+          this.body = item.body;
+          this.timestamp = item.timestamp;
+          this.country = item.country;
+          this.likes = item.likes;
+          this.comments = item.comments;
+          item.comments.responses.forEach((response) => {
+            console.log("Pushing response: ", response);
+            this.responses.push(response);
+          });
+          console.log("Post body is: " + this.country);
+        }
+      });
+    },
     pressLike: function () {
+      const docRef = doc(db, "Posts", this.id + "");
+      this.pressedLike = true;
+      console.log("Current post id is ", this.id);
+
       if (!this.hasLiked) {
         document.getElementById("likeButton").style.color = "green";
         this.hasLiked = true;
-        var likesCountPlus = parseInt(this.likes) + 1;
-        this.likes = likesCountPlus + "";
+        this.updatedLikeCount = parseInt(this.likes) + 1;
       } else {
         document.getElementById("likeButton").style.color = "#808080";
         this.hasLiked = false;
-        var likesCountMinus = parseInt(this.likes) - 1;
-        this.likes = likesCountMinus;
+        this.updatedLikeCount = parseInt(this.likes);
       }
+      updateDoc(docRef, { likes: parseInt(this.updatedLikeCount) });
+      console.log("Updated like count is ", this.updatedLikeCount);
     },
-    getDateDisplay: function () {
-      const timeOfPost = new Date(this.timestamp);
-      const timeStampNow = new Date();
-      const diffTime = Math.abs(
-        timeStampNow.getMilliseconds() - timeOfPost.getMilliseconds()
-      );
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      if (diffDays <= 7) {
-        var pluralSuffixDay = "s";
-        if (diffDays === 1) {
-          pluralSuffixDay = "";
-        }
-        return diffDays.toString() + " day" + pluralSuffixDay + " ago";
-      } else if (diffDays <= 31) {
-        var pluralSuffixWeek = "s";
-        if (diffDays === 1) {
-          pluralSuffixWeek = "";
-        }
-        return Math.ceil(diffDays / 7) + " week" + pluralSuffixWeek + " ago";
-      } else {
-        return new Date(this.timestamp).toLocaleString().split(",")[0];
-      }
-    },
-    getTimeDisplay: function () {
-      var timeOfPost = new Date(this.timestamp);
-      var hours = timeOfPost.getHours();
-      var minutes = timeOfPost.getMinutes();
-      var ampm = hours >= 12 ? "pm" : "am";
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      return hours + ":" + minutes + " " + ampm;
-    },
-
-    getNumReplies: function () {
-      return this.replies.responses.length;
+    change() {
+      this.updateLikeCount += 1;
     },
   },
-  computed: {
-    user: "Bandy-user",
+  created() {
+    this.fetchItems();
   },
 };
 </script>
 
 <style scoped>
-.blockElements {
-  padding-top: 40px;
-}
-
-#forumContentDiv {
-  width: 100%;
-  border-radius: 20px;
-  background-color: #e6f7ff;
-  /* position: absolute; */
-}
-
 #mainThread {
-  width: 60%;
-  max-height: 40%;
-  border-radius: 20px;
-  background: #e6f7ff;
   position: relative;
-  display: inline-block;
-}
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  width: 60%;
+  height: 40vh;
+  left: 20%;
 
-#forumContent {
-  padding: 20px;
-  text-align: left;
-  font-size: 16px;
-}
-
-#buttonsDiv {
-  /* background-color: #e6f7ff; */
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  height: 50%;
-  width: 10%;
-}
-
-#forumCountry {
-  background: #dda375;
+  background: #aec4da;
+  border: 2px solid #aec4da;
+  box-sizing: border-box;
   border-radius: 10px;
 }
 
-/* #icon {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  background-color: #6097ca;
-  display: inline-block;
-  line-height: 60px;
-  margin-top: 15%;
+.topHalf {
+  display: flex;
 }
 
-#userIcon {
-  font-size: 34px;
-  color: whitesmoke;
-  z-index: 2;
-  padding-top: 12px;
-} */
+#buttonsDiv {
+  display: inline-block;
+  width: 10%;
+  padding: 5% 0 0 0;
+}
+
+#likeCounter {
+  margin: 10%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  text-align: center;
+  color: #5b5b5b;
+}
+
+#forumHeader {
+  align-content: left;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 30px;
+
+  color: #000000;
+}
 
 #forumAuthorAndDate {
-  font-size: 12px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #5b5b5b;
+}
+#forumTitle {
+  display: inline-block;
 }
 
+#countryContainer {
+  position: absolute;
+  justify-content: center;
+  width: 20%;
+  left: 70%;
+  bottom: 68%;
+  background: #dda375;
+  border-radius: 20px;
+}
+
+#countryText {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+.bottomHalf {
+  display: flex;
+  flex-direction: column;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+  color: black;
+}
+
+#forumDetailsText {
+  position: absolute;
+  /* overflow: auto; */
+
+  width: 80%;
+  height: 40%;
+  left: 10%;
+  top: 35%;
+}
 #commentsDiv {
   position: relative;
   width: 60%;
   height: fit-content;
   background-color: #ffffff;
-  /* flex-direction: column-reverse; */
   display: inline-block;
-  /* overflow: scroll;
-  overflow-x: hidden; */
+
   max-height: 60%;
   padding: 2px;
   margin-top: 20px;
