@@ -107,9 +107,9 @@ export default {
       this.displayCovidStats();
     },
 
-    // goToCountry(country) {
-
-    // }
+    goToCountry(country) {
+      this.$router.push({ name: 'Searched Country', params: {country: country}})
+    }
 
   },
 

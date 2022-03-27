@@ -5,7 +5,7 @@
         <div class="header_image">
             <img :src="getImgUrl(this.country.toLowerCase().split(' ').join('-'))">
             <div class="text-block">
-                <h1 style="text-align: center;"> this.country </h1>
+                <h1 style="text-align: center;"> {{this.country}} </h1>
             </div>
         </div>
     </div>
@@ -83,74 +83,76 @@
 <script>
 
 export default {
-  name: 'SearchedCountry',
-
-  components: {
-  },
-
-  data() {
-    return {
-
-        country: this.$route.params.country,
-
-        totalConfirmedCases: 0,
-        totalActiveCases: 0,
-        totalDeaths: 0,
-        totalRecovered: 0,
-      
-        hist_confirmedCases: {},
-
-        cache: []
-    };
-  },
-
-  methods: {
-    getImgUrl(country) {
-        var images = require.context('../assets/', false, /\.png$/)
-        return images('./' + country + ".png")
-    },
-
-    async fetchData(c) {
-        this.country = c
-        let theCountry = c.toLowerCase().split(' ').join('-');
-        let link = 'https://api.covid19api.com/live/country/' + theCountry +'/status/confirmed'
-        const res = await fetch(link)
-        const data = await res.json()
-        return data
-    },
-
-    savingHistoricalData() {
-        let data = this.cache
-        let latest_data = data[data.length - 1]
-        console.log(latest_data);
-
-        this.totalConfirmedCases = latest_data.Confirmed;
-        this.totalActiveCases = latest_data.Active;
-        this.totalDeaths = latest_data.Deaths;
-        this.totalRecovered = latest_data.Recovered;
-        data.forEach(d => {
-            let date = d.Date
-            let noOfCases = d.Confirmed
-            this.hist_confirmedCases[date] = noOfCases;
-        })
+    name: 'SearchedCountry',
+    
+    components: {
 
     },
+    
+    data() {
+        return {
 
-    updateNewestData() {
-        console.log('mouse hover')
-        const numbers = this.hist_confirmedCases
-        this.hist_confirmedCases = numbers
-    }
+            country: this.$route.params.country,
 
-  },
+            totalConfirmedCases: 0,
+            totalActiveCases: 0,
+            totalDeaths: 0,
+            totalRecovered: 0,
+        
+            hist_confirmedCases: {},
+
+            cache: []
+        };
+    },
+    
+    
+    methods: {
+        getImgUrl(country) {
+            var images = require.context('../assets/', false, /\.png$/)
+            return images('./' + country + ".png")
+        },
+
+        async fetchData(c) {
+            this.country = c
+            let theCountry = c.toLowerCase().split(' ').join('-');
+            let link = 'https://api.covid19api.com/live/country/' + theCountry +'/status/confirmed'
+            const res = await fetch(link)
+            const data = await res.json()
+            return data
+        },
+
+        savingHistoricalData() {
+            let data = this.cache
+            let latest_data = data[data.length - 1]
+            console.log(latest_data);
+
+            this.totalConfirmedCases = latest_data.Confirmed;
+            this.totalActiveCases = latest_data.Active;
+            this.totalDeaths = latest_data.Deaths;
+            this.totalRecovered = latest_data.Recovered;
+            data.forEach(d => {
+                let date = d.Date
+                let noOfCases = d.Confirmed
+                this.hist_confirmedCases[date] = noOfCases;
+            })
+
+        },
+
+        updateNewestData() {
+            console.log('mouse hover')
+            const numbers = this.hist_confirmedCases
+            this.hist_confirmedCases = numbers
+        }
+        
+    },
   
-  created() {
-    this.fetchData('Malaysia').then((res) => {
-        console.log('success', res);
-        this.cache = res;
-        this.$nextTick(() => this.savingHistoricalData());
-    });
-  },
+    created() {
+        this.fetchData(this.country).then((res) => {
+            console.log('success', res);
+            this.cache = res;
+            this.$nextTick(() => this.savingHistoricalData());
+        });
+    },
 
 //     this.cache = data
 //     // console.log(data);
@@ -163,9 +165,9 @@ export default {
 //     this.totalRecovered = latest_data.Recovered;
 //   },
 
-  mounted() {
-      console.log('mounting');
-  }
+    mounted() {
+        console.log('mounting');
+    }
 }
 
 </script>
