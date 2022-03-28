@@ -4,9 +4,8 @@
       <h2 class="headerText">
         <hr />
         <br />
-        ONE-STOP PORTAL <br />
-        FOR TRAVELLING <br />
-        AMIDST COVID-19 <br />
+        ONE-STOP PORTAL<br />
+        FOR TRAVEL SAFETY <br />
         <hr />
       </h2>
       <img class="headerImage" :src="require('@/assets/home.png')" alt="home" />
@@ -89,7 +88,7 @@
     <br />
     <br />
     <div>
-      <h2><b>Keeping Up With COVID-19 News</b></h2>
+      <h2><b>Keeping Up With Travel News</b></h2>
       <hr style="width: 50%; margin-left: 25%" />
       <br />
       <br />
@@ -99,9 +98,7 @@
         v-for="item in news"
         :key="item.id"
       >
-        <h5 style="margin-top: 12px">
-          <b>{{ item.title }}</b>
-        </h5>
+        <h5><a v-bind:href="item.link" class="link-dark" style="margin-top:12px">{{ item.title }}</a></h5>
         <p style="font-size: 13px">
           {{ item.news_agency + " - " + item.time }}
         </p>
@@ -157,18 +154,21 @@ export default {
   },
 
   methods: {
+    // mock news data is webscraped from Google and then stored in firebase for querying
     async displayNews() {
       let z = await getDocs(query(collection(db, "News"), limit(5)));
       z.forEach((doc) => {
         this.news.push(doc.data());
       });
     },
+
     // covid19 API data accurate to one day before current day
     getDate() {
       let currentDate = new Date();
       currentDate.setDate(currentDate.getDate() - 2);
       return currentDate.toISOString().slice(0, 10);
     },
+
     async displayMap() {
       let url =
         "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/" +
@@ -251,7 +251,8 @@ h2 {
 
 .headerText {
   position: absolute;
-  margin-top: 7%;
+  text-align: left;
+  margin-top: 9%;
   padding-left: 10%;
   width: 100%;
   font-size: 33px;

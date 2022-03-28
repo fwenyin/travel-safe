@@ -6,7 +6,7 @@
         class="card text-white bg-black mb-5 justify-content-center"
         style="height: 70px; width: 500px; position: absolute; margin-top: 14%"
       >
-        <p class="headerText">Global COVID-19 News</p>
+        <p class="headerText">Global Travel News</p>
       </div>
     </div>
     <div class="body">
@@ -45,7 +45,7 @@
           class="card text-start mx-auto mb-2 p-2 justify-content-center"
           v-for="item in filter"
           :key="item.id">
-          <h5 style="margin-top:12px"><b>{{ item.title }}</b></h5>
+          <h5><a v-bind:href="item.link" class="link-dark" style="margin-top:12px">{{ item.title }}</a></h5>
           <p style="font-size:13px">{{ item.news_agency + " - " + item.time }}</p>
           <p>{{ item.description }}</p>
         </div>
@@ -81,7 +81,7 @@ export default {
   computed: {
     filter() {
       let z = this.items;
-      if (this.selected === "Select destination") {
+      if (this.selected === "Select destination" || this.selected === "All") {
         if (this.sorted === "oldest") {
           return z.sort(function(a, b) {
             return Date.parse(a.time) - Date.parse(b.time)
