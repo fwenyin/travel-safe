@@ -15,7 +15,7 @@
   <NavBar/>
   <br/> <br/> <br/>
   <div class="container bootstrap snippets bootdey" v-if="user">
-    <h1 class="text-dark">Edit Profile</h1>
+    <h1 class="text-dark">Profile</h1>
     <hr />
     <div class="row" v-if="user">
       <!-- left column -->
