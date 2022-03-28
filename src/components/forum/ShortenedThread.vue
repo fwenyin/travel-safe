@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import firebaseApp from "../firebase.js";
+import firebaseApp from "../../firebase.js";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 // import Thread from "@/components/Thread";
 const db = getFirestore(firebaseApp);

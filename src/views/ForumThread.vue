@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <ForumHeader />
   <div id="threadPage">
     <div id="mainThread">
@@ -44,9 +45,10 @@
 </template>
 
 <script>
-import CommentBlock from "@/components/CommentBlock";
-import ForumHeader from "@/components/ForumHeader";
-import firebaseApp from "../firebase.js";
+import NavBar from "../components/NavBar.vue";
+import CommentBlock from "../components/forum/CommentBlock.vue";
+import ForumHeader from "../components/forum/ForumHeader.vue";
+import firebaseApp from "../firebase";
 import {
   getFirestore,
   collection,
@@ -59,6 +61,7 @@ const db = getFirestore(firebaseApp);
 export default {
   name: "ForumThread",
   components: {
+    NavBar,
     CommentBlock,
     ForumHeader,
   },
