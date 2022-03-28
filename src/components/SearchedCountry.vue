@@ -11,82 +11,70 @@
     </div>
     <div id="searched-country">
         <div class="col">
+
             <div class="header">
                 <h2 style="color:white; padding: 10px 0;"> COVID-19 Statistics </h2>
             </div>
+
             <div class="container">
                 <div class="box">
-                    <i class="fa fa-search" aria-hidden="true">
-                    </i>
                     <div class="content">
-                        <h1>{{ this.totalConfirmedCases }}</h1>
-                        <h4>TOTAL CONFIRMED CASES</h4>
+                        <h1 style="text-align: center;">{{ this.totalConfirmedCases }}</h1>
+                        <h5>TOTAL CONFIRMED CASES</h5>
                     </div>
                 </div>
                 <div class="box">
-                    <i class="fa fa-search" aria-hidden="true">
-                    </i>
                     <div class="content">
-                        <h1>{{ this.totalActiveCases }}</h1>
-                        <h4>TOTAL ACTIVE CASES</h4>
+                        <h1 style="text-align: center;">{{ this.totalActiveCases }}</h1>
+                        <h5>TOTAL ACTIVE CASES</h5>
                     </div>
                 </div>
                 <div class="box">
-                    <i class="fa fa-search" aria-hidden="true">
-                    </i>
                     <div class="content">
-                        <h1>{{ this.totalDeaths }}</h1>
-                        <h4>TOTAL DEATHS</h4>
+                        <h1 style="text-align: center;">{{ this.totalDeaths }}</h1>
+                        <h5>TOTAL DEATHS</h5>
                     </div>
                 </div>
                 <div class="box">
-                    <i class="fa fa-search" aria-hidden="true">
-                    </i>
                     <div class="content">
-                        <h1>{{ this.totalRecovered }}</h1>
-                        <h4>TOTAL RECOVERED</h4>
+                        <h1 style="text-align: center;">{{ this.totalRecovered }}</h1>
+                        <h5>TOTAL RECOVERED</h5>
                     </div>
                 </div>
                 <div class="box">
-                    <i class="fa fa-search" aria-hidden="true">
-                    </i>
                     <div class="content">
-                        <h1>0</h1>
-                        <h4>STRINGENCY INDEX</h4>
+                        <h1 style="text-align: center;"> {{ this.stringencyIdx }} </h1>
+                        <h5>STRINGENCY INDEX</h5>
                     </div>
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+
             <div class="header">
                 <h2 style="color:white; padding: 10px 0;"> New COVID-19 Cases Over Time </h2>
             </div>
+            <br>
             <div class="final-row"> 
-                <line-chart :data = "hist_confirmedCases" @mouseover = "updateNewestData()"></line-chart>
-                <p style="color: grey; "> Each day shows new cases reported since the previous day </p>
-                <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: grey; "> About this data </a>
+                <line-chart :data = "hist_confirmedCases" xmin="2021-02-01" xmax="2022-05-01" label="New cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
+                <br>
+                <p style="color: grey; padding-left:20px;"> Each day shows new cases reported since the previous day 
+                    <span href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </span>
+                </p>
             </div>
             <!-- <div id="loading" v-else>
             </div> -->
       </div>
   </div>
+  <travel-advisory />
 </template>
 
 <script>
+import TravelAdvisory from "./TravelAdvisory.vue";
 
 export default {
     name: 'SearchedCountry',
     
     components: {
-
+        TravelAdvisory,
     },
     
     data() {
@@ -98,6 +86,7 @@ export default {
             totalActiveCases: 0,
             totalDeaths: 0,
             totalRecovered: 0,
+            stringencyIdx: 0,
         
             hist_confirmedCases: {},
 
@@ -142,8 +131,32 @@ export default {
             console.log('mouse hover')
             const numbers = this.hist_confirmedCases
             this.hist_confirmedCases = numbers
+        },
+
+        getDate() {
+            let currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() - 2);
+            return currentDate.toISOString().slice(0, 10);
+        },
+
+        async calcStringency() {
+            var mapper = {
+                'Australia': 'AUS',
+                'Denmark': 'DNK',
+                'Finland': 'FIN',
+                'Malaysia': 'MYS',
+                'South Korea': 'KOR',
+                'United States': 'USA',
+                'United Kingdom': 'GBR'
+            };
+
+            let url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/actions/" + mapper[this.country] + "/" + this.getDate();
+
+            let received = await fetch(url);
+            let data = await received.json();
+            return data
         }
-        
+
     },
   
     created() {
@@ -152,18 +165,11 @@ export default {
             this.cache = res;
             this.$nextTick(() => this.savingHistoricalData());
         });
+        this.calcStringency().then((result) => {
+            console.log('stringency Success', result);
+            this.stringencyIdx = result['stringencyData']['stringency']
+        });
     },
-
-//     this.cache = data
-//     // console.log(data);
-//     const latest_data = data[data.length - 1]
-//     console.log(latest_data);
-
-//     this.totalConfirmedCases = latest_data.Confirmed;
-//     this.totalActiveCases = latest_data.Active;
-//     this.totalDeaths = latest_data.Deaths;
-//     this.totalRecovered = latest_data.Recovered;
-//   },
 
     mounted() {
         console.log('mounting');
@@ -180,27 +186,46 @@ export default {
     text-align: center;
 }
 
-.container {
-    margin-left: auto;
-    margin-right: auto;
+.top_header {
+    height: auto;
+    position: relative;
 }
 
-.container .box
-{
+.col {
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    height: 220px;
+    left: 1%;
+}
+
+.box {
     position: relative;
-    width: calc(280px - 30px);
+    top: 15px;
+    width: 18%;
     height: calc(200px - 30px);
     background: #FFFFFF;
     float: left;
-    margin: 15px;
+    margin: 1%;
     border: 2px solid #8CACCB;
     box-sizing: border-box;
     overflow: hidden;
     border-radius: 10px;
+    display: inline-block;
 }
 
 .box:hover {
    border-color: red;
+}
+
+.container .box {
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+    background: white;
 }
 
 .container .box .content {
@@ -229,13 +254,14 @@ img {
   padding: 20px;
 }
 
-/* #loading {
-    background: url('spinner.gif') no-repeat center center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 9999999;
-} */
+.content {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+h5 {
+    text-align: center;
+    font-size: 100%;
+}
 </style>

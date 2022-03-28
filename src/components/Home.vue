@@ -178,6 +178,7 @@ export default {
         "";
       let received = await axios.get(url);
       let data = received.data.data[this.getDate()];
+      console.log(data);
       Object.keys(data).forEach((key) => {
         let countryCode = getCountryISO2(data[key].country_code); // convert a country code ISO 3166-1 Alpha-3 to ISO 3166-1 Alpha-2
         if (typeof countryCode == "undefined") {
