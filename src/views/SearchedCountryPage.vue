@@ -1,17 +1,20 @@
 <template>
 <NavBar/>
 <SearchedCountry/>
+<TravelAdvisory/>
 </template>
 
 <script>
 import NavBar from '../components/NavBar.vue'
 import SearchedCountry from '../components/SearchedCountry.vue'
+import TravelAdvisory from "../components/TravelAdvisory.vue"
 
 export default {
     name: 'SearchCountry',
     components: {
         NavBar,
-        SearchedCountry
+        SearchedCountry,
+        TravelAdvisory
     },
     data() {
         return {

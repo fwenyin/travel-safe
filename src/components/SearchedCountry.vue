@@ -54,27 +54,24 @@
             </div>
             <br>
             <div class="final-row"> 
-                <line-chart :data = "hist_confirmedCases" xmin="2021-02-01" xmax="2022-05-01" label="New cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
+                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="New cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
                 <br>
                 <p style="color: grey; padding-left:20px;"> Each day shows new cases reported since the previous day 
-                    <span href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </span>
+                    <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </a>
                 </p>
             </div>
             <!-- <div id="loading" v-else>
             </div> -->
       </div>
   </div>
-  <travel-advisory />
 </template>
 
 <script>
-import TravelAdvisory from "./TravelAdvisory.vue";
 
 export default {
     name: 'SearchedCountry',
     
     components: {
-        TravelAdvisory,
     },
     
     data() {
@@ -182,7 +179,7 @@ export default {
 .header {
     background: #000;
     width: 100%;
-    height: 50px;
+    height: 55px;
     text-align: center;
 }
 
@@ -204,7 +201,6 @@ export default {
 
 .box {
     position: relative;
-    top: 15px;
     width: 18%;
     height: calc(200px - 30px);
     background: #FFFFFF;
@@ -226,12 +222,13 @@ export default {
     text-align: center;
     box-sizing: border-box;
     background: white;
+    border: 2px solid #8CACCB;
 }
 
 .container .box .content {
     position: relative;
-    top: 20px;
-    height: calc(100% - 100px);
+    top: 18px;
+    height: calc(100% - 10px);
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
@@ -247,7 +244,7 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 300px;
+  width: 325px;
   transform: translate(-50%, -50%);
   background-color: #8CACCB;
   color: white;
