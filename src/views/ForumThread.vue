@@ -21,6 +21,8 @@
             </p>
           </div>
           <div id="forumTitle" class="displayText">{{ title }}</div>
+        </div>
+        <div id="countryBox">
           <div id="countryContainer">
             <p id="countryText">{{ country }}</p>
           </div>
@@ -30,9 +32,33 @@
         <div id="forumContent">
           <p id="forumDetailsText" class="displayText">{{ body }}</p>
         </div>
+
+        <div id="addCommentDiv">
+          <div class="commentSection">
+            <input
+              id="addComment"
+              type="text"
+              placeholder="Add a comment"
+              v-model="commentBody"
+            />
+            <p
+              id="submitComment"
+              class="fa fa-mail-reply"
+              @click="submitComment()"
+              value="reset"
+            ></p>
+          </div>
+          <div id="iconDiv">
+            <img
+              id="userIcon"
+              :src="require('@/assets/profilephoto.png')"
+              alt="home"
+            />
+          </div>
+        </div>
       </div>
     </div>
-    <div class="comments" id="commentsDiv">
+    <div id="commentsDiv">
       <CommentBlock
         v-for="response in responses"
         :sender="response.sender"
@@ -69,7 +95,6 @@ export default {
     return {
       posts: [],
       id: this.$route.params.id,
-      isValid: false,
       hasLiked: false,
       user: "",
       title: "",
@@ -80,10 +105,13 @@ export default {
       responses: [],
       pressedLike: false,
       updatedLikeCount: 0,
+      commentCount: 0,
+      commentBody: "",
+      validComment: "",
     };
   },
   methods: {
-    fetchItems: async function () {
+    async fetchItems() {
       console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
       console.log("ForumThread Fetched result is ", posts);
@@ -100,15 +128,18 @@ export default {
           this.country = item.country;
           this.likes = item.likes;
           this.comments = item.comments;
-          item.comments.responses.forEach((response) => {
-            console.log("Pushing response: ", response);
-            this.responses.push(response);
-          });
-          console.log("Post body is: " + this.country);
+          if (item.comments.comment_count > 0) {
+            this.commentCount = item.comments.comment_count;
+            item.comments.responses.forEach((response) => {
+              console.log("Pushing response: ", response);
+              this.responses.push(response);
+            });
+          }
         }
       });
+      console.log("Fetched responses are: ", this.responses);
     },
-    pressLike: function () {
+    pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
       this.pressedLike = true;
       console.log("Current post id is ", this.id);
@@ -128,6 +159,51 @@ export default {
     change() {
       this.updateLikeCount += 1;
     },
+    async submitComment() {
+      console.log("This is submit comment function ");
+      if (!this.validComment) {
+        alert("Please fill in your comments before submitting!");
+      } else {
+        console.log("Else part");
+        console.log(
+          "submitcomment function comment count is ",
+          this.commentCount
+        );
+        this.commentCount += 1;
+        var newResponse = {
+          sender: "Bandy",
+          commentBody: this.commentBody,
+          commentDate: new Date().toDateString(),
+        };
+        console.log("New response is: ", newResponse);
+        this.responses.push(newResponse);
+        let responses = this.responses;
+        let comment_count = this.commentCount;
+        let newComments = {
+          comment_count,
+          responses,
+        };
+        console.log("Pushing new comment: ", newComments);
+
+        await updateDoc(doc(db, "Posts", this.id + ""), {
+          comments: newComments,
+        });
+        const form = document.getElementById("addComment");
+        console.log("Form Value is " + form.value);
+        form.value = "";
+        alert("Pushing to firestore ");
+        // location.reload();
+      }
+    },
+  },
+  watch: {
+    commentBody(val) {
+      if (val === "") {
+        this.validComment = false;
+      } else {
+        this.validComment = true;
+      }
+    },
   },
   created() {
     this.fetchItems();
@@ -138,12 +214,11 @@ export default {
 <style scoped>
 #mainThread {
   position: relative;
-  align-items: left;
   display: flex;
   flex-direction: column;
   margin-top: 2em;
   width: 60%;
-  height: 40vh;
+  height: auto;
   left: 20%;
 
   background: #aec4da;
@@ -157,9 +232,13 @@ export default {
 }
 
 #buttonsDiv {
-  display: inline-block;
   width: 10%;
   padding: 5% 0 0 0;
+}
+
+#likeButton {
+  margin-left: 40%;
+  cursor: pointer;
 }
 
 #likeCounter {
@@ -179,7 +258,6 @@ export default {
   font-weight: 700;
   font-size: 22px;
   line-height: 30px;
-
   color: #000000;
 }
 
@@ -190,28 +268,30 @@ export default {
   font-size: 16px;
   color: #5b5b5b;
 }
-#forumTitle {
-  display: inline-block;
+#countryBox {
+  position: absolute;
+  height: 100px;
+  width: 40%;
+  padding: 2% 0 0 0;
+  left: 60%;
 }
 
 #countryContainer {
-  position: absolute;
-  justify-content: center;
-  width: 20%;
-  left: 70%;
-  bottom: 68%;
+  text-align: center;
+  height: 60%;
+  width: 40%;
+  margin-left: 40%;
   background: #dda375;
   border-radius: 20px;
 }
 
 #countryText {
+  padding-top: 5%;
   font-family: "Nunito";
-  font-style: normal;
   font-weight: 400;
   font-size: 22px;
   color: #ffffff;
 }
-
 .bottomHalf {
   display: flex;
   flex-direction: column;
@@ -224,21 +304,58 @@ export default {
 }
 
 #forumDetailsText {
-  position: absolute;
-  /* overflow: auto; */
-
+  position: relative;
+  height: auto;
   width: 80%;
-  height: 40%;
   left: 10%;
   top: 35%;
 }
-#commentsDiv {
+#userIcon {
+  position: absolute;
+  size: 45px;
+  width: 45px;
+  height: 45px;
+  left: 3%;
+  bottom: 3%;
+  border-radius: 1000px;
+}
+
+#addCommentDiv {
   position: relative;
+  left: 10%;
+  width: 80%;
+  height: 2.5em;
+  margin-bottom: 0.5em;
+  background: #8caccb;
+  border: 2px solid #8caccb;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+#addComment {
+  position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  bottom: 20%;
+  left: 14%;
+  height: 60%;
+  width: 80%;
+}
+#submitComment {
+  position: absolute;
+  cursor: pointer;
+  top: 20%;
+  right: 2%;
+}
+
+#commentsDiv {
+  position: absolute;
+  left: 20%;
   width: 60%;
   height: fit-content;
   background-color: #ffffff;
   display: inline-block;
-
   max-height: 60%;
   padding: 2px;
   margin-top: 20px;
