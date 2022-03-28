@@ -88,7 +88,7 @@
               <a class="dropdown-item" href="/profile">Profile</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="/" @click="signOut()">Logout</a>
             </li>
           </ul>
         </div>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
 
 export default {
     name: 'NavBar',
@@ -114,6 +114,13 @@ export default {
     methods: {
         change() {
             this.refreshComp += 1
+        },
+        signOut() {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            signOut(auth, user);
+            console.log(user.displayName)
+            console.log('user has been signed out')
         }
     },
 
