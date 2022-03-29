@@ -1,9 +1,10 @@
 <template>
+    <br>
     <div class='header'>
         COVID-19 Risk Assessment Level
     </div>
 
-    <section class='riskAssLevel'>
+    <div class='riskAssLevel'>
         <div class='riskAssBox' style="background-color:#FAD890">
             <h1> 1 </h1>
             <h3> Low Level </h3>
@@ -24,7 +25,8 @@
             <h3> Very High Level </h3>
             <p> Avoid travel </p>
         </div>
-    </section>
+    </div>
+    <br>
 
     <div class='header'>
         Travel Notice
@@ -35,27 +37,64 @@
             {{ doc }}<br>
         </li>
     </div>
+    <br>
 
-    <div class='header'>
-        Documents Checklist
-    </div>
+        <div class='header'>
+            Documents Checklist 
+        </div>
 
-    <div class='docs'>
-        <form class='docsCheckList' v-for="doc in travelDocs" :key="doc.id">
-            <label>
-                <input class="checkbox" type="checkbox" value="">
-                <div class="docName">
-                    {{ doc.doc }}
+        <div class='docs'>
+            <form class='docsCheckList' v-for="doc in travelDocs" :key="doc.id">
+                <label>
+                    <input class="checkbox" type="checkbox" value="">
+                    <div class="docName">
+                        {{ doc.doc }}
+                    </div>
+                    <a v-bind:href="''+doc.link+''" target="_blank"><i class="fa-solid fa-chevron-right"></i></a>
+                    <div class="docDesc"> 
+                        {{ doc.desc }} 
+                    </div> <br>
+                </label>
+                <hr>
+            </form>         
+        </div>
+        <br>
+
+        <div class='header'>
+            Available Travel Lanes
+        </div>
+        
+        <div class='travelLanes'>
+            <button class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target="#travelLane" aria-expanded="true" aria-controls="travelLane" v-on:click="getLaneData(vtlAir)">
+                {{ travelLaneData.laneName }}
+            </button>
+
+            <div id="travelLane" class="collapse show" data-parent="#travelLanes">
+                <strong><u>Eligibility</u></strong><br>
+                {{ travelLaneData.eligibility }}
+                <div id="application">
+                    <br>
+                    <strong><u>Application</u></strong><br>
+
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#scpr" aria-expanded="false" aria-controls="#scpr" > Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#foreigner" aria-expanded="false" aria-controls="#foreigner">Foreigners</button>
+                
+                    <div class="application-details">
+                        <div class="collapse" id="scpr" data-parent="#application" >
+                            {{ travelLaneData.application.scpr }}
+                        </div>
+
+                        <div class="collapse" id="foreigner" data-parent="#application">
+                            {{ travelLaneData.application.foreigner }}
+                        </div>
+                    </div>
                 </div>
-                <a v-bind:href="''+doc.link+''" target="_blank"><i class="fa-solid fa-chevron-right"></i></a>
-                <div class="docDesc"> 
-                    {{ doc.desc }} 
-                </div> <br>
-            </label>
-            <hr>
-        </form>         
-    </div>
-</template>
+            </div>
+        </div>
+            
+
+        
+</template> 
 
 
 <script>
@@ -67,7 +106,7 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
         return {
-            travelLanes: [],
+            travelLaneData: {},
             travelNotice: {},
             travelDocs: {},
         }
@@ -78,7 +117,7 @@ export default {
             const q = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data().travelNotice);
+                //console.log(doc.id, " => ", doc.data().travelNotice);
                 this.travelNotice = doc.data().travelNotice;
             })
         },
@@ -88,24 +127,26 @@ export default {
             const q = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data().documents);
+                //console.log(doc.id, " => ", doc.data().documents);
                 this.travelDocs = doc.data().documents;
             })
         },
-            
-        async getLanes() {
-            let y = await getDocs(collection(db, "TravelLanes"));
-            y.forEach((doc) => {
-            console.log(doc.id, "=>", doc.data());
-            this.travelLanes.push(doc.data());
-        }); 
+
+        async getLaneData(l) {
+            this.lane = l
+            const z = query(collection(db, "TravelLanes"), where("lane", "==", l));
+            const querySnapshot = await getDocs(z);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                this.travelLaneData = doc.data();
+            })
         }
     },
 
     created() {
         this.getNotice("Korea");
         this.getDocuments("Korea");
-        this.getLanes("Korea");
+        this.getLaneData("vtlAir");
     }
 }
 </script>
@@ -119,9 +160,6 @@ export default {
     color: white;
     font-size: 22px;
     font-weight: bold;
-    height: 45px;
-    left: 48px;
-    top: 1389px;
     margin-bottom: 8px;
     margin-top: 8px;
 }
@@ -141,7 +179,7 @@ export default {
     background-color: #E5E5E5
 }
 
-.docsCheckList {
+.docsCheckList, .travelLanes {
     background-color: #AEC4DA8F;
 }
 
@@ -183,6 +221,27 @@ input[type=checkbox]:checked {
     float: right;
     margin-top: 35px;
     margin-right: 15px;
+}
+
+.btn-primary {
+    background-color: #8CACCB;
+    border: none;
+}
+
+
+
+.travelLanes {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#details {
+    background-color: #AEC4DA;
+    margin-top: 8px;
+    margin-left: 10px;
+    color: black;
+    font-size: 14px;
+    text-align: left;
 }
 
 h1 {
