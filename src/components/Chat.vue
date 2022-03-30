@@ -1,38 +1,64 @@
 <template>
-  <h2>
-    {{ roomname }}
-    <button @click="back()">Back</button>
-  </h2>
-
-  <div class="chat-box">
-    <div class="chat-item" v-for="chat in chats" :key="chat.key">
-      <div>
-        <div class="chat-message text-right" v-if="chat.user === user">
-          <div class="right-bubble">
-            <span class="msg-name">Me</span>
-            <span class="msg-date">{{ chat.sendDate }}</span>
-            <p text-wrap>{{ chat.message }}</p>
-          </div>
-        </div>
-        <div class="chat-message text-left" text-left v-if="chat.user !== user">
-          <div class="left-bubble">
-            <span class="msg-name">{{ chat.user }}</span>
-            <span class="msg-date">{{ chat.sendDate }}</span>
-            <p text-wrap>{{ chat.message }}</p>
-          </div>
+  <div class="body">
+    <div class="left">
+      <div class="card text-white" style="width: 280px">
+        <h5 class="card-header">Groups You've Joined</h5>
+        <div class="card-body">
+          <div v-for="group in groups" :key="group.key"></div>
+          <button class="btn btn-dark float-right" @click="back()">
+            &laquo; Back
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="sticky-footer">
-    <form @submit.prevent="onSubmit">
-      <input
-        type="text"
-        v-model="data.message"
-        placeholder="Enter your message"
-      />
-      <input type="submit" value="Send" />
-    </form>
+    <div class="right">
+      <div class="header">
+        <h2>
+          {{ roomname }}
+        </h2>
+        <button
+          type="button"
+          class="leave p-2 btn btn-dark col6 float-right"
+          
+          @click="leaveGroup(this.roomname)"
+        >
+          Leave Group
+        </button>
+      </div>
+      <div class="scroll">
+        <div class="chat-item" v-for="chat in chats" :key="chat.key">
+          <div
+            class="chat-message text-right mb-3"
+            v-if="chat.user === user.uid"
+          >
+            <div class="right-bubble">
+              <span class="msg-name">Me</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
+              <p text-wrap>{{ chat.message }}</p>
+            </div>
+          </div>
+          <div
+            class="chat-message text-left mb-3"
+            v-if="chat.user !== user.uid"
+          >
+            <div class="left-bubble">
+              <span class="msg-name">{{ chat.user }}</span>
+              <span class="msg-date">{{ chat.sendDate }}</span>
+              <p text-wrap>{{ chat.message }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sticky-footer">
+        <input
+          type="text"
+          id="addMessage"
+          v-model="data.message"
+          @keyup.enter="onSubmit"
+          placeholder="Enter your message"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,7 +70,9 @@ import {
   addDoc,
   collection,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const auth = getAuth();
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -52,23 +80,33 @@ export default {
   data() {
     return {
       roomname: this.$route.params.roomname,
-      data: { type: "", user: "", message: "" },
+      data: { user: "", message: "" },
       chats: [],
-      user: null, // get current user
+      user: null, // add current user
+      groups: [],
     };
   },
 
-  created() {
+  mounted() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        console.log(this.user);
+      }
+    });
     onSnapshot(
       collection(db, "Rooms", this.roomname, "Messages"),
       (snapshot) => {
-        let data = []
+        let data = [];
         snapshot.forEach((doc) => {
           let item = doc.data();
           item.key = doc.key;
           data.push(item);
         });
-        this.chats = data
+        data.sort(function (a, b) {
+          return Date.parse(a.sendDate) - Date.parse(b.sendDate);
+        });
+        this.chats = data;
       }
     );
     this.data.message = "";
@@ -77,27 +115,67 @@ export default {
   methods: {
     async onSubmit() {
       await addDoc(collection(db, "Rooms", this.roomname, "Messages"), {
-        type: "newmsg",
-        user: this.user,
+        user: this.user.uid,
         message: this.data.message,
-        sendDate: Date(),
+        sendDate: new Date().toISOString(),
       });
       this.data.message = "";
     },
 
     back() {
       this.$router.push({ name: "Room" });
+    },
+
+    leaveGroup(roomname) {
+      console.log(roomname)
     }
   },
 };
 </script>
 
-<style>
-.chat-box {
-  height: 500px;
-  width: 100%;
-  overflow: scroll;
+<style scoped>
+.header {
+  margin: 20px;
+  padding: 10px;
+  background-color: #8caccb;
+  position: relative
 }
+
+.card-header {
+  background-color: #394f73 !important;
+}
+
+.card-body {
+  background-color: #aec4da;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  flex: 1;
+  margin-left: 5%;
+}
+
+.right {
+  flex: 3;
+  width: 85%;
+  margin-right: 5%;
+}
+
+.scroll {
+  overflow: scroll;
+  height: 550px;
+}
+
+.leave {
+  position: absolute;
+  margin-left: 37%;
+  margin-top: -5%
+}
+
 .chat-item {
   border: none;
 }
@@ -129,7 +207,7 @@ export default {
 }
 .chat-message .right-bubble {
   position: relative;
-  background: #dcf8c6;
+  background: #f0d7c5;
   border-top-left-radius: 0.4em;
   border-bottom-left-radius: 0.4em;
   border-bottom-right-radius: 0.4em;
@@ -139,7 +217,7 @@ export default {
 .chat-message .right-bubble span.msg-name {
   font-size: 12px;
   font-weight: bold;
-  color: green;
+  color: #cc864e;
   display: block;
 }
 .chat-message .right-bubble span.msg-date {
@@ -154,7 +232,7 @@ export default {
   width: 0;
   height: 0;
   border: 27px solid transparent;
-  border-left-color: #dcf8c6;
+  border-left-color: #f0d7c5;
   border-right: 0;
   border-top: 0;
   margin-top: -0.5px;
@@ -172,7 +250,7 @@ export default {
 .chat-message .left-bubble span.msg-name {
   font-size: 12px;
   font-weight: bold;
-  color: blue;
+  color: #394f73;
   display: block;
 }
 .chat-message .left-bubble span.msg-date {
@@ -193,13 +271,28 @@ export default {
   margin-top: -0.5px;
   margin-left: -27px;
 }
-footer.sticky-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+
+.sticky-footer {
+  position: absolute;
+  left: 30%;
+  width: 64%;
   padding: 10px;
-  background-color: #ffffff;
-  border-top: solid 1px #efefef;
+  height: 6%;
+  background: #aec4da;
+  border: 2px solid #aec4da;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+#addMessage {
+  position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  bottom: 20%;
+  left: 5%;
+  height: 60%;
+  width: 80%;
+  color: black;
 }
 </style>

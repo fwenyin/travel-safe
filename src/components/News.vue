@@ -45,7 +45,7 @@
           class="card text-start mx-auto mb-2 p-2 justify-content-center"
           v-for="item in filter"
           :key="item.id">
-          <h5><a v-bind:href="item.link" class="link-dark" style="margin-top:12px">{{ item.title }}</a></h5>
+          <h5 style="padding-top:1.5%"><a v-bind:href="item.link" class="link-dark">{{ item.title }}</a></h5>
           <p style="font-size:13px">{{ item.news_agency + " - " + item.time }}</p>
           <p>{{ item.description }}</p>
         </div>

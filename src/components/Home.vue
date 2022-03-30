@@ -98,7 +98,7 @@
         v-for="item in news"
         :key="item.id"
       >
-        <h5><a v-bind:href="item.link" class="link-dark" style="margin-top:12px">{{ item.title }}</a></h5>
+        <h5 style="padding-top:1.5%"><a v-bind:href="item.link" class="link-dark">{{ item.title }}</a></h5>
         <p style="font-size: 13px">
           {{ item.news_agency + " - " + item.time }}
         </p>
