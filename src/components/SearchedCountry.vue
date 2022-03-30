@@ -2,8 +2,8 @@
 
 <template>
     <div class="top_header">
-        <div class="header_image">
-            <img :src="getImgUrl(this.country.toLowerCase().split(' ').join('-'))">
+        <div>
+            <img class="header_image" :src="getImgUrl(this.country.toLowerCase().split(' ').join('-'))">
             <div class="text-block">
                 <h1 style="text-align: center;"> {{this.country}} </h1>
             </div>
@@ -13,7 +13,7 @@
         <div class="col">
 
             <div class="header">
-                <h2 style="color:white; padding: 10px 0;"> COVID-19 Statistics </h2>
+                COVID-19 Statistics
             </div>
 
             <div class="container">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="header">
-                <h2 style="color:white; padding: 10px 0;"> New COVID-19 Cases Over Time </h2>
+                New COVID-19 Cases Over Time
             </div>
             <br>
             <div class="final-row"> 
@@ -176,11 +176,23 @@ export default {
 </script>
 
 <style scoped>
+
 .header {
-    background: #000;
-    width: 100%;
-    height: 55px;
     text-align: center;
+    vertical-align: middle;
+    line-height: 45px;
+    background-color: black;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.header_image {
+    width: 100%;
+    height: 430px;
 }
 
 .top_header {
