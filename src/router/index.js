@@ -7,6 +7,10 @@ import News from "../views/NewsPage.vue";
 import Profile from "../views/Profile.vue";
 import ForumPage from "@/views/ForumPage.vue";
 import ForumThread from "@/views/ForumThread.vue";
+import Room from "@/components/Room.vue";
+import Chat from "@/components/Chat.vue";
+//import Room from "@/views/RoomPage.vue";
+//import Chat from "@/views/ChatPage.vue";
 
 const routes = [
     {
@@ -48,6 +52,16 @@ const routes = [
       path: "/ForumThread/:id",
       name: "ForumThread",
       component: ForumThread,
+    },
+    {
+      path: '/room',
+      name: 'Room',
+      component: Room
+    },
+    {
+      path: '/room/:roomname',
+      name: 'Chat',
+      component: Chat
     },
   ];
 
