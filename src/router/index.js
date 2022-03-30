@@ -9,6 +9,7 @@ import ForumPage from "@/views/ForumPage.vue";
 import ForumThread from "@/views/ForumThread.vue";
 import Room from "@/components/Room.vue";
 import Chat from "@/components/Chat.vue";
+import AboutUs from '@/views/AboutUsPage.vue'
 //import Room from "@/views/RoomPage.vue";
 //import Chat from "@/views/ChatPage.vue";
 
@@ -62,6 +63,11 @@ const routes = [
       path: '/room/:roomname',
       name: 'Chat',
       component: Chat
+    },
+    {
+      path: '/aboutus',
+      name: 'About Us',
+      component: AboutUs
     },
   ];
 
