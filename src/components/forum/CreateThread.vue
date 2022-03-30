@@ -16,7 +16,6 @@
         id="forumTitle"
         type="text"
         placeholder="Title"
-        v-on:keypress.enter="submit"
         v-model="title"
         required
       />
@@ -65,7 +64,7 @@ export default {
     };
   },
   methods: {
-    saveCountry: function (event) {
+    saveCountry(event) {
       console.log("Saving country ", event.target.value);
       this.country = event.target.value;
     },
@@ -78,7 +77,7 @@ export default {
         console.log("Else part");
         var updatedCounter = parseInt(this.postCounter) + 1;
         var post = {
-          id: updatedCounter + "",
+          id: updatedCounter,
           user: "Bandy",
           title: this.title,
           body: this.body,
@@ -86,7 +85,7 @@ export default {
           likes: 0,
           country: this.country + "",
           comments: {
-            commentId: 0,
+            comment_count: 0,
             responses: {
               commentBody: "",
               commentDate: "",
@@ -94,10 +93,6 @@ export default {
             },
           },
         };
-        // console.log("Before setDoc");
-        // console.log("Post is ", post);
-        // console.log("updatedCounter is ", updatedCounter);
-
         await setDoc(doc(db, "Posts", updatedCounter + ""), post);
         console.log(this.postCounter + " --> " + updatedCounter);
         this.postCounter = updatedCounter + "";
@@ -106,10 +101,9 @@ export default {
         location.reload();
       }
     },
-    getCounter: async function () {
+    async getCounter() {
       let z = await getDocs(collection(db, "Posts"));
       z.forEach((doc) => {
-        // console.log(doc.data().id);
         this.postCounter = doc.data().id;
       });
       console.log("Lastest post id is ", this.postCounter);
@@ -190,6 +184,11 @@ export default {
   height: 40%;
   left: 20%;
   top: 85%;
+}
+
+#countries {
+  position: absolute;
+  left: 20%;
 }
 #submitButton {
   position: absolute;

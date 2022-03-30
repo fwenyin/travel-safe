@@ -18,6 +18,8 @@
           </p>
         </div>
         <div id="forumTitle" class="displayText">{{ title }}</div>
+      </div>
+      <div id="countryBox">
         <div id="countryContainer">
           <p id="countryText">{{ country }}</p>
         </div>
@@ -39,7 +41,6 @@
 <script>
 import firebaseApp from "../../firebase.js";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
-// import Thread from "@/components/Thread";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -62,7 +63,7 @@ export default {
     likes: Number,
   },
   methods: {
-    pressLike: function () {
+    pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
       this.pressedLike = true;
       console.log("Current post id is ", this.id);
@@ -109,6 +110,10 @@ export default {
   padding: 5% 0 0 0;
 }
 
+#likeButton {
+  margin-left: 40%;
+}
+
 #likeCounter {
   margin: 10%;
   font-style: normal;
@@ -120,13 +125,11 @@ export default {
 }
 
 #forumHeader {
-  /* align-content: left; */
   font-family: "Nunito";
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
   line-height: 30px;
-
   color: black;
 }
 
@@ -139,24 +142,30 @@ export default {
   align-items: left;
 }
 
-#countryContainer {
+#countryBox {
   position: absolute;
-  justify-content: center;
-  width: 20%;
-  left: 70%;
-  bottom: 68%;
+  height: 40%;
+  width: 40%;
+  padding: 2% 0 0 0;
+  left: 60%;
+}
+
+#countryContainer {
+  text-align: center;
+  height: 60%;
+  width: 40%;
+  margin-left: 40%;
   background: #dda375;
   border-radius: 20px;
 }
 
 #countryText {
+  padding-top: 5%;
   font-family: "Nunito";
-  font-style: normal;
   font-weight: 400;
   font-size: 22px;
   color: #ffffff;
 }
-
 .bottomHalf {
   display: flex;
   flex-direction: column;

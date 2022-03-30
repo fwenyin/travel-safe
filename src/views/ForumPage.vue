@@ -42,7 +42,6 @@ export default {
     return {
       posts: [],
       updateLikeCount: 0,
-      // id: 0,
     };
   },
   components: {
@@ -52,16 +51,16 @@ export default {
     ForumHeader,
   },
   methods: {
-    fetchItems: async function () {
+    async fetchItems() {
       this.posts = [];
       console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
-      console.log("Fetched result is ", posts);
+      // console.log("Fetched result is ", posts);
 
       posts.forEach((doc) => {
         let post = {};
         post = doc.data();
-        console.log("Post data is ", post);
+        // console.log("Post data is ", post);
         this.posts.push(post);
       });
       console.log("All posts updated in forum page!");
