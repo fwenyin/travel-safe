@@ -9,7 +9,12 @@
       />
       <div class="topHalf">
         <div id="buttonsDiv">
-          <p id="likeButton" class="fa fa-thumbs-up" @click="pressLike()"></p>
+          <p
+            id="likeButton"
+            class="fa fa-thumbs-up"
+            style="color: #808080"
+            @click="pressLike()"
+          ></p>
           <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
           <p id="likeCounter" v-else>{{ likes }}</p>
         </div>
@@ -192,7 +197,6 @@ export default {
         console.log("Form Value is " + form.value);
         form.value = "";
         alert("Pushing to firestore ");
-        // location.reload();
       }
     },
   },
@@ -242,7 +246,8 @@ export default {
 }
 
 #likeCounter {
-  margin: 10%;
+  margin: 2%;
+  padding-right: 3%;
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
@@ -303,12 +308,12 @@ export default {
   color: black;
 }
 
-#forumDetailsText {
+#forumContent {
   position: relative;
+  margin-top: -1.5em;
   height: auto;
   width: 80%;
   left: 10%;
-  top: 35%;
 }
 #userIcon {
   position: absolute;

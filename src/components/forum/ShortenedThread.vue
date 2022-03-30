@@ -6,7 +6,8 @@
     />
     <div class="topHalf">
       <div id="buttonsDiv">
-        <p id="likeButton" class="fa fa-thumbs-up" @click="pressLike()"></p>
+        <!-- <LikeButton @likelike="pressLike()" :pressLike="pressedLike" /> -->
+        <p id="likeButton" class="fa fa-thumbs-up"></p>
         <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
         <p id="likeCounter" v-else>{{ likes }}</p>
       </div>
@@ -41,6 +42,7 @@
 <script>
 import firebaseApp from "../../firebase.js";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
+
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -62,23 +64,23 @@ export default {
     country: String,
     likes: Number,
   },
+
   methods: {
     pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
+      console.log(
+        "This is shortenedThread pressLike, this.pressedLike ",
+        this.pressedLike
+      );
       this.pressedLike = true;
-      console.log("Current post id is ", this.id);
-
       if (!this.hasLiked) {
-        document.getElementById("likeButton").style.color = "green";
         this.hasLiked = true;
         this.updatedLikeCount = parseInt(this.likes) + 1;
       } else {
-        document.getElementById("likeButton").style.color = "#808080";
         this.hasLiked = false;
         this.updatedLikeCount = parseInt(this.likes);
       }
       updateDoc(docRef, { likes: parseInt(this.updatedLikeCount) });
-      console.log("Updated like count is ", this.updatedLikeCount);
     },
   },
 };
@@ -116,6 +118,7 @@ export default {
 
 #likeCounter {
   margin: 10%;
+  padding-right: 3%;
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
