@@ -207,7 +207,7 @@ export default {
 }
 .chat-message .right-bubble {
   position: relative;
-  background: #f0d7c5;
+  background: #cae6db;
   border-top-left-radius: 0.4em;
   border-bottom-left-radius: 0.4em;
   border-bottom-right-radius: 0.4em;
@@ -217,7 +217,7 @@ export default {
 .chat-message .right-bubble span.msg-name {
   font-size: 12px;
   font-weight: bold;
-  color: #cc864e;
+  color: #93ada8;
   display: block;
 }
 .chat-message .right-bubble span.msg-date {
@@ -232,7 +232,7 @@ export default {
   width: 0;
   height: 0;
   border: 27px solid transparent;
-  border-left-color: #f0d7c5;
+  border-left-color: #cae6db;
   border-right: 0;
   border-top: 0;
   margin-top: -0.5px;

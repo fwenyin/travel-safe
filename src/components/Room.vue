@@ -16,7 +16,7 @@
           class="form-control"
           v-model="roomName"
           id="roomname"
-          placeholder="Enter Room Name"
+          placeholder="Enter Group Name"
         />
         <div class="card-body">
           <button
@@ -175,7 +175,7 @@ export default {
 
 .btn-secondary {
   width: 240px;
-  background-color: #8caccb !important;
+  background-color: #61728c !important;
 }
 
 .card-header {
@@ -183,7 +183,7 @@ export default {
 }
 
 .card-body {
-  background-color: #aec4da;
+  background-color: #d0d6e8;
 }
 
 .body,
