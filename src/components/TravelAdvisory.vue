@@ -106,6 +106,8 @@ const db = getFirestore(firebaseApp);
 export default {
     data() {
         return {
+            country: this.$route.params.country,
+
             travelLaneData: {},
             travelNotice: {},
             travelDocs: {},
@@ -144,8 +146,8 @@ export default {
     },
 
     created() {
-        this.getNotice("Korea");
-        this.getDocuments("Korea");
+        this.getNotice(this.country);
+        this.getDocuments(this.country);
         this.getLaneData("vtlAir");
     }
 }
