@@ -99,7 +99,6 @@
                 </div>
             </div>
 
-            <br>
 
             <section class='vtlLandBox'>
                 <div class='travelLaneName' id='vtlLand'>
@@ -136,8 +135,7 @@
                 </div>
             </section>
 
-            <br>
-
+            
             <section class='pcaBox'>
                 <div class='travelLaneName' id='pca'>
                     <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
@@ -150,30 +148,18 @@
                     <strong><u>Eligibility</u></strong><br>
                     {{ this.pcaData.eligibility }}
 
-                    <div class='application' id="pcaapplication">
+                    <div class='application'>
                         <br>
                         <strong><u>Application</u></strong><br>
-                        
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#pcascpr" aria-expanded="false" aria-controls="#pcascpr" > 
-                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
-
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#pcaforeigner" aria-expanded="false" aria-controls="#pcaforeigner">
-                            Foreign Visitors</button>
             
-                        <div class="collapse" id="pcascpr" data-parent="#pcaapplication" style="padding-top: 5px">
-                            {{ this.pcaData.application.scpr }}
+                        <div style="padding-top: 5px">
+                            {{ this.pcaData.application }}
                         </div>
 
-                        <div class="collapse" id="vtlLandforeigner" data-parent="#vtlLandapplication" style="padding-top: 5px">
-                            {{ this.vtlLandData.application.foreigner }}
-                        </div>
                     </div>
                 </div>
             </section>
 
-            <br>
 
             <section class='rglBox'>
                 <div class='travelLaneName' id='rgl'>
@@ -187,25 +173,14 @@
                     <strong><u>Eligibility</u></strong><br>
                     {{ this.rglData.eligibility }}
 
-                    <div class='application' id="rglapplication">
+                    <div class='application'>
                         <br>
                         <strong><u>Application</u></strong><br>
-                        
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#rglscpr" aria-expanded="false" aria-controls="#rglscpr" > 
-                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
-
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#rglforeigner" aria-expanded="false" aria-controls="#rglforeigner">
-                            Foreign Visitors</button>
             
-                        <div class="collapse" id="rglscpr" data-parent="#rglapplication" style="padding-top: 5px">
-                            {{ this.rglData.application.scpr }}
+                        <div style="padding-top: 5px">
+                            {{ this.rglData.application }}
                         </div>
 
-                        <div class="collapse" id="rglforeigner" data-parent="#rglapplication" style="padding-top: 5px">
-                            {{ this.rglData.application.foreigner }}
-                        </div>
                     </div>
                 </div>
             </section>
@@ -362,8 +337,17 @@ export default {
     background-color: #E5E5E5
 }
 
-.docsCheckList, .travelLanes {
+.docsCheckList {
     background-color: #AEC4DA8F;
+}
+
+.vtlAirBox,
+.vtlLandBox,
+.pcaBox,
+.rglBox {
+    background-color: #AEC4DA8F;
+    border-radius: 10px;
+    margin-bottom: 5px;
 }
 
 input[type=checkbox] {
