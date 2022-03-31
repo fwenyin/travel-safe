@@ -90,12 +90,10 @@ export default {
       this.posts = [];
       console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
-      // console.log("Fetched result is ", posts);
 
       posts.forEach((doc) => {
         let post = {};
         post = doc.data();
-        // console.log("Post data is ", post);
         this.posts.push(post);
       });
       console.log("All posts updated in forum page!");
@@ -119,7 +117,7 @@ export default {
         return z.sort(function (a, b) {
           return Date.parse(a.timestamp) - Date.parse(b.timestamp);
         });
-      } else if (this.sortBy === "newest") {
+      } else if (this.sortBy === "newest" || this.sortBy === "") {
         return z.sort(function (a, b) {
           return Date.parse(b.timestamp) - Date.parse(a.timestamp);
         });
