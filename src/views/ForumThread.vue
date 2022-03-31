@@ -22,7 +22,7 @@
         <div id="forumHeader">
           <div id="authorAndDate">
             <p id="forumAuthorAndDate" class="displayText">
-              Posted by @{{ user }} - {{ timestamp }}
+              Posted by @{{ poster }} - {{ timestamp }}
             </p>
           </div>
           <div id="forumTitle" class="displayText">{{ title }}</div>
@@ -65,7 +65,7 @@
     </div>
     <div id="commentsDiv">
       <CommentBlock
-        v-for="response in responses"
+        v-for="response in sortComments"
         :sender="response.sender"
         :commentDate="response.commentDate"
         :commentBody="response.commentBody"
@@ -80,6 +80,8 @@ import NavBar from "../components/NavBar.vue";
 import CommentBlock from "../components/forum/CommentBlock.vue";
 import ForumHeader from "../components/forum/ForumHeader.vue";
 import firebaseApp from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import {
   getFirestore,
   collection,
@@ -101,7 +103,7 @@ export default {
       posts: [],
       id: this.$route.params.id,
       hasLiked: false,
-      user: "",
+      poster: "",
       title: "",
       body: "",
       timestamp: "",
@@ -113,6 +115,7 @@ export default {
       commentCount: 0,
       commentBody: "",
       validComment: "",
+      sender: "",
     };
   },
   methods: {
@@ -125,7 +128,7 @@ export default {
         item = doc.data();
         if (this.id == item.id) {
           console.log("Post data is ", item);
-          this.user = item.user;
+          this.poster = item.user;
           this.country = item.country;
           this.title = item.title;
           this.body = item.body;
@@ -176,7 +179,7 @@ export default {
         );
         this.commentCount += 1;
         var newResponse = {
-          sender: "Bandy",
+          sender: this.user,
           commentBody: this.commentBody,
           commentDate: new Date().toDateString(),
         };
@@ -197,6 +200,7 @@ export default {
         console.log("Form Value is " + form.value);
         form.value = "";
         alert("Pushing to firestore ");
+        location.reload();
       }
     },
   },
@@ -209,8 +213,24 @@ export default {
       }
     },
   },
+  computed: {
+    sortComments() {
+      let z = this.responses;
+      return z.sort(function (a, b) {
+        return Date.parse(b.commentDate) - Date.parse(a.commentDate);
+      });
+    },
+  },
   created() {
     this.fetchItems();
+  },
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user.displayName;
+      }
+    });
   },
 };
 </script>
@@ -310,7 +330,7 @@ export default {
 
 #forumContent {
   position: relative;
-  margin-top: -1.5em;
+  margin-top: -1em;
   height: auto;
   width: 80%;
   left: 10%;

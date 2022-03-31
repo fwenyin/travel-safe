@@ -49,7 +49,7 @@ import {
   getDocs,
   collection,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
 
 export default {
@@ -81,7 +81,7 @@ export default {
         var updatedCounter = parseInt(this.postCounter) + 1;
         var post = {
           id: updatedCounter,
-          user: "",
+          user: this.user + "",
           title: this.title,
           body: this.body,
           timestamp: new Date().toDateString(),
@@ -133,15 +133,11 @@ export default {
   },
   mounted() {
     const auth = getAuth();
-    console.log("Auth is ", auth);
-    // const userName = auth.currentUser;
-    console.log("currentUser is ", auth.currentUser);
-
-    // if (userName !== null) {
-    // console.log("UserName is not null");
-    // this.user = userName.displayName;
-    // }
-    // console.log("CreateThread display name is ", auth);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.sender = user.displayName;
+      }
+    });
   },
 };
 </script>
