@@ -63,36 +63,155 @@
         <div class='header'>
             Available Travel Lanes
         </div>
-        
+
         <div class='travelLanes'>
-            <button class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target="#travelLane" aria-expanded="true" aria-controls="travelLane" v-on:click="getLaneData(vtlAir)">
-                {{ travelLaneData.laneName }}
-            </button>
+            <div class='vtlAirBox'>
+                    <button :disabled=!this.travelLaneBool.vtlAir class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                        data-target="#vtlAirName" aria-expanded="false" aria-controls="vtlAirName">
+                        {{ this.vtlAirData.laneName }}
+                    </button>
 
-            <div id="travelLane" class="collapse show" data-parent="#travelLanes">
-                <strong><u>Eligibility</u></strong><br>
-                {{ travelLaneData.eligibility }}
-                <div id="application">
+                <div class='eligibility collapse' id="vtlAirName" data-parent="vtlAirBox">
+                    <strong><u>Eligibility</u></strong><br>
+                    {{ this.vtlAirData.eligibility }}
                     <br>
-                    <strong><u>Application</u></strong><br>
 
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#scpr" aria-expanded="false" aria-controls="#scpr" > Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#foreigner" aria-expanded="false" aria-controls="#foreigner">Foreigners</button>
-                
-                    <div class="application-details">
-                        <div class="collapse" id="scpr" data-parent="#application" >
-                            {{ travelLaneData.application.scpr }}
+                    <div class='application' id="vtlAirapplication">
+                        <br>
+                        <strong><u>Application</u></strong><br>
+                        
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#vtlAirscpr" aria-expanded="false" aria-controls="#vtlAirscpr" > 
+                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#vtlAirforeigner" aria-expanded="false" aria-controls="#vtlAirforeigner">
+                            Foreign Visitors</button>
+            
+                        <div class="collapse" id="vtlAirscpr" data-parent="#vtlAirapplication" style="padding-top: 5px">
+                            {{ this.vtlAirData.application.scpr }}
                         </div>
 
-                        <div class="collapse" id="foreigner" data-parent="#application">
-                            {{ travelLaneData.application.foreigner }}
+                        <div class="collapse" id="vtlAirforeigner" data-parent="#vtlAirapplication" style="padding-top: 5px">
+                            {{ this.vtlAirData.application.foreigner }}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-            
 
+            <br>
+
+            <section class='vtlLandBox'>
+                <div class='travelLaneName' id='vtlLand'>
+                    <button :disabled="!this.travelLaneBool.vtlLand" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                        data-target="#vtlLandName" aria-expanded="false" aria-controls="vtlLandName">
+                        {{ this.vtlLandData.laneName }}
+                    </button>
+                </div>
+
+                <div class='eligibility collapse' id="vtlLandName" data-parent="vtlLandBox">
+                    <strong><u>Eligibility</u></strong><br>
+                    {{ this.vtlLandData.eligibility }}
+
+                    <div class='application' id="vtlLandapplication">
+                        <br>
+                        <strong><u>Application</u></strong><br>
+                        
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#vtlLandscpr" aria-expanded="false" aria-controls="#vtlLandscpr" > 
+                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#vtlLandforeigner" aria-expanded="false" aria-controls="#vtlLandforeigner">
+                            Foreign Visitors</button>
+            
+                        <div class="collapse" id="vtlLandscpr" data-parent="#vtlLandapplication" style="padding-top: 5px">
+                            {{ this.vtlLandData.application.scpr }}
+                        </div>
+
+                        <div class="collapse" id="vtlLandforeigner" data-parent="#vtlLandapplication" style="padding-top: 5px">
+                            {{ this.vtlLandData.application.foreigner }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <br>
+
+            <section class='pcaBox'>
+                <div class='travelLaneName' id='pca'>
+                    <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                        data-target="#pcaName" aria-expanded="false" aria-controls="pcaName">
+                        {{ this.pcaData.laneName }}
+                    </button>
+                </div>
+
+                <div class='eligibility collapse' id="pcaName" data-parent="pcaBox">
+                    <strong><u>Eligibility</u></strong><br>
+                    {{ this.pcaData.eligibility }}
+
+                    <div class='application' id="pcaapplication">
+                        <br>
+                        <strong><u>Application</u></strong><br>
+                        
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#pcascpr" aria-expanded="false" aria-controls="#pcascpr" > 
+                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#pcaforeigner" aria-expanded="false" aria-controls="#pcaforeigner">
+                            Foreign Visitors</button>
+            
+                        <div class="collapse" id="pcascpr" data-parent="#pcaapplication" style="padding-top: 5px">
+                            {{ this.pcaData.application.scpr }}
+                        </div>
+
+                        <div class="collapse" id="vtlLandforeigner" data-parent="#vtlLandapplication" style="padding-top: 5px">
+                            {{ this.vtlLandData.application.foreigner }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <br>
+
+            <section class='rglBox'>
+                <div class='travelLaneName' id='rgl'>
+                    <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                        data-target="#rglName" aria-expanded="false" aria-controls="rglName">
+                        {{ this.rglData.laneName }}
+                    </button>
+                </div>
+
+                <div class='eligibility collapse' id="rglName" data-parent="rglBox">
+                    <strong><u>Eligibility</u></strong><br>
+                    {{ this.rglData.eligibility }}
+
+                    <div class='application' id="rglapplication">
+                        <br>
+                        <strong><u>Application</u></strong><br>
+                        
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#rglscpr" aria-expanded="false" aria-controls="#rglscpr" > 
+                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                            data-target="#rglforeigner" aria-expanded="false" aria-controls="#rglforeigner">
+                            Foreign Visitors</button>
+            
+                        <div class="collapse" id="rglscpr" data-parent="#rglapplication" style="padding-top: 5px">
+                            {{ this.rglData.application.scpr }}
+                        </div>
+
+                        <div class="collapse" id="rglforeigner" data-parent="#rglapplication" style="padding-top: 5px">
+                            {{ this.rglData.application.foreigner }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <br><br><br><br>
         
 </template> 
 
@@ -111,6 +230,11 @@ export default {
             travelLaneData: {},
             travelNotice: {},
             travelDocs: {},
+            travelLaneBool: {},
+            vtlAirData: [],
+            vtlLandData: [],
+            pcaData: [],
+            rglData: []
         }
     },
     methods: {
@@ -139,16 +263,73 @@ export default {
             const z = query(collection(db, "TravelLanes"), where("lane", "==", l));
             const querySnapshot = await getDocs(z);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+                console.log("travellanedata" + doc.id, " => ", doc.data());
                 this.travelLaneData = doc.data();
             })
+            return this.travelLaneData
+        },
+
+        async getVTLAirData() {
+            const a = query(collection(db, "TravelLanes"), where("lane", "==", "vtlAir"));
+            const querySnapshot = await getDocs(a);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                this.vtlAirData = doc.data();
+            })
+            return this.vtlAirData
+        },
+
+        async getVTLLandData() {
+            const b = query(collection(db, "TravelLanes"), where("lane", "==", "vtlLand"));
+            const querySnapshot = await getDocs(b);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                this.vtlLandData = doc.data();
+            })
+            return this.vtlLandData
+        },
+
+        async getpcaData() {
+            const c = query(collection(db, "TravelLanes"), where("lane", "==", "pca"));
+            const querySnapshot = await getDocs(c);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                this.pcaData = doc.data();
+            })
+            return this.pcaData
+        },
+
+        async getrglData() {
+            const d = query(collection(db, "TravelLanes"), where("lane", "==", "rgl"));
+            const querySnapshot = await getDocs(d);
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                this.rglData = doc.data();
+            })
+            return this.rglData
+        },
+
+
+        async getLaneBool(c) {
+            this.country = c
+            const x = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
+            const querySnapshot = await getDocs(x);
+            querySnapshot.forEach((doc) => {
+                console.log("travel lane boolean" + doc.id, " => ", doc.data().travelLane);
+                this.travelLaneBool = doc.data().travelLane;
+            })
+            return this.travelLaneBool
         }
     },
 
     created() {
         this.getNotice(this.country);
         this.getDocuments(this.country);
-        this.getLaneData("vtlAir");
+        this.getLaneBool(this.country);
+        this.getVTLAirData();
+        this.getVTLLandData();
+        this.getpcaData();
+        this.getrglData();
     }
 }
 </script>
@@ -225,18 +406,6 @@ input[type=checkbox]:checked {
     margin-right: 15px;
 }
 
-.btn-primary {
-    background-color: #8CACCB;
-    border: none;
-}
-
-
-
-.travelLanes {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 #details {
     background-color: #AEC4DA;
     margin-top: 8px;
@@ -245,6 +414,40 @@ input[type=checkbox]:checked {
     font-size: 14px;
     text-align: left;
 }
+
+.btn-primary {
+    background-color: #4d86be;
+    font-weight: bold;
+    border: none;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: rgb(209, 207, 207) !important;
+  border-color: none !important;
+  box-shadow: none !important;
+  color: white !important;
+}
+
+.btn-block,
+.btn-block:disabled {
+    color: white;
+    font-weight: bold;
+    background-color: #8CACCB;
+    border: none;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+
+.eligibility {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: justify;
+}
+
 
 h1 {
     font-size: 55px;
