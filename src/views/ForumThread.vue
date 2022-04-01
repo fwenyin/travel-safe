@@ -100,6 +100,7 @@ export default {
   },
   data() {
     return {
+      docRef: {},
       posts: [],
       id: this.$route.params.id,
       hasLiked: false,
@@ -122,7 +123,6 @@ export default {
     async fetchItems() {
       console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
-      console.log("ForumThread Fetched result is ", posts);
       let item = {};
       posts.forEach((doc) => {
         item = doc.data();
@@ -150,7 +150,7 @@ export default {
     pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
       this.pressedLike = true;
-      console.log("Current post id is ", this.id);
+      console.log("docRef is ", docRef);
 
       if (!this.hasLiked) {
         document.getElementById("likeButton").style.color = "green";
@@ -162,21 +162,14 @@ export default {
         this.updatedLikeCount = parseInt(this.likes);
       }
       updateDoc(docRef, { likes: parseInt(this.updatedLikeCount) });
-      console.log("Updated like count is ", this.updatedLikeCount);
     },
     change() {
       this.updateLikeCount += 1;
     },
     async submitComment() {
-      console.log("This is submit comment function ");
       if (!this.validComment) {
         alert("Please fill in your comments before submitting!");
       } else {
-        console.log("Else part");
-        console.log(
-          "submitcomment function comment count is ",
-          this.commentCount
-        );
         this.commentCount += 1;
         var newResponse = {
           sender: this.user,
@@ -200,7 +193,7 @@ export default {
         console.log("Form Value is " + form.value);
         form.value = "";
         alert("Pushing to firestore ");
-        location.reload();
+        // location.reload();
       }
     },
   },
