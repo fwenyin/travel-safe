@@ -187,7 +187,6 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
-    width: 100%;
 }
 
 .header_image {
@@ -196,19 +195,14 @@ export default {
 }
 
 .top_header {
-    height: auto;
+    /* height: auto; */
+    width: 100%;
     position: relative;
 }
 
-.col {
-    width: 100%;
-    height: auto;
-}
-
 .container {
-    width: 100%;
+    width: 120%;
     height: 220px;
-    left: 1%;
 }
 
 .box {
@@ -216,10 +210,9 @@ export default {
     width: 18%;
     height: calc(200px - 30px);
     background: #FFFFFF;
-    float: left;
     margin: 1%;
     border: 2px solid #8CACCB;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     overflow: hidden;
     border-radius: 10px;
     display: inline-block;

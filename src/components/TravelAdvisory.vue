@@ -312,6 +312,8 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .riskAssLevel {
@@ -333,10 +335,14 @@ export default {
     padding-right: 15px;
     padding-bottom: 10px;
     padding-top: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .docsCheckList {
     background-color: #AEC4DA8F;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .vtlAirBox,
@@ -346,6 +352,8 @@ export default {
     background-color: #AEC4DA8F;
     border-radius: 10px;
     margin-bottom: 5px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 input[type=checkbox] {
