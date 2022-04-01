@@ -70,6 +70,7 @@
                         data-target="#vtlAirName" aria-expanded="false" aria-controls="vtlAirName">
                         {{ this.vtlAirData.laneName }}
                     </button>
+                    <hr class='travelLaneBreak'>
 
                 <div class='eligibility collapse' id="vtlAirName" data-parent="vtlAirBox">
                     <strong><u>Eligibility</u></strong><br>
@@ -106,6 +107,7 @@
                         data-target="#vtlLandName" aria-expanded="false" aria-controls="vtlLandName">
                         {{ this.vtlLandData.laneName }}
                     </button>
+                    <hr class='travelLaneBreak'>
                 </div>
 
                 <div class='eligibility collapse' id="vtlLandName" data-parent="vtlLandBox">
@@ -135,13 +137,14 @@
                 </div>
             </section>
 
-            
+
             <section class='pcaBox'>
                 <div class='travelLaneName' id='pca'>
                     <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
                         data-target="#pcaName" aria-expanded="false" aria-controls="pcaName">
                         {{ this.pcaData.laneName }}
                     </button>
+                    <hr class='travelLaneBreak'>
                 </div>
 
                 <div class='eligibility collapse' id="pcaName" data-parent="pcaBox">
@@ -167,6 +170,7 @@
                         data-target="#rglName" aria-expanded="false" aria-controls="rglName">
                         {{ this.rglData.laneName }}
                     </button>
+                    <hr class='travelLaneBreak'>
                 </div>
 
                 <div class='eligibility collapse' id="rglName" data-parent="rglBox">
@@ -233,22 +237,11 @@ export default {
             })
         },
 
-        async getLaneData(l) {
-            this.lane = l
-            const z = query(collection(db, "TravelLanes"), where("lane", "==", l));
-            const querySnapshot = await getDocs(z);
-            querySnapshot.forEach((doc) => {
-                console.log("travellanedata" + doc.id, " => ", doc.data());
-                this.travelLaneData = doc.data();
-            })
-            return this.travelLaneData
-        },
-
         async getVTLAirData() {
             const a = query(collection(db, "TravelLanes"), where("lane", "==", "vtlAir"));
             const querySnapshot = await getDocs(a);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
                 this.vtlAirData = doc.data();
             })
             return this.vtlAirData
@@ -258,7 +251,7 @@ export default {
             const b = query(collection(db, "TravelLanes"), where("lane", "==", "vtlLand"));
             const querySnapshot = await getDocs(b);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
                 this.vtlLandData = doc.data();
             })
             return this.vtlLandData
@@ -268,7 +261,7 @@ export default {
             const c = query(collection(db, "TravelLanes"), where("lane", "==", "pca"));
             const querySnapshot = await getDocs(c);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
                 this.pcaData = doc.data();
             })
             return this.pcaData
@@ -278,19 +271,18 @@ export default {
             const d = query(collection(db, "TravelLanes"), where("lane", "==", "rgl"));
             const querySnapshot = await getDocs(d);
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
                 this.rglData = doc.data();
             })
             return this.rglData
         },
-
 
         async getLaneBool(c) {
             this.country = c
             const x = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
             const querySnapshot = await getDocs(x);
             querySnapshot.forEach((doc) => {
-                console.log("travel lane boolean" + doc.id, " => ", doc.data().travelLane);
+                //console.log("travel lane boolean" + doc.id, " => ", doc.data().travelLane);
                 this.travelLaneBool = doc.data().travelLane;
             })
             return this.travelLaneBool
@@ -325,6 +317,8 @@ export default {
 .riskAssLevel {
     color: white;
     display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .riskAssBox {
@@ -334,7 +328,11 @@ export default {
 }
 
 .travelNotice {
-    background-color: #E5E5E5
+    background-color: #E5E5E5;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .docsCheckList {
@@ -400,7 +398,7 @@ input[type=checkbox]:checked {
 }
 
 .btn-primary {
-    background-color: #4d86be;
+    background-color: #8CACCB;
     font-weight: bold;
     border: none;
     margin-bottom: 0px;
@@ -408,30 +406,56 @@ input[type=checkbox]:checked {
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background-color: rgb(209, 207, 207) !important;
-  border-color: none !important;
-  box-shadow: none !important;
-  color: white !important;
+    background-color: rgb(209, 207, 207) !important;
+    border-color: none !important;
+    box-shadow: none !important;
+    color: white !important;
 }
 
-.btn-block,
-.btn-block:disabled {
-    color: white;
+.btn-block {
+    color: black;
     font-weight: bold;
-    background-color: #8CACCB;
+    background-color: #D2DEEA;
     border: none;
     margin-bottom: 0px;
     margin-top: 0px;
 }
 
+.btn-block:disabled {
+    color: #828282;
+    font-weight: bold;
+    background-color: #D2DEEA;
+    border: none;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.btn-block:hover, .btn-block:active, .btn-block:focus {
+    background-color: #AEC4DA !important;
+    border-color: none !important;
+    box-shadow: none !important;
+    color: black !important;
+
+}
 
 .eligibility {
     padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-align: justify;
 }
 
+.application {
+    padding-bottom: 10px;
+}
+
+.travelLaneBreak {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    color: #828282;
+}
 
 h1 {
     font-size: 55px;
@@ -471,7 +495,7 @@ hr {
     margin-right: 55px;
     margin-bottom: 0px;
     margin-top: -10px;
-    color: grey;
+    color: #828282;
 }
 
 </style>
