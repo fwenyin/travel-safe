@@ -135,7 +135,7 @@ export default {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.sender = user.displayName;
+        this.user = user.displayName;
       }
     });
   },
