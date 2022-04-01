@@ -79,7 +79,8 @@
         <div class='vtlAirBox'>
                 <button :disabled=!this.travelLaneBool.vtlAir class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
                     data-target="#vtlAirName" aria-expanded="false" aria-controls="vtlAirName">
-                    <i class="fa-solid fa-circle-check"></i>
+                    <i v-if="!this.travelLaneBool.vtlAir" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.vtlAir" class="fa-solid fa-circle-check"></i>
                     {{ this.vtlAirData.laneName }}
                 </button>
                 <hr class='travelLaneBreak'>
@@ -156,6 +157,8 @@
             <div class='travelLaneName' id='pca'>
                 <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
                     data-target="#pcaName" aria-expanded="false" aria-controls="pcaName">
+                    <i v-if="!this.travelLaneBool.pca" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.pca" class="fa-solid fa-circle-check"></i>
                     {{ this.pcaData.laneName }}
                 </button>
                 <hr class='travelLaneBreak'>
@@ -180,8 +183,10 @@
 
         <section class='rglBox'>
             <div class='travelLaneName' id='rgl'>
-                <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                <button :disabled=!this.travelLaneBool.rgl class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
                     data-target="#rglName" aria-expanded="false" aria-controls="rglName">
+                    <i v-if="!this.travelLaneBool.rgl" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.rgl" class="fa-solid fa-circle-check"></i>
                     {{ this.rglData.laneName }}
                 </button>
                 <hr class='travelLaneBreak'>
