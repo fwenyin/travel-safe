@@ -29,27 +29,48 @@
       </button>
 
       <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user">
-        <img
-          style="width: 5%; height: 5%"
-          :src="require(`../assets/logo.png`)"
-        />
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+        v-if="user"
+      >
+        <a class="nav-icon" href="/home">
+          <img
+            style="width: 20%; height: 15%"
+            :src="require(`../assets/logo.png`)"
+        /></a>
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
           <!-- <img style= "width:15%;height:15%;" :src="require(`../assets/logo.png`)" /> -->
           <li class="nav-item">
-            <a class="nav-link" style="padding-left: 50px" href="/home">Home</a>
+            <a
+              class="nav-link"
+              style="padding-left: 8em; font-size: 18px"
+              href="/home"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="padding-left: 50px" href="/news">News</a>
+            <a
+              class="nav-link"
+              style="padding-left: 2em; font-size: 18px"
+              href="/news"
+              >News</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="padding-left: 50px" href="/aboutus"
+            <a
+              class="nav-link"
+              style="padding-left: 2em; font-size: 18px"
+              href="/aboutus"
               >About Us</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="padding-left: 50px" href="/forumpage"
+            <a
+              class="nav-link"
+              style="padding-left: 2em; font-size: 18px"
+              href="/forumpage"
               >Forum</a
             >
           </li>
@@ -60,7 +81,7 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center" v-if="user">
         <!-- Icon -->
-        <a class="me-5" style="color: aliceblue"> {{user.displayName}} </a>
+        <a class="me-5" style="color: aliceblue"> {{ user.displayName }} </a>
 
         <!-- Avatar -->
         <div class="dropdown">
@@ -101,41 +122,39 @@
 </template>
 
 <script>
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 export default {
-    name: 'NavBar',
-    data() {
-        return {
-            user:false,
-            refreshComp:0,
-        }
+  name: "NavBar",
+  data() {
+    return {
+      user: false,
+      refreshComp: 0,
+    };
+  },
+  methods: {
+    change() {
+      this.refreshComp += 1;
     },
-    methods: {
-        change() {
-            this.refreshComp += 1
-        },
-        signOut() {
-            const auth = getAuth();
-            const user = auth.currentUser;
-            signOut(auth, user);
-            console.log(user.displayName)
-            console.log('user has been signed out')
-        }
+    signOut() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      signOut(auth, user);
+      console.log(user.displayName);
+      console.log("user has been signed out");
     },
+  },
 
-    mounted() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                this.user = user;
-            }
-        })
-        
-    }
-}
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+  },
+};
 </script>
-
 
 <style>
 .navbar {
