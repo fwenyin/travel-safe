@@ -41,6 +41,7 @@
                   type="username"
                   placeholder="Enter username here"
                   v-model="userName"
+                  required
                 />
               </div>
               <!-- Full Name -->
@@ -52,6 +53,7 @@
                   type="name"
                   placeholder="Enter full name Here"
                   v-model="name"
+                  required
                 />
               </div>
               <!-- Form Group (email address)-->
@@ -63,6 +65,7 @@
                   type="email"
                   placeholder="Enter email address here"
                   v-model="email"
+                  required
                 />
               </div>
               <!-- Form Row-->
@@ -75,9 +78,10 @@
                   <input
                     class="form-control"
                     id="inputPhone"
-                    type="tel"
+                    type="number"
                     placeholder="Enter phone number here"
                     v-model="phone"
+                    required
                   />
                 </div>
                 <!-- Form Group (birthday)-->
@@ -86,17 +90,16 @@
                   <input
                     class="form-control"
                     id="inputBirthday"
-                    type="text"
+                    type="date"
                     name="birthday"
                     placeholder="Enter date of birth here"
                     v-model="DOB"
-                  />
+                    required
+                  >
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()">
-                Save Details
-              </a>
+              <a class="btn btn-primary" @click="submit()"> Save Details </a>
             </form>
           </div>
         </div>
@@ -146,7 +149,6 @@ export default {
       picture: "",
       userId: "",
       userName: "",
-      groups: [],
     };
   },
 
