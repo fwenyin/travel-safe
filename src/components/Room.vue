@@ -44,35 +44,59 @@
           </button>
         </div>
       </div>
-      <div class="card text-white" style="width: 280px">
-        <h5 class="card-header">Groups You've Joined</h5>
-        <div class="card-body"></div>
+      <div class="card" style="width: 280px">
+        <h5 class="card-header text-white">Groups You've Joined</h5>
+        <div class="card-body">
+          <div
+            class="card bg-transparent mb-2 p-2 justify-content-center"
+            id="joinedGroups"
+            v-for="group in groups"
+            :key="group"
+          >
+            <div class="right">
+              <h6 style="margin-top: 4%">
+                <b>{{ group.roomName }}</b>
+              </h6>
+              <p>
+                {{ group.country }}
+              </p>
+            </div>
+            <div class="left">
+              <a
+                :href="'/room/' + group.roomName"
+                class="btn stretched-link"
+                style="background-color: transparent"
+              ></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right">
       <h5 class="card-header text-white">Suggested for you</h5>
-      <div
-        class="card text-start mx-auto mb-2 p-3 justify-content-center"
-        v-for="item in items"
-        :key="item.roomName"
-        id="groups"
-      >
-        <div class="right">
-          <h5>
-            <b>{{ item.roomName }}</b>
-          </h5>
-          <div id="countryContainer">
-            {{ item.country }}
+      <div v-for="item in items" :key="item.roomName">
+        <div
+          class="card text-start mx-auto mb-2 p-3"
+          v-if="groups.some((group) => group.roomName !== item.roomName)"
+          id="groups"
+        >
+          <div class="right">
+            <h5>
+              <b>{{ item.roomName }}</b>
+            </h5>
+            <div id="countryContainer">
+              {{ item.country }}
+            </div>
           </div>
-        </div>
-        <div class="left">
-          <button
-            type="button"
-            class="p-2 btn btn-dark col6 float-right"
-            @click="goToGroup(item.roomName)"
-          >
-            Join Group
-          </button>
+          <div class="left">
+            <button
+              type="button"
+              class="p-2 btn btn-dark col6 float-right"
+              @click="goToGroup(item.roomName)"
+            >
+              Join Group
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -112,6 +136,7 @@ export default {
       country: "Select Destination",
       items: [],
       user: null, // add current user
+      groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
     };
   },
 
@@ -134,6 +159,7 @@ export default {
     },
 
     goToGroup(group) {
+      // add group in user attribute
       this.$router.push({ name: "Chat", params: { roomname: group } });
     },
   },
@@ -187,7 +213,8 @@ export default {
 }
 
 .body,
-#groups {
+#groups,
+#joinedGroups {
   display: flex;
   flex-direction: row;
 }

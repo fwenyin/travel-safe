@@ -1,10 +1,31 @@
 <template>
   <div class="body">
     <div class="left">
-      <div class="card text-white" style="width: 280px">
-        <h5 class="card-header">Groups You've Joined</h5>
+      <div class="card" style="width: 280px">
+        <h5 class="card-header text-white">Groups You've Joined</h5>
         <div class="card-body">
-          <div v-for="group in groups" :key="group.key"></div>
+          <div
+            class="card bg-transparent mb-2 p-2 justify-content-center"
+            id="joinedGroups"
+            v-for="group in groups"
+            :key="group"
+          >
+            <div class="right">
+              <h6 style="margin-top: 4%">
+                <b>{{ group.roomName }}</b>
+              </h6>
+              <p>
+                {{ group.country }}
+              </p>
+            </div>
+            <div class="left">
+              <a
+                :href="'/room/' + group.roomName"
+                class="btn stretched-link"
+                style="background-color: transparent"
+              ></a>
+            </div>
+          </div>
           <button class="btn btn-dark float-right" @click="back()">
             &laquo; Back
           </button>
@@ -13,13 +34,12 @@
     </div>
     <div class="right">
       <div class="header">
-        <h2>
+        <h2 style="padding:3px">
           {{ roomname }}
         </h2>
         <button
           type="button"
-          class="leave p-2 btn btn-dark col6 float-right"
-          
+          class="leave p-2 btn btn-dark col6"
           @click="leaveGroup(this.roomname)"
         >
           Leave Group
@@ -83,7 +103,7 @@ export default {
       data: { user: "", message: "" },
       chats: [],
       user: null, // add current user
-      groups: [],
+      groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
     };
   },
 
@@ -127,8 +147,9 @@ export default {
     },
 
     leaveGroup(roomname) {
-      console.log(roomname)
-    }
+      console.log(roomname); // remove group from user attribute
+      this.back()
+    },
   },
 };
 </script>
@@ -138,7 +159,7 @@ export default {
   margin: 20px;
   padding: 10px;
   background-color: #8caccb;
-  position: relative
+  position: relative;
 }
 
 .card-header {
@@ -172,8 +193,8 @@ export default {
 
 .leave {
   position: absolute;
-  margin-left: 37%;
-  margin-top: -5%
+  margin-left: 85%;
+  margin-top: -5%;
 }
 
 .chat-item {
@@ -274,8 +295,8 @@ export default {
 
 .sticky-footer {
   position: absolute;
-  left: 30%;
-  width: 64%;
+  left: 29%;
+  width: 63%;
   padding: 10px;
   height: 6%;
   background: #aec4da;
@@ -294,5 +315,10 @@ export default {
   height: 60%;
   width: 80%;
   color: black;
+}
+
+#joinedGroups {
+  display: flex;
+  flex-direction: row;
 }
 </style>
