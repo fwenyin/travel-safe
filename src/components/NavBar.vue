@@ -21,18 +21,11 @@
         id="navbarSupportedContent"
         v-if="user"
       >
-<<<<<<< Updated upstream
         <a class="nav-icon" href="/home">
           <img
             style="width: 20%; height: 15%"
             :src="require(`../assets/logo.png`)"
         /></a>
-=======
-        <img
-          style="width: 5%; height: 5%"
-          :src="require(`../assets/logo.png`)"
-        />
->>>>>>> Stashed changes
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
           <!-- <img style= "width:15%;height:15%;" :src="require(`../assets/logo.png`)" /> -->
@@ -75,11 +68,7 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center" v-if="user">
         <!-- Icon -->
-<<<<<<< Updated upstream
-        <a class="me-5" style="color: aliceblue"> {{ user.displayName }} </a>
-=======
         <a class="me-5" style="color: aliceblue"> {{ userDetails.userName }} </a>
->>>>>>> Stashed changes
 
         <!-- Avatar -->
         <div class="dropdown">
@@ -115,11 +104,6 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-<<<<<<< Updated upstream
-
-export default {
-  name: "NavBar",
-=======
 import { getDocs, collection, getFirestore } from "firebase/firestore";
 import firebaseApp from "@/firebase.js";
 const db = getFirestore(firebaseApp);
@@ -127,16 +111,12 @@ const auth = getAuth();
 export default {
   name: "NavBar",
 
->>>>>>> Stashed changes
   data() {
     return {
       user: false,
       refreshComp: 0,
-<<<<<<< Updated upstream
-=======
       userDetails: [],
       picture: "",
->>>>>>> Stashed changes
     };
   },
   methods: {
@@ -149,8 +129,6 @@ export default {
       signOut(auth, user);
       console.log(user.displayName);
       console.log("user has been signed out");
-<<<<<<< Updated upstream
-=======
     },
     async display() {
       console.log("Fetching user data");
@@ -167,23 +145,7 @@ export default {
           this.displayImage(this.userDetails.picture);
         }
       });
->>>>>>> Stashed changes
     },
-  },
-
-<<<<<<< Updated upstream
-  mounted() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user;
-      }
-    });
-  },
-};
-</script>
-
-=======
     displayImage(pictureURL) {
       let divLoc = document.getElementById("navImg");
       let img = document.createElement("img");
@@ -206,7 +168,6 @@ export default {
 };
 </script>
 
->>>>>>> Stashed changes
 <style>
 .navbar {
   background-color: #8caccb;
