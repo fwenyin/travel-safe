@@ -1,129 +1,152 @@
 <template>
-  <head>
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-  </head>
-  <NavBar/>
-  <br/> <br/> <br/>
-  <div class="container bootstrap snippets bootdey" v-if="user">
-    <h1 class="text-dark">Profile</h1>
-    <hr />
-    <div class="row" v-if="user">
-      <!-- left column -->
-      <div class="col-md-3" v-if="user">
-        <div class="text-center" v-if="user">
-          <img
-            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-            class="avatar img-circle img-thumbnail"
-            alt="avatar"
-          />
-          <h6>Upload a different photo...</h6>
-
-          <input type="file" class="form-control" />
+  <NavBar />
+  <br />
+  <br />
+  <br />
+  <div class="container-xl px-4 mt-4">
+    <h3>{{ userDetails.name }}'s Profile</h3>
+    <hr class="mt-0 mb-4" />
+    <div class="row">
+      <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card mb-4 mb-xl-0">
+          <div class="card-header">Profile Picture</div>
+          <div id = "imgDiv" class="card-body text-center" >
+          </div>
         </div>
       </div>
-
-      <!-- edit form column -->
-      <div class="col-md-9 personal-info" v-if="user">
-        <h3>Personal info</h3>
-
-        <form class="form-horizontal" role="form">
-          <div class="form-group" v-if="user">
-            <label class="col-lg-3 control-label">Email: {{user.email}} </label>
-          </div>
-            <br>
-          <div class="form-group" v-if="user">
-            <label class="col-lg-3 control-label">Name: {{user.displayName}} </label>  
-            <div class="col-lg-8" v-if="user">
-              <input class="form-control" v-model= "nametest" type="text" placeholder="Enter Name Here"/> 
-            </div>
-            <br>
-          </div>
-          <div class="form-group" v-if="user">
-            <label class="col-lg-3 control-label">Username:</label>
-            <div class="col-lg-8" v-if="user">
-              <input class="form-control" type="text" placeholder = "Enter Username Here" />
-            </div>
-            <br>
-          </div>
-          <div class="form-group" v-if="user">
-            <label class="col-lg-3 control-label">Nationality:</label>
-            <div class="col-lg-8" v-if="user">
-              <div class="ui-select" v-if="user">
-                <select id="user_time_zone" class="form-control">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">
-                    (GMT-08:00) Pacific Time (US &amp; Canada)
-                  </option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">
-                    (GMT-07:00) Mountain Time (US &amp; Canada)
-                  </option>
-                  <option
-                    value="Central Time (US &amp; Canada)"
-                    selected="selected"
-                  >
-                    (GMT-06:00) Central Time (US &amp; Canada)
-                  </option>
-                  <option value="Eastern Time (US &amp; Canada)">
-                    (GMT-05:00) Eastern Time (US &amp; Canada)
-                  </option>
-                  <option value="Indiana (East)">
-                    (GMT-05:00) Indiana (East)
-                  </option>
-                </select>
+      <div class="col-xl-8">
+        <!-- Account details card-->
+        <div class="card mb-4">
+          <div class="card-header">Account Details</div>
+          <div class="card-body">
+            <form>
+              <!-- Username -->
+              <div class="mb-3">
+                <label class="small mb-1">Username</label>
+                <p id="currUsername" class="form-control">
+                  {{ userDetails.userName }}
+                </p>
               </div>
-            </div>
+              <!-- Full Name -->
+              <div class="mb-3">
+                <label class="small mb-1">Full Name</label>
+                <p id="currName" class="form-control">
+                  {{ userDetails.name }}
+                </p>
+              </div>
+              <!-- Form Group (email address)-->
+              <div class="mb-3">
+                <label class="small mb-1">Email Address</label>
+                <p id="currEmail" class="form-control">
+                  {{ userDetails.email }}
+                </p>
+              </div>
+              <!-- Form Row-->
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (phone number)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputPhone"
+                    >Phone number</label
+                  >
+                  <p id="currPhone" class="form-control">
+                    {{ userDetails.phone }}
+                  </p>
+                </div>
+                <!-- Form Group (birthday)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Date of Birth</label>
+                  <p id="currDOB" class="form-control">
+                    {{ userDetails.DOB }}
+                  </p>
+                </div>
+              </div>
+              <!-- Save changes button-->
+              <a class="btn btn-primary" href="/editprofile">
+                Edit Profile Here
+              </a>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue';
-import { getAuth, onAuthStateChanged } from "firebase/auth"
+import NavBar from "@/components/NavBar.vue";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import firebaseApp from "@/firebase.js";
+import { getDocs, getFirestore, collection } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+const auth = getAuth();
+console.log("in Profile");
 
 export default {
-    name: 'Profile',
-    data() {
-        return {
-            user:false,
-            refreshComp:0,
-        }
-    },
-    methods: {
-        change() {
-            this.refreshComp += 1
-        }
+  name: "Profile",
+
+  data() {
+    return {
+      user: false,
+      refreshComp: 0,
+      userDetails: [],
+      DOB: "",
+      email: "",
+      name: "",
+      phone: "",
+      picture: "",
+      userId: "",
+      userName: "",
+    };
+  },
+
+  components: {
+    NavBar,
+  },
+
+  methods: {
+    change() {
+      this.refreshComp += 1;
     },
 
-    components: {
-        NavBar
+    async display() {
+      console.log("Fetching user data");
+      let z = await getDocs(collection(db, "Users"));
+      let item = [];
+      z.forEach((doc) => {
+        //console.log(auth.currentUser.uid == doc.data().userId);
+        item = doc.data();
+        console.log(item);
+        if (auth.currentUser.uid == doc.data().userId) {
+          console.log("found current user");
+          this.userDetails = doc.data();
+          console.log("here", this.userDetails.picture);
+          this.displayImage(this.userDetails.picture);
+        }
+      });
     },
 
-    mounted() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                this.user = user;
-            }
-        })
-        
+    displayImage(pictureURL) {
+      let divLoc = document.getElementById("imgDiv");
+      let img = document.createElement("img");
+      img.src = pictureURL;
+      img.style = "margin: 0px auto; width: 30%; height: 30%; border-radius: 50%;"
+      divLoc.append(img);
+      console.log("rendering image")
     }
-}
+  },
+  
+
+  mounted() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+    this.display();
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

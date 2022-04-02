@@ -1,17 +1,4 @@
 <template>
-  <head>
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-  </head>
   <nav class="navbar navbar-expand-lg">
     <!-- Container wrapper -->
     <div class="container-fluid">
@@ -34,11 +21,18 @@
         id="navbarSupportedContent"
         v-if="user"
       >
+<<<<<<< Updated upstream
         <a class="nav-icon" href="/home">
           <img
             style="width: 20%; height: 15%"
             :src="require(`../assets/logo.png`)"
         /></a>
+=======
+        <img
+          style="width: 5%; height: 5%"
+          :src="require(`../assets/logo.png`)"
+        />
+>>>>>>> Stashed changes
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
           <!-- <img style= "width:15%;height:15%;" :src="require(`../assets/logo.png`)" /> -->
@@ -81,7 +75,11 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center" v-if="user">
         <!-- Icon -->
+<<<<<<< Updated upstream
         <a class="me-5" style="color: aliceblue"> {{ user.displayName }} </a>
+=======
+        <a class="me-5" style="color: aliceblue"> {{ userDetails.userName }} </a>
+>>>>>>> Stashed changes
 
         <!-- Avatar -->
         <div class="dropdown">
@@ -93,13 +91,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              class="rounded-circle"
-              height="25"
-              alt="Black and White Portrait of a Man"
-              loading="lazy"
-            />
+            <div id="navImg" class="rounded-circle" ></div>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"
@@ -123,13 +115,28 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+<<<<<<< Updated upstream
 
 export default {
   name: "NavBar",
+=======
+import { getDocs, collection, getFirestore } from "firebase/firestore";
+import firebaseApp from "@/firebase.js";
+const db = getFirestore(firebaseApp);
+const auth = getAuth();
+export default {
+  name: "NavBar",
+
+>>>>>>> Stashed changes
   data() {
     return {
       user: false,
       refreshComp: 0,
+<<<<<<< Updated upstream
+=======
+      userDetails: [],
+      picture: "",
+>>>>>>> Stashed changes
     };
   },
   methods: {
@@ -142,9 +149,29 @@ export default {
       signOut(auth, user);
       console.log(user.displayName);
       console.log("user has been signed out");
+<<<<<<< Updated upstream
+=======
+    },
+    async display() {
+      console.log("Fetching user data");
+      let z = await getDocs(collection(db, "Users"));
+      let item = [];
+      z.forEach((doc) => {
+        //console.log(auth.currentUser.uid == doc.data().userId);
+        item = doc.data();
+        console.log(item);
+        if (auth.currentUser.uid == doc.data().userId) {
+          console.log("found current user");
+          this.userDetails = doc.data();
+          console.log("here", this.userDetails.picture);
+          this.displayImage(this.userDetails.picture);
+        }
+      });
+>>>>>>> Stashed changes
     },
   },
 
+<<<<<<< Updated upstream
   mounted() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -156,6 +183,30 @@ export default {
 };
 </script>
 
+=======
+    displayImage(pictureURL) {
+      let divLoc = document.getElementById("navImg");
+      let img = document.createElement("img");
+      img.src = pictureURL;
+      img.style = "margin: 0px auto; width: 25px; height: 25px; border-radius: 50%;"
+      divLoc.append(img);
+      console.log("rendering image")
+    }
+  },
+
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+    this.display();
+  },
+};
+</script>
+
+>>>>>>> Stashed changes
 <style>
 .navbar {
   background-color: #8caccb;

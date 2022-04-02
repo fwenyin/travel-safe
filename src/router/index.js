@@ -5,6 +5,7 @@ import Home from "../views/HomePage.vue";
 import NavBar from "../components/NavBar.vue";
 import News from "../views/NewsPage.vue";
 import Profile from "../views/Profile.vue";
+import EditProfile from "../views/EditProfile.vue";
 import ForumPage from "@/views/ForumPage.vue";
 import ForumThread from "@/views/ForumThread.vue";
 import Room from "@/components/Room.vue";
@@ -43,6 +44,11 @@ const routes = [
       path: "/profile",
       name: "Profile",
       component: Profile,
+    },
+    {
+      path: "/editprofile",
+      name: "EditProfile",
+      component: EditProfile,
     },
     {
       path: "/forumpage",

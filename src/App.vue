@@ -1,17 +1,74 @@
 <template>
-  <!-- <div id="nav">
-      <router-link to="/">Home</router-link> | 
-      <router-link to="/searched-country">Searched Country</router-link>
-  </div> -->
   <router-view />
 </template>
 
 <script>
-console.log("in App")
+console.log("in App");
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import firebaseApp from "../src/firebase";
+import { getFirestore } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
 
 export default {
-  name: 'App'
-}
+  name: "App",
+  data() {
+    return {
+      user: false,
+      refreshComp: 0,
+    };
+  },
+  methods: {
+    change() {
+      this.refreshComp += 1;
+    },
+  },
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+        const uid = user.uid;
+        const email = user.email;
+        const name = user.displayName;
+        const picture = user.photoURL;
+        const userName = "username";
+        const phone = "-";
+        const DOB = "-";
+
+        console.log("check if user is already in data base");
+        getDoc(doc(db, "Users", user.uid)).then((docSnap) => {
+          if (docSnap.exists()) {
+            return;
+          } else {
+            console.log("user does not exist in db");
+            try {
+              const docRef = setDoc(doc(db, "Users", user.uid), {
+                userId: uid,
+                email: email,
+                name: name,
+                picture: picture,
+                userName: userName,
+                phone: phone,
+                DOB: DOB,
+              });
+              console.log(docRef);
+            } catch (error) {
+              console.error("Error adding user into docs", error);
+            }
+          }
+        });
+
+        // console.log(uid);
+        // console.log(email);
+        // console.log(name);
+        // console.log(picture);
+      }
+    });
+  },
+};
 </script>
 
 <style>
@@ -37,5 +94,3 @@ export default {
   color: #42b983;
 }
 </style>
-
-
