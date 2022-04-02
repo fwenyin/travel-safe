@@ -94,7 +94,7 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()" href = "/Profile">
+              <a class="btn btn-primary" @click="submit()">
                 Save Details
               </a>
             </form>
@@ -111,10 +111,11 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "@/firebase.js";
 import {
   getFirestore,
-  setDoc,
+  // setDoc,
   doc,
   getDocs,
   collection,
+  updateDoc,
 } from "firebase/firestore";
 // import { getStorage,ref } from "firebase/storage";
 // import { getStorage,ref, getDownloadURL} from "firebase/storage";
@@ -196,8 +197,9 @@ export default {
         groups: this.groups,
       };
 
-      await setDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
+      await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
       console.log("User details updated");
+      alert("Your Profile Is Successfully Updated");
     },
   },
 
