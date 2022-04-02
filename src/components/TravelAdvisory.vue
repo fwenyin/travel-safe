@@ -65,7 +65,7 @@
 
             <div class='totalCost'>
                 <hr style="margin-bottom:10px;margin-left:30px;margin-right:-5px;color:black;height:2px">
-                Total Cost: ${{ getTotalSum - payableSum }}
+                Budget to Prepare : ${{ getTotalSum - payableSum }}
             </div>       
         </div>
     </div>
@@ -366,6 +366,11 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.totalCost {
     margin-left: 8px;
     margin-right: 8px;
 }
