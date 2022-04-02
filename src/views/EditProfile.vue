@@ -94,7 +94,7 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()">
+              <a class="btn btn-primary" @click="submit()" href = "/Profile">
                 Save Details
               </a>
             </form>
