@@ -34,6 +34,7 @@
         </button>
       </div>
     </div>
+
     <br />
     <br />
     <br />
@@ -88,6 +89,16 @@
     <br />
     <br />
     <div>
+      <h2><b>Popular Destinations</b></h2>
+      <hr style="width: 50%; margin-left: 25%" />
+      <br />
+      <br />
+      <Carousel />
+    </div>
+    <br />
+    <br />
+    <br />
+    <div>
       <h2><b>Keeping Up With Travel News</b></h2>
       <hr style="width: 50%; margin-left: 25%" />
       <br />
@@ -119,6 +130,7 @@ import {
 } from "firebase/firestore";
 import { GChart } from "vue-google-charts";
 import axios from "axios";
+import Carousel from './Carousel.vue'
 
 const db = getFirestore(firebaseApp);
 const getCountryISO2 = require("country-iso-3-to-2");
@@ -128,6 +140,7 @@ export default {
 
   components: {
     GChart,
+    Carousel
   },
 
   data() {
