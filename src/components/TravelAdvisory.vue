@@ -39,158 +39,177 @@
     </div>
     <br>
 
-        <div class='header'>
-            Documents Checklist 
-        </div>
-
-        <div class='docs'>
-            <form class='docsCheckList' v-for="doc in travelDocs" :key="doc.id">
-                <label>
-                    <input class="checkbox" type="checkbox" value="">
-                    <div class="docName">
-                        {{ doc.doc }}
-                    </div>
-                    <a v-bind:href="''+doc.link+''" target="_blank"><i class="fa-solid fa-chevron-right"></i></a>
-                    <div class="docDesc"> 
-                        {{ doc.desc }} 
-                    </div> <br>
+    <div class='docs'>
+        <div class='docsCheckList'>
+            <div class='header'>
+                Documents Checklist & Calculator
+            </div>
+    
+            <form class='docsCheckListForm' v-for="doc in travelDocs" :key="doc.id">
+                <input class="checkbox" id="docID" type="checkbox" :value="doc.doc" v-model="checkedDocs">
+                <label for="docID" class="docName">
+                    {{ doc.doc }}
                 </label>
+
+                <span class="cost">
+                    <b>$</b>{{ doc.cost }}
+                </span>
+
+                <a v-bind:href="''+doc.link+''" target="_blank"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                <div class="docDesc"> 
+                    {{ doc.desc }} 
+                </div> <br>
+
                 <hr>
-            </form>         
+            </form>
+
+            <div class='totalCost'>
+                <hr style="margin-bottom:10px;margin-left:30px;margin-right:-5px;color:black;height:2px">
+                Total Cost: ${{ getTotalSum - payableSum }}
+            </div>       
         </div>
-        <br>
+    </div>
+    <br>
 
-        <div class='header'>
-            Available Travel Lanes
-        </div>
+    <div class='header'>
+        Available Travel Lanes
+    </div>
 
-        <div class='travelLanes'>
-            <div class='vtlAirBox'>
-                    <button :disabled=!this.travelLaneBool.vtlAir class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
-                        data-target="#vtlAirName" aria-expanded="false" aria-controls="vtlAirName">
-                        {{ this.vtlAirData.laneName }}
-                    </button>
-                    <hr class='travelLaneBreak'>
+    <div class='travelLanes'>
+        <div class='vtlAirBox'>
+                <button :disabled=!this.travelLaneBool.vtlAir class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                    data-target="#vtlAirName" aria-expanded="false" aria-controls="vtlAirName">
+                    <i v-if="!this.travelLaneBool.vtlAir" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.vtlAir" class="fa-solid fa-circle-check"></i>
+                    {{ this.vtlAirData.laneName }}
+                </button>
+                <hr class='travelLaneBreak'>
 
-                <div class='eligibility collapse' id="vtlAirName" data-parent="vtlAirBox">
-                    <strong><u>Eligibility</u></strong><br>
-                    {{ this.vtlAirData.eligibility }}
+            <div class='eligibility collapse' id="vtlAirName" data-parent="vtlAirBox">
+                <strong><u>Eligibility</u></strong><br>
+                {{ this.vtlAirData.eligibility }}
+                <br>
+
+                <div class='application' id="vtlAirapplication">
                     <br>
+                    <strong><u>Application</u></strong><br>
+                    
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                        data-target="#vtlAirscpr" aria-expanded="false" aria-controls="#vtlAirscpr" > 
+                        Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
 
-                    <div class='application' id="vtlAirapplication">
-                        <br>
-                        <strong><u>Application</u></strong><br>
-                        
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#vtlAirscpr" aria-expanded="false" aria-controls="#vtlAirscpr" > 
-                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                        data-target="#vtlAirforeigner" aria-expanded="false" aria-controls="#vtlAirforeigner">
+                        Foreign Visitors</button>
+        
+                    <div class="collapse" id="vtlAirscpr" data-parent="#vtlAirapplication" style="padding-top: 5px">
+                        {{ this.vtlAirData.application.scpr }}
+                    </div>
 
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#vtlAirforeigner" aria-expanded="false" aria-controls="#vtlAirforeigner">
-                            Foreign Visitors</button>
-            
-                        <div class="collapse" id="vtlAirscpr" data-parent="#vtlAirapplication" style="padding-top: 5px">
-                            {{ this.vtlAirData.application.scpr }}
-                        </div>
-
-                        <div class="collapse" id="vtlAirforeigner" data-parent="#vtlAirapplication" style="padding-top: 5px">
-                            {{ this.vtlAirData.application.foreigner }}
-                        </div>
+                    <div class="collapse" id="vtlAirforeigner" data-parent="#vtlAirapplication" style="padding-top: 5px">
+                        {{ this.vtlAirData.application.foreigner }}
                     </div>
                 </div>
             </div>
-
-
-            <section class='vtlLandBox'>
-                <div class='travelLaneName' id='vtlLand'>
-                    <button :disabled="!this.travelLaneBool.vtlLand" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
-                        data-target="#vtlLandName" aria-expanded="false" aria-controls="vtlLandName">
-                        {{ this.vtlLandData.laneName }}
-                    </button>
-                    <hr class='travelLaneBreak'>
-                </div>
-
-                <div class='eligibility collapse' id="vtlLandName" data-parent="vtlLandBox">
-                    <strong><u>Eligibility</u></strong><br>
-                    {{ this.vtlLandData.eligibility }}
-
-                    <div class='application' id="vtlLandapplication">
-                        <br>
-                        <strong><u>Application</u></strong><br>
-                        
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#vtlLandscpr" aria-expanded="false" aria-controls="#vtlLandscpr" > 
-                            Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
-
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#vtlLandforeigner" aria-expanded="false" aria-controls="#vtlLandforeigner">
-                            Foreign Visitors</button>
-            
-                        <div class="collapse" id="vtlLandscpr" data-parent="#vtlLandapplication" style="padding-top: 5px">
-                            {{ this.vtlLandData.application.scpr }}
-                        </div>
-
-                        <div class="collapse" id="vtlLandforeigner" data-parent="#vtlLandapplication" style="padding-top: 5px">
-                            {{ this.vtlLandData.application.foreigner }}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class='pcaBox'>
-                <div class='travelLaneName' id='pca'>
-                    <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
-                        data-target="#pcaName" aria-expanded="false" aria-controls="pcaName">
-                        {{ this.pcaData.laneName }}
-                    </button>
-                    <hr class='travelLaneBreak'>
-                </div>
-
-                <div class='eligibility collapse' id="pcaName" data-parent="pcaBox">
-                    <strong><u>Eligibility</u></strong><br>
-                    {{ this.pcaData.eligibility }}
-
-                    <div class='application'>
-                        <br>
-                        <strong><u>Application</u></strong><br>
-            
-                        <div style="padding-top: 5px">
-                            {{ this.pcaData.application }}
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-
-            <section class='rglBox'>
-                <div class='travelLaneName' id='rgl'>
-                    <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
-                        data-target="#rglName" aria-expanded="false" aria-controls="rglName">
-                        {{ this.rglData.laneName }}
-                    </button>
-                    <hr class='travelLaneBreak'>
-                </div>
-
-                <div class='eligibility collapse' id="rglName" data-parent="rglBox">
-                    <strong><u>Eligibility</u></strong><br>
-                    {{ this.rglData.eligibility }}
-
-                    <div class='application'>
-                        <br>
-                        <strong><u>Application</u></strong><br>
-            
-                        <div style="padding-top: 5px">
-                            {{ this.rglData.application }}
-                        </div>
-
-                    </div>
-                </div>
-            </section>
         </div>
 
-        <br><br><br><br>
+
+        <section class='vtlLandBox'>
+            <div class='travelLaneName' id='vtlLand'>
+                <button :disabled="!this.travelLaneBool.vtlLand" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                    data-target="#vtlLandName" aria-expanded="false" aria-controls="vtlLandName">
+                    <i v-if="!this.travelLaneBool.vtlLand" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.vtlLand" class="fa-solid fa-circle-check"></i>
+                    {{ this.vtlLandData.laneName }}
+                </button>
+                <hr class='travelLaneBreak'>
+            </div>
+
+            <div class='eligibility collapse' id="vtlLandName" data-parent="vtlLandBox">
+                <strong><u>Eligibility</u></strong><br>
+                {{ this.vtlLandData.eligibility }}
+
+                <div class='application' id="vtlLandapplication">
+                    <br>
+                    <strong><u>Application</u></strong><br>
+                    
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                        data-target="#vtlLandscpr" aria-expanded="false" aria-controls="#vtlLandscpr" > 
+                        Singapore Citizens (SC) / Permanent Residents (PR)</button> &nbsp;&nbsp;
+
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                        data-target="#vtlLandforeigner" aria-expanded="false" aria-controls="#vtlLandforeigner">
+                        Foreign Visitors</button>
+        
+                    <div class="collapse" id="vtlLandscpr" data-parent="#vtlLandapplication" style="padding-top: 5px">
+                        {{ this.vtlLandData.application.scpr }}
+                    </div>
+
+                    <div class="collapse" id="vtlLandforeigner" data-parent="#vtlLandapplication" style="padding-top: 5px">
+                        {{ this.vtlLandData.application.foreigner }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class='pcaBox'>
+            <div class='travelLaneName' id='pca'>
+                <button :disabled=!this.travelLaneBool.pca class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                    data-target="#pcaName" aria-expanded="false" aria-controls="pcaName">
+                    <i v-if="!this.travelLaneBool.pca" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.pca" class="fa-solid fa-circle-check"></i>
+                    {{ this.pcaData.laneName }}
+                </button>
+                <hr class='travelLaneBreak'>
+            </div>
+
+            <div class='eligibility collapse' id="pcaName" data-parent="pcaBox">
+                <strong><u>Eligibility</u></strong><br>
+                {{ this.pcaData.eligibility }}
+
+                <div class='application'>
+                    <br>
+                    <strong><u>Application</u></strong><br>
+        
+                    <div style="padding-top: 5px">
+                        {{ this.pcaData.application }}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class='rglBox'>
+            <div class='travelLaneName' id='rgl'>
+                <button :disabled=!this.travelLaneBool.rgl class="btn btn-primary btn-lg btn-block" data-toggle="collapse" 
+                    data-target="#rglName" aria-expanded="false" aria-controls="rglName">
+                    <i v-if="!this.travelLaneBool.rgl" class="fa-solid fa-circle-xmark"></i>
+                    <i v-if="this.travelLaneBool.rgl" class="fa-solid fa-circle-check"></i>
+                    {{ this.rglData.laneName }}
+                </button>
+                <hr class='travelLaneBreak'>
+            </div>
+
+            <div class='eligibility collapse' id="rglName" data-parent="rglBox">
+                <strong><u>Eligibility</u></strong><br>
+                {{ this.rglData.eligibility }}
+
+                <div class='application'>
+                    <br>
+                    <strong><u>Application</u></strong><br>
+        
+                    <div style="padding-top: 5px">
+                        {{ this.rglData.application }}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <br><br><br><br>
         
 </template> 
 
@@ -213,7 +232,8 @@ export default {
             vtlAirData: [],
             vtlLandData: [],
             pcaData: [],
-            rglData: []
+            rglData: [],
+            checkedDocs: [],
         }
     },
     methods: {
@@ -232,8 +252,9 @@ export default {
             const q = query(collection(db, "TravelAdvisory"), where("countryName", "==", c));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                //console.log(doc.id, " => ", doc.data().documents);
-                this.travelDocs = doc.data().documents;
+                console.log(doc.id, " => ", doc.data().documents);
+                this.travelDocs = doc.data().documents; 
+                console.log(JSON.parse(JSON.stringify(this.travelDocs)))          
             })
         },
 
@@ -287,7 +308,40 @@ export default {
             })
             return this.travelLaneBool
         }
+                    
     },
+
+    computed: {
+        payableSum() { 
+            let sum = 0
+            // let totalSum = 0
+
+            // for (var i = 0; i < this.travelDocs.length; i++) {
+            //     var tcost = this.travelDocs[i].tcost; 
+            //     totalSum += parseFloat(tcost);
+            // }
+
+            if(this.checkedDocs.length == 0) {
+                return sum
+            }
+            for (var z = 0; z < this.checkedDocs.length; z++) {
+                const doc = this.travelDocs.filter(x => x.doc === this.checkedDocs[z]);
+                var cost = doc[0].cost; 
+                sum += parseFloat(cost);
+            }
+            return sum;
+        },
+            
+        getTotalSum() {
+            let totalSum = 0
+            for (var i = 0; i < this.travelDocs.length; i++) {
+                var cost = this.travelDocs[i].cost; 
+                totalSum += parseFloat(cost);
+            }
+            return totalSum;
+        }
+        },
+
 
     created() {
         this.getNotice(this.country);
@@ -339,11 +393,37 @@ export default {
     margin-right: 8px;
 }
 
+.cost {
+    float: right;
+    margin-top: 30px;
+    font-size: 20px;
+    text-align: right;
+    margin-right: 30px;
+    width: 8%;
+}
+
 .docsCheckList {
+    margin-right: 10px;
+}
+
+.docsCheckListForm {
     background-color: #AEC4DA8F;
     margin-left: 8px;
     margin-right: 8px;
 }
+
+.totalCost {
+    background-color: #AEC4DA8F;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 22px;
+    font-weight: bolder;
+    color: darkslategray;
+    text-align: right;
+    padding-right: 30px;
+}
+
 
 .vtlAirBox,
 .vtlLandBox,
@@ -364,8 +444,13 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:checked {
-  accent-color: green;
+    accent-color: green;
+}
 
+input[type=checkbox]:checked + label {
+    text-decoration-thickness: 2px;
+    text-decoration-color: black;
+    color:#828282;  
 }
 
 .docName {
@@ -374,6 +459,7 @@ input[type=checkbox]:checked {
     font-weight: bold;
     text-align: left;
     display: inline-block;
+    vertical-align: middle;
     margin-left: 20px;
     margin-bottom: 5px;
     margin-top: 15px;
@@ -388,12 +474,13 @@ input[type=checkbox]:checked {
     margin-right: 30px;
 }
 
-.fa-chevron-right {
-    font-size:24px; 
-    color:black; 
+.fa-circle-chevron-right {
+    font-size: 30px; 
+    vertical-align: middle;
+    color: #394F73; 
     float: right;
-    margin-top: 35px;
-    margin-right: 15px;
+    margin-top: 32px;
+    margin-right: 20px;
 }
 
 #details {
@@ -411,6 +498,20 @@ input[type=checkbox]:checked {
     border: none;
     margin-bottom: 0px;
     margin-top: 5px;
+}
+
+.fa-circle-xmark {
+    font-size: 28px;
+    padding-right: 10px;
+    vertical-align: middle;
+    color: #FF0000;
+}
+
+.fa-circle-check {
+    font-size: 28px;
+    padding-right: 10px;
+    vertical-align: middle;
+    color: #008000;
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
@@ -493,14 +594,14 @@ li {
     font-size: 14px;
 }    
 
-label {
-    display: block;
-    width: 100%;
+label,input{
+    display: inline-block;
+    vertical-align: middle
 }
 
 hr {
     margin-left: 50px;
-    margin-right: 55px;
+    margin-right: 25px;
     margin-bottom: 0px;
     margin-top: -10px;
     color: #828282;
