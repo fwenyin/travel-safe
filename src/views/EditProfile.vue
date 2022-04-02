@@ -179,7 +179,6 @@ export default {
         if (auth.currentUser.uid == doc.data().userId) {
           this.userDetails = doc.data();
           this.displayImage(this.userDetails.picture);
-          this.groups = this.userDetails.groups;
         }
       });
     },
@@ -191,10 +190,7 @@ export default {
         email: this.email,
         name: this.name,
         phone: this.phone,
-        picture: auth.currentUser.photoURL,
-        userId: auth.currentUser.uid,
         userName: this.userName,
-        groups: this.groups,
       };
 
       await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
