@@ -210,6 +210,7 @@
     </div>
 
     <br><br><br><br>
+    <Footer/>
         
 </template> 
 
@@ -219,6 +220,7 @@ import firebaseApp from "../firebase.js";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs, where, query } from "firebase/firestore";
 const db = getFirestore(firebaseApp);
+import Footer from '../components/Footer.vue'
 
 export default {
     data() {
@@ -235,6 +237,9 @@ export default {
             rglData: [],
             checkedDocs: [],
         }
+    },
+    components: {
+        Footer,
     },
     methods: {
         async getNotice(c) {

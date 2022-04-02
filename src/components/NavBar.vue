@@ -32,7 +32,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              style="padding-left: 8em; font-size: 18px"
+              style="padding-left: 9em; font-size: 18px"
               href="/home"
               >Home</a
             >

@@ -106,10 +106,13 @@
       </div>
     </div>
   </div>
+  <br/>
+  <Footer/>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import Footer from '../components/Footer.vue'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "@/firebase.js";
 import {
@@ -154,6 +157,7 @@ export default {
 
   components: {
     NavBar,
+    Footer,
   },
 
   methods: {

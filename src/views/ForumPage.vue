@@ -57,6 +57,8 @@
       </div>
     </div>
   </div>
+  <br> <br> <br>
+  <Footer/>
 </template>
 
 <script>
@@ -66,6 +68,8 @@ import ShortenedThread from "../components/forum/ShortenedThread.vue";
 import CreateThread from "../components/forum/CreateThread.vue";
 import firebaseApp from "../firebase";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import Footer from '../components/Footer.vue'
+
 
 const db = getFirestore(firebaseApp);
 
@@ -83,6 +87,7 @@ export default {
     ShortenedThread,
     CreateThread,
     ForumHeader,
+    Footer,
   },
   methods: {
     async fetchItems() {

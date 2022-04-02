@@ -1,17 +1,20 @@
 <template>
 <NavBar/>
 <Home/>
+<Footer/>
 </template>
 
 <script>
 import NavBar from '../components/NavBar.vue'
 import Home from '../components/Home.vue'
+import Footer from '../components/Footer.vue'
 
 export default {
     name: 'Homepage',
     components: {
         NavBar,
-        Home
+        Home,
+        Footer,
     },
     data() {
         return {
