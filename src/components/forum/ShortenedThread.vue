@@ -68,10 +68,6 @@ export default {
   methods: {
     pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
-      console.log(
-        "This is shortenedThread pressLike, this.pressedLike ",
-        this.pressedLike
-      );
       this.pressedLike = true;
       if (!this.hasLiked) {
         this.hasLiked = true;

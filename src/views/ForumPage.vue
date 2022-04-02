@@ -52,8 +52,7 @@
             :likes="post.likes"
             :id="post.id"
             :key="post.key"
-          ></ShortenedThread
-          >>
+          ></ShortenedThread>
         </div>
       </div>
     </div>
@@ -88,7 +87,6 @@ export default {
   methods: {
     async fetchItems() {
       this.posts = [];
-      console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
 
       posts.forEach((doc) => {
@@ -96,7 +94,6 @@ export default {
         post = doc.data();
         this.posts.push(post);
       });
-      console.log("All posts updated in forum page!");
     },
     change() {
       this.updateLikeCount += 1;
@@ -109,9 +106,6 @@ export default {
   },
   computed: {
     sortPosts() {
-      console.log("Sort is called");
-      console.log("Initial posts are ", this.posts);
-
       let z = this.posts;
       if (this.sortBy === "oldest") {
         return z.sort(function (a, b) {

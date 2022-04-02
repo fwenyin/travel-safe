@@ -139,7 +139,6 @@ export default {
           if (item.comments.comment_count > 0) {
             this.commentCount = item.comments.comment_count;
             item.comments.responses.forEach((response) => {
-              console.log("Pushing response: ", response);
               this.responses.push(response);
             });
           }
@@ -150,8 +149,6 @@ export default {
     pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
       this.pressedLike = true;
-      console.log("docRef is ", docRef);
-
       if (!this.hasLiked) {
         document.getElementById("likeButton").style.color = "green";
         this.hasLiked = true;
@@ -176,7 +173,6 @@ export default {
           commentBody: this.commentBody,
           commentDate: new Date().toDateString(),
         };
-        console.log("New response is: ", newResponse);
         this.responses.push(newResponse);
         let responses = this.responses;
         let comment_count = this.commentCount;
@@ -184,13 +180,10 @@ export default {
           comment_count,
           responses,
         };
-        console.log("Pushing new comment: ", newComments);
-
         await updateDoc(doc(db, "Posts", this.id + ""), {
           comments: newComments,
         });
         const form = document.getElementById("addComment");
-        console.log("Form Value is " + form.value);
         form.value = "";
         alert("Pushing to firestore ");
         // location.reload();

@@ -63,21 +63,20 @@ export default {
       user: "",
       validTitle: false,
       validBody: false,
+      validCountry: false,
       displayName: "",
     };
   },
   methods: {
     saveCountry(event) {
-      console.log("Saving country ", event.target.value);
+      this.validCountry = true;
       this.country = event.target.value;
     },
 
     async submit() {
-      console.log("This is submit function ");
-      if (!this.validTitle || !this.validBody) {
+      if (!this.validTitle || !this.validBody || !this.validCountry) {
         alert("Please fill in the necessary fields");
       } else {
-        console.log("Else part");
         var updatedCounter = parseInt(this.postCounter) + 1;
         var post = {
           id: updatedCounter,
@@ -97,9 +96,7 @@ export default {
           },
         };
         await setDoc(doc(db, "Posts", updatedCounter + ""), post);
-        console.log(this.postCounter + " --> " + updatedCounter);
         this.postCounter = updatedCounter + "";
-        console.log("new count: " + this.postCounter);
         alert("Pushing to firestore ");
         location.reload();
       }
@@ -109,7 +106,6 @@ export default {
       z.forEach((doc) => {
         this.postCounter = doc.data().id;
       });
-      console.log("Lastest post id is ", this.postCounter);
     },
   },
   watch: {
