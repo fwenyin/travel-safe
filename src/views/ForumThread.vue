@@ -54,11 +54,12 @@
             ></p>
           </div>
           <div id="iconDiv">
-            <img
+            <div id="userIcon" class="rounded-circle" ></div>
+            <!-- <img
               id="userIcon"
               :src="require('@/assets/profilephoto.png')"
               alt="home"
-            />
+            /> -->
           </div>
         </div>
       </div>
@@ -91,6 +92,8 @@ import {
 } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
+const auth = getAuth();
+
 export default {
   name: "ForumThread",
   components: {
@@ -189,6 +192,31 @@ export default {
         // location.reload();
       }
     },
+    async display() {
+      let z = await getDocs(collection(db, "Users"));
+      let item = [];
+      z.forEach((doc) => {
+        //console.log(auth.currentUser.uid == doc.data().userId);
+        item = doc.data();
+        console.log(item);
+        if (auth.currentUser.uid == doc.data().userId) {
+          console.log("found current user");
+          this.userDetails = doc.data();
+          this.displayImage(this.userDetails.picture);
+          this.user = this.userDetails.userName;
+          // console.log(this.user);
+        }
+      });
+    },
+    displayImage(pictureURL) {
+      let divLoc = document.getElementById("userIcon");
+      let img = document.createElement("img");
+      img.src = pictureURL;
+      img.style = "margin: 0px auto; width: 45px; height: 45px; border-radius: 50%;"
+      divLoc.append(img);
+      console.log("rendering image");
+      console.log(this.user);
+    },
   },
   watch: {
     commentBody(val) {
@@ -217,6 +245,7 @@ export default {
         this.user = user.displayName;
       }
     });
+    this.display();
   },
 };
 </script>

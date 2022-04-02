@@ -68,7 +68,9 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center" v-if="user">
         <!-- Icon -->
-        <a class="me-5" style="color: aliceblue"> {{ userDetails.userName }} </a>
+        <a class="me-5" style="color: aliceblue">
+          {{ userDetails.userName }}
+        </a>
 
         <!-- Avatar -->
         <div class="dropdown">
@@ -80,7 +82,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <div id="navImg" class="rounded-circle" ></div>
+            <div id="navImg" class="rounded-circle"></div>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"
@@ -131,7 +133,6 @@ export default {
       console.log("user has been signed out");
     },
     async display() {
-      console.log("Fetching user data");
       let z = await getDocs(collection(db, "Users"));
       let item = [];
       z.forEach((doc) => {
@@ -141,7 +142,6 @@ export default {
         if (auth.currentUser.uid == doc.data().userId) {
           console.log("found current user");
           this.userDetails = doc.data();
-          console.log("here", this.userDetails.picture);
           this.displayImage(this.userDetails.picture);
         }
       });
@@ -150,10 +150,11 @@ export default {
       let divLoc = document.getElementById("navImg");
       let img = document.createElement("img");
       img.src = pictureURL;
-      img.style = "margin: 0px auto; width: 25px; height: 25px; border-radius: 50%;"
+      img.style =
+        "margin: 0px auto; width: 25px; height: 25px; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image")
-    }
+      console.log("rendering image");
+    },
   },
 
   mounted() {

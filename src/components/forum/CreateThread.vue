@@ -5,11 +5,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <div id="iconDiv">
-      <img
+      <!-- profile pic here -->
+      <!-- <img
         id="userIcon"
         :src="require('@/assets/profilephoto.png')"
         alt="home"
-      />
+      /> -->
+      <div id="userIcon" class="rounded-circle" ></div>
     </div>
     <div id="titleContainer">
       <input
@@ -51,6 +53,7 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const db = getFirestore(firebaseApp);
+const auth = getAuth();
 
 export default {
   name: "CreateThread.vue",
@@ -65,6 +68,7 @@ export default {
       validBody: false,
       validCountry: false,
       displayName: "",
+      userDetails: [],
     };
   },
   methods: {
@@ -72,15 +76,40 @@ export default {
       this.validCountry = true;
       this.country = event.target.value;
     },
+    async display() {
+      let z = await getDocs(collection(db, "Users"));
+      let item = [];
+      z.forEach((doc) => {
+        //console.log(auth.currentUser.uid == doc.data().userId);
+        item = doc.data();
+        console.log(item);
+        if (auth.currentUser.uid == doc.data().userId) {
+          console.log("found current user");
+          this.userDetails = doc.data();
+          this.displayImage(this.userDetails.picture);
+          this.user = this.userDetails.userName;
+          // console.log(this.user);
+        }
+      });
+    },
+    displayImage(pictureURL) {
+      let divLoc = document.getElementById("userIcon");
+      let img = document.createElement("img");
+      img.src = pictureURL;
+      img.style = "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;"
+      divLoc.append(img);
+      console.log("rendering image");
+      console.log(this.user);
+    },
 
     async submit() {
       if (!this.validTitle || !this.validBody || !this.validCountry) {
         alert("Please fill in the necessary fields");
       } else {
-        var updatedCounter = parseInt(this.postCounter) + 1;
+        var updatedCounter = parseInt(this.postCounter) + 1;      
         var post = {
           id: updatedCounter,
-          user: this.user + "",
+          user: this.userDetails.userName + "",
           title: this.title,
           body: this.body,
           timestamp: new Date().toDateString(),
@@ -131,9 +160,11 @@ export default {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.user = user.displayName;
+        this.user = this.userDetails.userName;
+        // console.log(this.user);
       }
     });
+    this.display();
   },
 };
 </script>

@@ -11,8 +11,7 @@
         <!-- Profile picture card-->
         <div class="card mb-4 mb-xl-0">
           <div class="card-header">Profile Picture</div>
-          <div id = "imgDiv" class="card-body text-center" >
-          </div>
+          <div id="imgDiv" class="card-body text-center"></div>
         </div>
       </div>
       <div class="col-xl-8">
@@ -55,7 +54,9 @@
                 </div>
                 <!-- Form Group (birthday)-->
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Date of Birth</label>
+                  <label class="small mb-1" for="inputBirthday"
+                    >Date of Birth</label
+                  >
                   <p id="currDOB" class="form-control">
                     {{ userDetails.DOB }}
                   </p>
@@ -131,12 +132,12 @@ export default {
       let divLoc = document.getElementById("imgDiv");
       let img = document.createElement("img");
       img.src = pictureURL;
-      img.style = "margin: 0px auto; width: 30%; height: 30%; border-radius: 50%;"
+      img.style =
+        "margin: 0px auto; width: 30%; height: 30%; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image")
-    }
+      console.log("rendering image");
+    },
   },
-  
 
   mounted() {
     onAuthStateChanged(auth, (user) => {

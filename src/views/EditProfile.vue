@@ -1,17 +1,4 @@
 <template>
-  <head>
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-  </head>
   <NavBar />
   <br />
   <br />
@@ -24,7 +11,7 @@
         <!-- Profile picture card-->
         <div class="card mb-4 mb-xl-0">
           <div class="card-header">Profile Picture</div>
-          <div id = "imgDiv" class="card-body text-center" >
+          <div id="imgDiv" class="card-body text-center">
             <!-- <div>
               <div>
                 <p>Upload an image to Firebase:</p>
@@ -64,7 +51,7 @@
                   id="inputName"
                   type="name"
                   placeholder="Enter full name Here"
-                  v-model="name"                  
+                  v-model="name"
                 />
               </div>
               <!-- Form Group (email address)-->
@@ -107,7 +94,9 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()" href="/profile"> Save Details </a>
+              <a class="btn btn-primary" @click="submit()" href="/Profile">
+                Save Details
+              </a>
             </form>
           </div>
         </div>
@@ -120,7 +109,13 @@
 import NavBar from "@/components/NavBar.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "@/firebase.js";
-import { getFirestore, setDoc, doc, getDocs, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 // import { getStorage,ref } from "firebase/storage";
 // import { getStorage,ref, getDownloadURL} from "firebase/storage";
 
@@ -173,16 +168,17 @@ export default {
     //   //     this.imageUrl=url;
     //   //   })
     //   // }
-       
+
     //   getDownloadURL(storageRef).then((res) => (this.imageUrl = res));
     // },
     displayImage(pictureURL) {
       let divLoc = document.getElementById("imgDiv");
       let img = document.createElement("img");
       img.src = pictureURL;
-      img.style = "margin: 0px auto; width: 30%; height: 30%; border-radius: 50%;"
+      img.style =
+        "margin: 0px auto; width: 30%; height: 30%; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image")
+      console.log("rendering image");
     },
 
     async display() {
