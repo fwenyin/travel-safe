@@ -135,7 +135,7 @@ export default {
       ],
       country: "Select Destination",
       items: [],
-      user: null, // add current user
+      user: null, 
       groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
     };
   },

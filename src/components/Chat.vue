@@ -102,7 +102,7 @@ export default {
       roomname: this.$route.params.roomname,
       data: { user: "", message: "" },
       chats: [],
-      user: null, // add current user
+      user: null, 
       groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
     };
   },
