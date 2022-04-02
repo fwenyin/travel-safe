@@ -37,6 +37,7 @@ export default {
         const userName = "username";
         const phone = "-";
         const DOB = "-";
+        const groups = [];
 
         console.log("check if user is already in data base");
         getDoc(doc(db, "Users", user.uid)).then((docSnap) => {
@@ -53,6 +54,7 @@ export default {
                 userName: userName,
                 phone: phone,
                 DOB: DOB,
+                groups: groups,
               });
               console.log(docRef);
             } catch (error) {

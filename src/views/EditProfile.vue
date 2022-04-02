@@ -94,7 +94,7 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()" href="/Profile">
+              <a class="btn btn-primary" @click="submit()">
                 Save Details
               </a>
             </form>
@@ -145,6 +145,7 @@ export default {
       picture: "",
       userId: "",
       userName: "",
+      groups: [],
     };
   },
 
@@ -156,21 +157,7 @@ export default {
     change() {
       this.refreshComp += 1;
     },
-    // onChange(e) {
-    //   const file = e.target.files[0];
-    //   this.image = file;
 
-    //   const storage = getStorage();
-
-    //   const storageRef=ref(storage,"Users/" + auth.currentUser.uid + "/picture/" + this.image.name);
-    //   // ()=>{
-    //   //   storageRef.ref.getDownloadURL().then((url)=>{
-    //   //     this.imageUrl=url;
-    //   //   })
-    //   // }
-
-    //   getDownloadURL(storageRef).then((res) => (this.imageUrl = res));
-    // },
     displayImage(pictureURL) {
       let divLoc = document.getElementById("imgDiv");
       let img = document.createElement("img");
@@ -182,7 +169,6 @@ export default {
     },
 
     async display() {
-      console.log("Fetching user data");
       let z = await getDocs(collection(db, "Users"));
       let item = [];
       z.forEach((doc) => {
@@ -190,10 +176,9 @@ export default {
         item = doc.data();
         console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
-          console.log("found current user");
           this.userDetails = doc.data();
-          console.log("here", this.userDetails.picture);
           this.displayImage(this.userDetails.picture);
+          this.groups = this.userDetails.groups;
         }
       });
     },
@@ -208,8 +193,8 @@ export default {
         picture: auth.currentUser.photoURL,
         userId: auth.currentUser.uid,
         userName: this.userName,
+        groups: this.groups,
       };
-      console.log(this.picture);
 
       await setDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
       console.log("User details updated");

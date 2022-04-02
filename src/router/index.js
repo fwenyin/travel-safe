@@ -11,6 +11,7 @@ import ForumThread from "@/views/ForumThread.vue";
 import Room from "@/components/Room.vue";
 import Chat from "@/components/Chat.vue";
 import AboutUs from '@/views/AboutUsPage.vue'
+import Footer from "@/components/Footer.vue";
 //import Room from "@/views/RoomPage.vue";
 //import Chat from "@/views/ChatPage.vue";
 
@@ -74,6 +75,11 @@ const routes = [
       path: '/aboutus',
       name: 'About Us',
       component: AboutUs
+    },
+    {
+      path: '/footer',
+      name: 'Footer',
+      component: Footer
     },
   ];
 
