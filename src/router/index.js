@@ -9,12 +9,12 @@ import Profile from "../views/Profile.vue";
 import EditProfile from "../views/EditProfile.vue";
 import ForumPage from "@/views/ForumPage.vue";
 import ForumThread from "@/views/ForumThread.vue";
-import Room from "@/components/Room.vue";
-import Chat from "@/components/Chat.vue";
+// import Room from "@/components/Room.vue";
+// import Chat from "@/components/Chat.vue";
 import AboutUs from "@/views/AboutUsPage.vue";
 // import ForumT from "@/components/forum/ForumThreadComponent.vue";
-//import Room from "@/views/RoomPage.vue";
-//import Chat from "@/views/ChatPage.vue";
+import Room from "../views/RoomPage.vue";
+import Chat from "../views/ChatPage.vue";
 
 const routes = [
   {

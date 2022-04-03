@@ -32,7 +32,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              style="padding-left: 9em; font-size: 18px"
+              style="padding-left: 5em; font-size: 18px"
               href="/home"
               >Home</a
             >
@@ -49,8 +49,8 @@
             <a
               class="nav-link"
               style="padding-left: 2em; font-size: 18px"
-              href="/aboutus"
-              >About Us</a
+              href="/room"
+              >TravelBuddies</a
             >
           </li>
           <li class="nav-item">
@@ -61,6 +61,15 @@
               >Forum</a
             >
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style="padding-left: 2em; font-size: 18px"
+              href="/aboutus"
+              >About Us</a
+            >
+          </li>
+          
         </ul>
       </div>
       <!-- Collapsible wrapper -->
