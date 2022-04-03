@@ -112,10 +112,10 @@ export default {
             let latest_data = data[data.length - 1]
             console.log(latest_data);
 
-            this.totalConfirmedCases = latest_data.Confirmed;
-            this.totalActiveCases = latest_data.Active;
-            this.totalDeaths = latest_data.Deaths;
-            this.totalRecovered = latest_data.Recovered;
+            this.totalConfirmedCases = latest_data.Confirmed.toLocaleString();
+            this.totalActiveCases = latest_data.Active.toLocaleString();
+            this.totalDeaths = latest_data.Deaths.toLocaleString();
+            this.totalRecovered = latest_data.Recovered.toLocaleString();
             data.forEach(d => {
                 let date = d.Date
                 let noOfCases = d.Confirmed

@@ -206,8 +206,8 @@ export default {
       let url = "https://api.covid19api.com/summary";
       let received = await axios.get(url);
       let data = received.data.Global;
-      this.totalCases = data.TotalConfirmed;
-      this.newCases = data.NewConfirmed;
+      this.totalCases = data.TotalConfirmed.toLocaleString();
+      this.newCases = data.NewConfirmed.toLocaleString();
       console.log(data.NewConfirmed);
     },
 
