@@ -59,7 +59,7 @@
             v-if="chat.user !== user.uid"
           >
             <div class="left-bubble">
-              <span class="msg-name">{{ chat.user }}</span>
+              <span class="msg-name">{{ chat.username }}</span>
               <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
