@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="left">
-      <div class="card" style="width: 280px">
+      <div class="card" style="width: 280px; margin: 20px;">
         <h5 class="card-header text-white">Groups You've Joined</h5>
         <div class="card-body">
           <div
