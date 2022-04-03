@@ -26,15 +26,12 @@
               ></a>
             </div>
           </div>
-          <button class="btn btn-dark float-right" @click="back()">
-            &laquo; Back
-          </button>
         </div>
       </div>
     </div>
     <div class="right">
       <div class="header">
-        <h2 style="padding:3px">
+        <h2 style="padding: 3px">
           {{ roomname }}
         </h2>
         <button
@@ -89,6 +86,9 @@ import {
   getFirestore,
   addDoc,
   collection,
+  updateDoc,
+  doc,
+  getDocs,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -102,18 +102,20 @@ export default {
       roomname: this.$route.params.roomname,
       data: { user: "", message: "" },
       chats: [],
-      user: null, 
-      groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
+      user: null,
+      groups: [],
     };
   },
 
+  
   mounted() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
+        console.log(this.user.uid);
       }
     });
+    
     onSnapshot(
       collection(db, "Rooms", this.roomname, "Messages"),
       (snapshot) => {
@@ -129,7 +131,9 @@ export default {
         this.chats = data;
       }
     );
+    this.display();
     this.data.message = "";
+    console.log("here", this.groups);
   },
 
   methods: {
@@ -142,13 +146,23 @@ export default {
       this.data.message = "";
     },
 
-    back() {
-      this.$router.push({ name: "Room" });
+    async display() {
+      let z = await getDocs(collection(db, "Users"));
+      z.forEach((doc) => {
+        if (auth.currentUser.uid == doc.data().userId) {
+          this.groups = doc.data().groups;
+          console.log("stored groups", this.groups);
+        }
+      });
     },
 
-    leaveGroup(roomname) {
+    async leaveGroup(roomname) {
       console.log(roomname); // remove group from user attribute
-      this.back()
+      this.groups.filter((x) => x.roomName != roomname)
+      await updateDoc(doc(db, "Users", this.user.uid), {
+        groups: this.groups,
+      });
+      this.$router.push({ name: "Room" });
     },
   },
 };

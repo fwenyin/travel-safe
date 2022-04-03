@@ -77,7 +77,7 @@
       <div v-for="item in items" :key="item.roomName">
         <div
           class="card text-start mx-auto mb-2 p-3"
-          v-if="groups.some((group) => group.roomName !== item.roomName)"
+          v-if="filter(item)"
           id="groups"
         >
           <div class="right">
@@ -92,7 +92,7 @@
             <button
               type="button"
               class="p-2 btn btn-dark col6 float-right"
-              @click="goToGroup(item.roomName)"
+              @click="goToGroup(item)"
             >
               Join Group
             </button>
@@ -111,6 +111,7 @@ import {
   setDoc,
   doc,
   getDocs,
+  updateDoc
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -136,30 +137,53 @@ export default {
       country: "Select Destination",
       items: [],
       user: null, 
-      groups: [{ roomName: "genting msia end dec", country: "Malaysia" }], //manually added mock data to test function
+      groups: [], 
     };
   },
 
   methods: {
+    filter(item) {
+      console.log("item", item.roomName)
+      console.log(this.groups.some((group) => group.roomName != item.roomName))
+      return this.groups.some((group) => group.roomName != item.roomName)
+    },
+
     async onSubmit() {
       await setDoc(doc(ref, this.roomName), {
         roomName: this.roomName,
         country: this.country,
+      });
+      this.groups.push({roomName: this.roomName, country: this.country});
+      await updateDoc(doc(db, "Users", this.user.uid), {
+        groups: this.groups
       });
       this.$router.push({ name: "Chat", params: { roomname: this.roomName } });
       this.roomName = "";
     },
 
     async display() {
-      let z = await getDocs(collection(db, "Rooms"));
+      let y = await getDocs(collection(db, "Rooms"));
+      let list = []
+      y.forEach((doc) => {
+        list.push(doc.data());
+      });
+      this.items = list;
+      console.log("stored list", this.items)
+      let z = await getDocs(collection(db, "Users"));
       z.forEach((doc) => {
-        console.log(doc.data());
-        this.items.push(doc.data());
+        if (auth.currentUser.uid == doc.data().userId) {
+          this.groups = doc.data().groups;
+          console.log("stored groups", this.groups);
+        }
       });
     },
 
-    goToGroup(group) {
+    async goToGroup(group) {
       // add group in user attribute
+      this.groups.push({roomName: group.roomName, country: group.country});
+      await updateDoc(doc(db, "Users", this.user.uid), {
+        groups: this.groups
+      });
       this.$router.push({ name: "Chat", params: { roomname: group } });
     },
   },
