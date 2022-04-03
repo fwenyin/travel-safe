@@ -319,12 +319,6 @@ export default {
     computed: {
         payableSum() { 
             let sum = 0
-            // let totalSum = 0
-
-            // for (var i = 0; i < this.travelDocs.length; i++) {
-            //     var tcost = this.travelDocs[i].tcost; 
-            //     totalSum += parseFloat(tcost);
-            // }
 
             if(this.checkedDocs.length == 0) {
                 return sum
@@ -371,13 +365,13 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .totalCost {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .riskAssLevel {
@@ -385,6 +379,8 @@ export default {
     display: flex;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .riskAssBox {
@@ -399,27 +395,23 @@ export default {
     padding-right: 15px;
     padding-bottom: 10px;
     padding-top: 10px;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .cost {
     float: right;
     margin-top: 30px;
-    font-size: 20px;
+    font-size: 22px;
     text-align: right;
     margin-right: 30px;
     width: 8%;
 }
 
-.docsCheckList {
-    margin-right: 10px;
-}
-
 .docsCheckListForm {
     background-color: #AEC4DA8F;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .totalCost {
@@ -427,7 +419,7 @@ export default {
     padding-left: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 22px;
+    font-size: 23px;
     font-weight: bolder;
     color: darkslategray;
     text-align: right;
@@ -442,8 +434,8 @@ export default {
     background-color: #AEC4DA8F;
     border-radius: 10px;
     margin-bottom: 5px;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 input[type=checkbox] {
@@ -477,7 +469,7 @@ input[type=checkbox]:checked + label {
 
 .docDesc {
     color: #5B5B5B;
-    font-size: 14px; 
+    font-size: 18px; 
     text-align: left;
     margin-left: 52px;
     margin-top: 0px;
@@ -498,7 +490,7 @@ input[type=checkbox]:checked + label {
     margin-top: 8px;
     margin-left: 10px;
     color: black;
-    font-size: 14px;
+    font-size: 18px;
     text-align: left;
 }
 
@@ -508,6 +500,7 @@ input[type=checkbox]:checked + label {
     border: none;
     margin-bottom: 0px;
     margin-top: 5px;
+    font-size: 18px;
 }
 
 .fa-circle-xmark {
@@ -538,6 +531,7 @@ input[type=checkbox]:checked + label {
     border: none;
     margin-bottom: 0px;
     margin-top: 0px;
+    font-size: 20px;
 }
 
 .btn-block:disabled {
@@ -562,6 +556,7 @@ input[type=checkbox]:checked + label {
     padding-left: 20px;
     padding-right: 20px;
     text-align: justify;
+    font-size: 18px;
 }
 
 .application {
@@ -592,7 +587,7 @@ h3 {
 p {
     margin-top: 10px;
     color: black;
-    font-size: 14px;
+    font-size: 18px;
     text-align: center;
 }
 
@@ -601,7 +596,7 @@ li {
     margin-right: 5px;
     margin-left: 5px;
     color: black;
-    font-size: 14px;
+    font-size: 18px;
 }    
 
 label,input{

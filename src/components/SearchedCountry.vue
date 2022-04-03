@@ -187,6 +187,8 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .header_image {
