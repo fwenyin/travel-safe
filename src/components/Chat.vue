@@ -50,7 +50,7 @@
           >
             <div class="right-bubble">
               <span class="msg-name">Me</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
@@ -60,7 +60,7 @@
           >
             <div class="left-bubble">
               <span class="msg-name">{{ chat.user }}</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
