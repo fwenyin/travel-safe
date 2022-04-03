@@ -54,26 +54,27 @@
             ></p>
           </div>
           <div id="iconDiv">
-            <div id="userIcon" class="rounded-circle" ></div>
-            <!-- <img
-              id="userIcon"
-              :src="require('@/assets/profilephoto.png')"
-              alt="home"
-            /> -->
+            <div id="userIcon" class="rounded-circle"></div>
           </div>
         </div>
       </div>
     </div>
     <div id="commentsDiv">
-      <CommentBlock
-        v-for="response in sortComments"
-        :sender="response.sender"
-        :commentDate="response.commentDate"
-        :commentBody="response.commentBody"
-        :key="response.key"
-      ></CommentBlock>
+      <div class="innerDiv">
+        <CommentBlock
+          v-for="response in sortComments"
+          :sender="response.sender"
+          :commentDate="response.commentDate"
+          :commentBody="response.commentBody"
+          :key="response.key"
+        ></CommentBlock>
+      </div>
     </div>
   </div>
+  <br />
+  <br />
+  <br />
+  <Footer />
 </template>
 
 <script>
@@ -82,6 +83,7 @@ import CommentBlock from "../components/forum/CommentBlock.vue";
 import ForumHeader from "../components/forum/ForumHeader.vue";
 import firebaseApp from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Footer from "../components/Footer.vue";
 
 import {
   getFirestore,
@@ -100,6 +102,7 @@ export default {
     NavBar,
     CommentBlock,
     ForumHeader,
+    Footer,
   },
   data() {
     return {
@@ -124,13 +127,11 @@ export default {
   },
   methods: {
     async fetchItems() {
-      console.log("This is fetch items");
       let posts = await getDocs(collection(db, String("Posts")));
       let item = {};
       posts.forEach((doc) => {
         item = doc.data();
         if (this.id == item.id) {
-          console.log("Post data is ", item);
           this.poster = item.user;
           this.country = item.country;
           this.title = item.title;
@@ -147,7 +148,6 @@ export default {
           }
         }
       });
-      console.log("Fetched responses are: ", this.responses);
     },
     pressLike() {
       const docRef = doc(db, "Posts", this.id + "");
@@ -189,14 +189,12 @@ export default {
         const form = document.getElementById("addComment");
         form.value = "";
         alert("Pushing to firestore ");
-        // location.reload();
       }
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
       let item = [];
       z.forEach((doc) => {
-        //console.log(auth.currentUser.uid == doc.data().userId);
         item = doc.data();
         console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
@@ -204,7 +202,6 @@ export default {
           this.userDetails = doc.data();
           this.displayImage(this.userDetails.picture);
           this.user = this.userDetails.userName;
-          // console.log(this.user);
         }
       });
     },
@@ -212,10 +209,9 @@ export default {
       let divLoc = document.getElementById("userIcon");
       let img = document.createElement("img");
       img.src = pictureURL;
-      img.style = "margin: 0px auto; width: 45px; height: 45px; border-radius: 50%;"
+      img.style =
+        "margin: 0px auto; width: 45px; height: 45px; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image");
-      console.log(this.user);
     },
   },
   watch: {
@@ -251,6 +247,9 @@ export default {
 </script>
 
 <style scoped>
+.footerDiv {
+  margin-top: 44vh;
+}
 #mainThread {
   position: relative;
   display: flex;
@@ -302,6 +301,7 @@ export default {
 }
 
 #forumAuthorAndDate {
+  margin-top: 3%;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
@@ -345,18 +345,17 @@ export default {
 
 #forumContent {
   position: relative;
-  margin-top: -1em;
   height: auto;
   width: 80%;
   left: 10%;
 }
 #userIcon {
   position: absolute;
-  size: 45px;
-  width: 45px;
-  height: 45px;
+  size: 35px;
+  width: 35px;
+  height: 35px;
   left: 3%;
-  bottom: 3%;
+  bottom: 23%;
   border-radius: 1000px;
 }
 
@@ -364,6 +363,7 @@ export default {
   position: relative;
   left: 10%;
   width: 80%;
+  margin-top: 3%;
   height: 2.5em;
   margin-bottom: 0.5em;
   background: #8caccb;
@@ -390,7 +390,7 @@ export default {
 }
 
 #commentsDiv {
-  position: absolute;
+  position: relative;
   left: 20%;
   width: 60%;
   height: fit-content;

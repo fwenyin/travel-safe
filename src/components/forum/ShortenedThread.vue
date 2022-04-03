@@ -6,7 +6,6 @@
     />
     <div class="topHalf">
       <div id="buttonsDiv">
-        <!-- <LikeButton @likelike="pressLike()" :pressLike="pressedLike" /> -->
         <p id="likeButton" class="fa fa-thumbs-up"></p>
         <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
         <p id="likeCounter" v-else>{{ likes }}</p>
@@ -40,11 +39,6 @@
 </template>
 
 <script>
-import firebaseApp from "../../firebase.js";
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
-
-const db = getFirestore(firebaseApp);
-
 export default {
   name: "ShortenedThread",
   data() {
@@ -63,21 +57,6 @@ export default {
     timestamp: String,
     country: String,
     likes: Number,
-  },
-
-  methods: {
-    pressLike() {
-      const docRef = doc(db, "Posts", this.id + "");
-      this.pressedLike = true;
-      if (!this.hasLiked) {
-        this.hasLiked = true;
-        this.updatedLikeCount = parseInt(this.likes) + 1;
-      } else {
-        this.hasLiked = false;
-        this.updatedLikeCount = parseInt(this.likes);
-      }
-      updateDoc(docRef, { likes: parseInt(this.updatedLikeCount) });
-    },
   },
 };
 </script>
@@ -113,7 +92,7 @@ export default {
 }
 
 #likeCounter {
-  margin: 10%;
+  margin: 2%;
   padding-right: 3%;
   font-style: normal;
   font-weight: 600;
@@ -133,12 +112,10 @@ export default {
 }
 
 #forumAuthorAndDate {
+  margin-top: 3%;
   font-weight: 400;
   font-size: 16px;
   color: #5b5b5b;
-}
-#forumTitle {
-  align-items: left;
 }
 
 #countryBox {
@@ -152,7 +129,7 @@ export default {
 #countryContainer {
   text-align: center;
   height: 60%;
-  width: 40%;
+  width: 48%;
   margin-left: 40%;
   background: #dda375;
   border-radius: 20px;
@@ -182,12 +159,12 @@ export default {
   width: 80%;
   height: 40%;
   left: 10%;
-  top: 35%;
+  top: 43%;
 }
 #viewFullPost {
   position: absolute;
   bottom: 5%;
-  right: 1%;
+  right: 4%;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
