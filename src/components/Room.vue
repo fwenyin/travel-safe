@@ -135,15 +135,18 @@ export default {
         "United Kingdom",
       ],
       country: "Select Destination",
-      items: [],
+      items: [], // all groups
       user: null,
-      groups: [],
+      groups: [], // groups user is in
     };
   },
 
   methods: {
     filter(item) {
       console.log("item", item.roomName);
+      if (this.groups.length == 0) {
+        return true
+      }
       console.log(this.groups.some((group) => group.roomName != item.roomName));
       return this.groups.some((group) => group.roomName != item.roomName);
     },

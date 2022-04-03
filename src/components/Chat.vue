@@ -138,6 +138,9 @@ export default {
 
   methods: {
     async onSubmit() {
+      if (this.data.message == "") {
+        return
+      }
       await addDoc(collection(db, "Rooms", this.roomname, "Messages"), {
         user: this.user.uid,
         message: this.data.message,
