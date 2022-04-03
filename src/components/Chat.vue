@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="left">
-      <div class="card" style="width: 280px">
+      <div class="card" style="width: 280px; margin: 20px;">
         <h5 class="card-header text-white">Groups You've Joined</h5>
         <div class="card-body">
           <div
@@ -50,7 +50,7 @@
           >
             <div class="right-bubble">
               <span class="msg-name">Me</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
@@ -59,8 +59,8 @@
             v-if="chat.user !== user.uid"
           >
             <div class="left-bubble">
-              <span class="msg-name">{{ chat.username }}</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
+              <span class="msg-name">{{ chat.user }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
