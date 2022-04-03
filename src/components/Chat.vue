@@ -59,7 +59,7 @@
             v-if="chat.user !== user.uid"
           >
             <div class="left-bubble">
-              <span class="msg-name">{{ chat.user }}</span>
+              <span class="msg-name">{{ chat.username }}</span>
               <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
@@ -104,6 +104,7 @@ export default {
       chats: [],
       user: null,
       groups: [],
+      userDetails: [],
     };
   },
 
@@ -132,12 +133,24 @@ export default {
       }
     );
     this.display();
+    this.getUsername();
     this.data.message = "";
     console.log("here", this.groups);
   },
 
   methods: {
+    async getUsername() {
+      let z = await getDocs(collection(db, "Users"));
+      z.forEach((doc) => {
+        //console.log(auth.currentUser.uid == doc.data().userId);
+        if (auth.currentUser.uid == doc.data().userId) {
+          this.userDetails = doc.data();
+          // console.log(this.userDetails.userName);
+        }
+      });
+    },
     async onSubmit() {
+
       if (this.data.message == "") {
         return
       }
@@ -145,8 +158,11 @@ export default {
         user: this.user.uid,
         message: this.data.message,
         sendDate: new Date().toISOString(),
+        username: this.userDetails.userName,
       });
+      console.log(this.userDetails.userName);
       this.data.message = "";
+
     },
 
     async display() {
