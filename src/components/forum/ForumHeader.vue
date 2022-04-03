@@ -15,7 +15,7 @@
   margin-bottom: 5%;
 }
 .headerImage {
-  width: 100%;
+  width: 100.2%;
 }
 .box {
   position: absolute;

@@ -1,6 +1,7 @@
 <template>
 <NavBar/>
 <News/>
+<br/> <br/> <br/>
 <Footer/>
 </template>
 

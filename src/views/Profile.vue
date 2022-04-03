@@ -1,8 +1,5 @@
 <template>
   <NavBar />
-  <br />
-  <br />
-  <br />
   <div class="container-xl px-4 mt-4">
     <h3>{{ userDetails.name }}'s Profile</h3>
     <hr class="mt-0 mb-4" />
@@ -63,7 +60,7 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary" href="/editprofile">
+              <a class="btn btn-primary btn-sm active" href="/editprofile">
                 Edit Profile Here
               </a>
             </form>
@@ -72,13 +69,13 @@
       </div>
     </div>
   </div>
-  <br />
-  <Footer/>
+  <br /> <br />
+  <Footer />
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import Footer from '../components/Footer.vue'
+import Footer from "../components/Footer.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "@/firebase.js";
 import { getDocs, getFirestore, collection } from "firebase/firestore";

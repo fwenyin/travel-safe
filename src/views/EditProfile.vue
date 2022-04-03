@@ -1,8 +1,5 @@
 <template>
   <NavBar />
-  <br />
-  <br />
-  <br />
   <div class="container-xl px-4 mt-4">
     <h3>Edit Your Profile Here</h3>
     <hr class="mt-0 mb-4" />
@@ -78,7 +75,7 @@
                   <input
                     class="form-control"
                     id="inputPhone"
-                    type="number"
+                    type="tel"
                     placeholder="Enter phone number here"
                     v-model="phone"
                     required
@@ -95,24 +92,27 @@
                     placeholder="Enter date of birth here"
                     v-model="DOB"
                     required
-                  >
+                  />
                 </div>
               </div>
+              <br />
               <!-- Save changes button-->
-              <a class="btn btn-primary" @click="submit()"> Save Details </a>
+              <a class="btn btn-danger btn-sm active" @click="submit()">
+                Save Details
+              </a>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <br/>
-  <Footer/>
+  <br /><br />
+  <Footer />
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import Footer from '../components/Footer.vue'
+import Footer from "../components/Footer.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebaseApp from "@/firebase.js";
 import {
