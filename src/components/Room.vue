@@ -111,7 +111,7 @@ import {
   setDoc,
   doc,
   getDocs,
-  updateDoc
+  updateDoc,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -136,26 +136,31 @@ export default {
       ],
       country: "Select Destination",
       items: [],
-      user: null, 
-      groups: [], 
+      user: null,
+      groups: [],
     };
   },
 
   methods: {
     filter(item) {
-      console.log("item", item.roomName)
-      console.log(this.groups.some((group) => group.roomName != item.roomName))
-      return this.groups.some((group) => group.roomName != item.roomName)
+      console.log("item", item.roomName);
+      console.log(this.groups.some((group) => group.roomName != item.roomName));
+      return this.groups.some((group) => group.roomName != item.roomName);
     },
 
     async onSubmit() {
+      if (this.items.some((x) => x.roomName == this.roomName)) { 
+        alert("Group name already exists. Please enter another group name!")
+        return;
+      }
+      
       await setDoc(doc(ref, this.roomName), {
         roomName: this.roomName,
         country: this.country,
       });
-      this.groups.push({roomName: this.roomName, country: this.country});
+      this.groups.push({ roomName: this.roomName, country: this.country });
       await updateDoc(doc(db, "Users", this.user.uid), {
-        groups: this.groups
+        groups: this.groups,
       });
       this.$router.push({ name: "Chat", params: { roomname: this.roomName } });
       this.roomName = "";
@@ -163,12 +168,12 @@ export default {
 
     async display() {
       let y = await getDocs(collection(db, "Rooms"));
-      let list = []
+      let list = [];
       y.forEach((doc) => {
         list.push(doc.data());
       });
       this.items = list;
-      console.log("stored list", this.items)
+      console.log("stored list", this.items);
       let z = await getDocs(collection(db, "Users"));
       z.forEach((doc) => {
         if (auth.currentUser.uid == doc.data().userId) {
@@ -179,12 +184,15 @@ export default {
     },
 
     async goToGroup(group) {
-      // add group in user attribute
-      this.groups.push({roomName: group.roomName, country: group.country});
-      await updateDoc(doc(db, "Users", this.user.uid), {
-        groups: this.groups
-      });
-      this.$router.push({ name: "Chat", params: { roomname: group } });
+      if (this.groups.some((x) => x.roomName == group.roomName)) {
+        this.$router.push({ name: "Chat", params: { roomname: group.roomName } });
+      } else {
+        this.groups.push({ roomName: group.roomName, country: group.country });
+        await updateDoc(doc(db, "Users", this.user.uid), {
+          groups: this.groups,
+        });
+      }
+      this.$router.push({ name: "Chat", params: { roomname: group.roomName } });
     },
   },
 

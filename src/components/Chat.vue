@@ -60,7 +60,7 @@
           >
             <div class="left-bubble">
               <span class="msg-name">{{ chat.user }}</span>
-              <span class="msg-date">{{ chat.sendDate }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(0, 10) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
@@ -158,7 +158,8 @@ export default {
 
     async leaveGroup(roomname) {
       console.log(roomname); // remove group from user attribute
-      this.groups.filter((x) => x.roomName != roomname)
+      this.groups = this.groups.filter(x => x.roomName != roomname)
+      console.log(this.groups)
       await updateDoc(doc(db, "Users", this.user.uid), {
         groups: this.groups,
       });
@@ -172,7 +173,7 @@ export default {
 .header {
   margin: 20px;
   padding: 10px;
-  background-color: #8caccb;
+  background-color: #d0d6e8;
   position: relative;
 }
 
@@ -313,7 +314,7 @@ export default {
   width: 63%;
   padding: 10px;
   height: 6%;
-  background: #aec4da;
+  background: #d0d6e8;
   border: 2px solid #aec4da;
   box-sizing: border-box;
   border-radius: 10px;
