@@ -152,12 +152,54 @@ export default {
       picture: "",
       userId: "",
       userName: "",
+      validUsername: false,
+      validFullname: false,
+      validEmail: false,
+      validPhone: false,
+      validBirthday: false,
     };
   },
 
   components: {
     NavBar,
     Footer,
+  },
+  watch: {
+    userName: function (val) {
+      if (val === "") {
+        this.validUsername = false;
+      } else {
+        this.validUsername = true;
+      }
+    },
+    name: function (val) {
+      if (val === "") {
+        this.validFullname = false;
+      } else {
+        this.validFullname = true;
+      }
+    },
+    email: function (val) {
+      if (val === "") {
+        this.validEmail = false;
+      } else {
+        this.validEmail = true;
+      }
+    },
+    phone: function (val) {
+      if (val === "") {
+        this.validPhone = false;
+      } else {
+        this.validPhone = true;
+      }
+    },
+    DOB: function (val) {
+      if (val === "") {
+        this.validBirthday = false;
+      } else {
+        this.validBirthday = true;
+      }
+    },
   },
 
   methods: {
@@ -190,18 +232,27 @@ export default {
     },
 
     async submit() {
-      console.log("Submitting new user data");
-      var userDetails = {
-        DOB: this.DOB,
-        email: this.email,
-        name: this.name,
-        phone: this.phone,
-        userName: this.userName,
-      };
-
-      await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
-      console.log("User details updated");
-      alert("Your Profile Is Successfully Updated");
+      if (
+        !this.validUsername ||
+        !this.validFullname ||
+        !this.validEmail ||
+        !this.validPhone ||
+        !this.validBirthday
+      ) {
+        alert("Please fill in all the necessary fields");
+      } else {
+        console.log("Submitting new user data");
+        var userDetails = {
+          DOB: this.DOB,
+          email: this.email,
+          name: this.name,
+          phone: this.phone,
+          userName: this.userName,
+        };
+        await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
+        console.log("User details updated");
+        alert("Your Profile Is Successfully Updated");
+      }
     },
   },
 
@@ -213,6 +264,8 @@ export default {
     });
     this.display();
   },
+
+  
 };
 </script>
 
