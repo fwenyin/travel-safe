@@ -1,16 +1,18 @@
 <template>
   <div class="top_header">
     <div class="header">
-      <h2 class="header_text">
-          <br >
-          ABOUT US<br >
-          <br >
-      </h2>
+      <div
+        class="card text-white bg-black mb-5 justify-content-center"
+        style="height: 70px; width: 500px; position: absolute; margin-top: 14%"
+      >
+        <p class="headerText">About Us</p>
+      </div>
       <img class="header_image" :src="require('@/assets/aboutus.png')">
     </div>
   </div>
 
   <div class="body">
+    <br>
     <p> We are a one-stop portal for those in Singapore intending to travel to other countries amidst the COVID-19 pandemic. We provide updated protocols and statistics to help you plan your next travel. </p>
     <b> Travel safe for yourself and your loved ones. </b>
   </div>
@@ -23,10 +25,23 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5%;
+}
 
 .header_image {
   width: 100%;
-  height: 400px;
+  height: 230px; /* 400px */
+}
+
+.headerText {
+  font-size: 30px;
+  margin-top: 3%;
+  text-align: center;
 }
 
 .header_text {
@@ -53,6 +68,7 @@ export default {
   text-align: center;
   padding-left: 15%;
   padding-right: 15%;
+  height: 280px;
 }
 
 </style>
