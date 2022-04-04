@@ -2,18 +2,16 @@
   <div class="top_header">
     <div class="header">
       <h2 class="header_text">
-          <hr style="width:25%; font-weight: bold; align:center; margin:auto;"/>
-          <br />
-          ABOUT US<br />
-          <br />
-          <hr style="width:25%; font-weight: bold; align:center; margin:auto;" />
+          <br >
+          ABOUT US<br >
+          <br >
       </h2>
       <img class="header_image" :src="require('@/assets/aboutus.png')">
     </div>
   </div>
 
   <div class="body">
-    <p> We are a one-stop portal for those in Singapore intending to travel to other countries amidst the COVID-19 pandemic. By presenting the COVID-19 statistics and travel advisories of other countries, we hope that this portal can help others make better informed travel decisions. </p>
+    <p> We are a one-stop portal for those in Singapore intending to travel to other countries amidst the COVID-19 pandemic. We provide updated protocols and statistics to help you plan your next travel. </p>
     <b> Travel safe for yourself and your loved ones. </b>
   </div>
 </template>

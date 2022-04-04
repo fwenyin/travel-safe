@@ -1,5 +1,3 @@
-<!-- TO DO NEXT: ADD STRINGENCY INDEX + FIX THE CHART PROBLEM -->
-
 <template>
     <div class="top_header">
         <div>
@@ -37,31 +35,24 @@
                 </div>
                 <div class="box">
                     <div class="content">
-                        <h1 style="text-align: center;">{{ this.totalRecovered }}</h1>
-                        <h5>TOTAL RECOVERED</h5>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="content">
                         <h1 style="text-align: center;"> {{ this.stringencyIdx }} </h1>
                         <h5>STRINGENCY INDEX</h5>
                     </div>
                 </div>
+                
             </div>
 
             <div class="header">
-                New COVID-19 Cases Over Time
+                Total COVID-19 Cases Over Time
             </div>
             <br>
             <div class="final-row"> 
-                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="New cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
+                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
                 <br>
-                <p style="color: grey; padding-left:20px;"> Each day shows new cases reported since the previous day 
+                <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows new cases reported since the previous day 
                     <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </a>
                 </p>
             </div>
-            <!-- <div id="loading" v-else>
-            </div> -->
       </div>
   </div>
 </template>
@@ -115,7 +106,7 @@ export default {
             this.totalConfirmedCases = latest_data.Confirmed.toLocaleString();
             this.totalActiveCases = latest_data.Active.toLocaleString();
             this.totalDeaths = latest_data.Deaths.toLocaleString();
-            this.totalRecovered = latest_data.Recovered.toLocaleString();
+            // this.totalRecovered = latest_data.Recovered.toLocaleString();
             data.forEach(d => {
                 let date = d.Date
                 let noOfCases = d.Confirmed
@@ -209,7 +200,7 @@ export default {
 
 .box {
     position: relative;
-    width: 18%;
+    width: 22%;
     height: calc(200px - 30px);
     background: #FFFFFF;
     margin: 1%;
