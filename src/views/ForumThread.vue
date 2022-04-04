@@ -174,7 +174,7 @@ export default {
         var newResponse = {
           sender: this.user,
           commentBody: this.commentBody,
-          commentDate: new Date().toDateString(),
+          commentDate: new Date().toString().slice(0, 24),
         };
         this.responses.push(newResponse);
         let responses = this.responses;

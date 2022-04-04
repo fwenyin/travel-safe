@@ -89,11 +89,11 @@ export default {
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
-      let item = [];
+      // let item = [];
       z.forEach((doc) => {
         //console.log(auth.currentUser.uid == doc.data().userId);
-        item = doc.data();
-        console.log(item);
+        // item = doc.data();
+        // console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
           // console.log("found current user");
           this.userDetails = doc.data();
@@ -124,7 +124,7 @@ export default {
           user: this.userDetails.userName + "",
           title: this.title,
           body: this.body,
-          timestamp: new Date().toDateString(),
+          timestamp: new Date().toString().slice(0, 24),
           likes: 0,
           country: this.country + "",
           comments: {
