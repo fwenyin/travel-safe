@@ -3,7 +3,7 @@
     <img class="headerImage" :src="require('@/assets/rooms.png')" alt="home" />
     <div
       class="card text-white bg-black mb-5 justify-content-center"
-      style="height: 70px; width: 400px; position: absolute; margin-top: 5%"
+      id="headerContainer"
     >
       <p class="headerText">Travel Buddies</p>
     </div>
@@ -143,20 +143,20 @@ export default {
 
   methods: {
     filter(item) {
-      console.log("item", item.roomName);
       if (this.groups.length == 0) {
-        return true
+        return true;
+      } else if (this.groups.some((group) => group.roomName == item.roomName)) {
+        return false;
       }
-      console.log(this.groups.some((group) => group.roomName != item.roomName));
-      return this.groups.some((group) => group.roomName != item.roomName);
+      return true;
     },
 
     async onSubmit() {
-      if (this.items.some((x) => x.roomName == this.roomName)) { 
-        alert("Group name already exists. Please enter another group name!")
+      if (this.items.some((x) => x.roomName == this.roomName)) {
+        alert("Group name already exists. Please enter another group name!");
         return;
       }
-      
+
       await setDoc(doc(ref, this.roomName), {
         roomName: this.roomName,
         country: this.country,
@@ -188,7 +188,10 @@ export default {
 
     async goToGroup(group) {
       if (this.groups.some((x) => x.roomName == group.roomName)) {
-        this.$router.push({ name: "Chat", params: { roomname: group.roomName } });
+        this.$router.push({
+          name: "Chat",
+          params: { roomname: group.roomName },
+        });
       } else {
         this.groups.push({ roomName: group.roomName, country: group.country });
         await updateDoc(doc(db, "Users", this.user.uid), {
@@ -216,12 +219,12 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 3%;
+  margin-bottom: 5%;
 }
 
 .headerText {
   font-size: 30px;
-  margin-top: 4%;
+  margin-top: 3%;
   text-align: center;
 }
 
@@ -275,5 +278,12 @@ export default {
   width: 25%;
   background: #dda375;
   border-radius: 50px;
+}
+
+#headerContainer {
+  height: 70px;
+  width: 400px;
+  position: absolute;
+  margin-top: 11%;
 }
 </style>
