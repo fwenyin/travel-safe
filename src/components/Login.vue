@@ -22,7 +22,7 @@
           <h5
             style="font-weight: bold; font-family: 'Nunito'; text-align: center"
           >
-            ONE-STOP PORTAL FOR TRAVELLING AMIDST COVID-19
+            ONE-STOP PORTAL FOR TRAVEL SAFETY
           </h5>
           <br />
           <br />
@@ -32,10 +32,6 @@
             </h3>
             <div id="firebaseui-auth-container"></div>
             <br />
-            <h5 style="font-family: 'Nunito'">
-              Don't have an account? <br />Click one of the above options to
-              sign up!
-            </h5>
           </div>
         </div>
       </div>
@@ -92,7 +88,7 @@ export default {
   box-shadow: rgba(74, 79, 97, 0.25) 0px 13px 27px -5px,
     rgba(74, 79, 97, 0.3) 0px 8px 16px -8px;
   /* background-color:#c9d1dd; */
-  padding: 20px 35px 35px 35px;
+  padding: 20px 35px 5px 35px;
   width: 100%;
   height: 100%;
   text-align: center;
