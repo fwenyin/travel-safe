@@ -5,6 +5,26 @@
     <div class="body">
       <div class="left">
         <div class="card text-white" style="width: 280px">
+          <h6 class="card-header">Filter</h6>
+          <div class="card-body text-center">
+            <button
+              class="btn btn-secondary dropdown-toggle text-black"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="margin-top: 10px; margin-bottom: 10px"
+            >
+              {{ selected }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li v-for="option in countries" :key="option">
+                <a class="dropdown-item" @click="selected = option">{{
+                  option
+                }}</a>
+              </li>
+            </ul>
+          </div>
           <h6 class="card-header">Sort Posts</h6>
           <div class="card-body text-black">
             <input type="radio" id="newest" value="newest" v-model="sortBy" />
@@ -79,6 +99,18 @@ export default {
   data() {
     return {
       posts: [],
+      selected: "Select destination",
+      filteredPosts: [],
+      countries: [
+        "All",
+        "Australia",
+        "Denmark",
+        "Finland",
+        "Malaysia",
+        "South Korea",
+        "United States",
+        "United Kingdom",
+      ],
       sortBy: "",
       updateLikeCount: 0,
     };
@@ -104,15 +136,24 @@ export default {
     change() {
       this.updateLikeCount += 1;
     },
+    filterPosts() {
+      let z = this.posts;
+      if (this.selected != "Select destination" && this.selected != "All") {
+        z = z.filter((post) => post.country === this.selected);
+      }
+      this.filteredPosts = z;
+    },
   },
   watch: {
     $route(to, from) {
       this.id = from.params.id;
     },
   },
+
   computed: {
     sortPosts() {
-      let z = this.posts;
+      this.filterPosts();
+      let z = this.filteredPosts;
       if (this.sortBy === "oldest") {
         return z.sort(function (a, b) {
           return Date.parse(a.timestamp) - Date.parse(b.timestamp);
@@ -152,6 +193,15 @@ export default {
   flex: 3;
   width: 85%;
   margin-right: 5%;
+}
+.dropdown-menu {
+  width: 200px;
+  background-color: #aec4da !important;
+}
+
+.btn-secondary {
+  width: 200px;
+  background-color: #8caccb !important;
 }
 
 .card-header {

@@ -30,7 +30,7 @@
       <select
         id="countries"
         name="countries"
-        class="btn btn-secondary dropdown-toggle"
+        class="btn btn-secondary dropdown-toggle text-black"
         @change="saveCountry($event)"
       >
         <option value="None">None</option>
@@ -95,7 +95,7 @@ export default {
         item = doc.data();
         console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
-          console.log("found current user");
+          // console.log("found current user");
           this.userDetails = doc.data();
           this.displayImage(this.userDetails.picture);
           this.user = this.userDetails.userName;
@@ -110,8 +110,8 @@ export default {
       img.style =
         "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image");
-      console.log(this.user);
+      // console.log("rendering image");
+      // console.log(this.user);
     },
 
     async submit() {
@@ -225,13 +225,14 @@ export default {
 }
 .btn-secondary {
   margin-left: 3%;
+
   bottom: 72%;
   width: 30%;
-  background-color: #8caccb;
+  background-color: #8caccb !important;
 }
 .dropdown-menu {
   width: 300px;
-  background-color: #aec4da;
+  background-color: #aec4da !important;
 }
 
 #forumContent {
