@@ -50,7 +50,7 @@
               class="nav-link"
               style="padding-left: 2em; font-size: 18px"
               href="/room"
-              >TravelBuddies</a
+              >Travel Buddies</a
             >
           </li>
           <li class="nav-item">
