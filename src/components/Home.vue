@@ -117,6 +117,13 @@
       </div>
     </div>
   </div>
+    <button type="button"
+            class="btn btn-link"
+            @click= "this.$router.push({ path: '/news'})"
+            style="float:right; margin-right:17%">
+    View More
+    </button>
+  <br><br>
 </template>
 
 <script>
