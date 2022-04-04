@@ -11,7 +11,7 @@
         :src="require('@/assets/profilephoto.png')"
         alt="home"
       /> -->
-      <div id="userIcon" class="rounded-circle" ></div>
+      <div id="userIcon" class="rounded-circle"></div>
     </div>
     <div id="titleContainer">
       <input
@@ -27,7 +27,12 @@
     </div>
     <div id="selectCountry">
       <label for="countries">Select country: </label>
-      <select id="countries" name="countries" @change="saveCountry($event)">
+      <select
+        id="countries"
+        name="countries"
+        class="btn btn-secondary dropdown-toggle"
+        @change="saveCountry($event)"
+      >
         <option value="None">None</option>
         <option value="Malaysia">Malaysia</option>
         <option value="Finland">Finland</option>
@@ -37,7 +42,13 @@
         <option value="South Korea">South Korea</option>
         <option value="United Kingdom">United Kingdom</option>
       </select>
-      <input id="submitButton" type="submit" @click="submit()" />
+
+      <input
+        id="submitButton"
+        class="p-0 btn btn-primary col6"
+        type="submit"
+        @click="submit()"
+      />
     </div>
   </div>
 </template>
@@ -96,7 +107,8 @@ export default {
       let divLoc = document.getElementById("userIcon");
       let img = document.createElement("img");
       img.src = pictureURL;
-      img.style = "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;"
+      img.style =
+        "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
       divLoc.append(img);
       console.log("rendering image");
       console.log(this.user);
@@ -106,7 +118,7 @@ export default {
       if (!this.validTitle || !this.validBody || !this.validCountry) {
         alert("Please fill in the necessary fields");
       } else {
-        var updatedCounter = parseInt(this.postCounter) + 1;      
+        var updatedCounter = parseInt(this.postCounter) + 1;
         var post = {
           id: updatedCounter,
           user: this.userDetails.userName + "",
@@ -174,7 +186,7 @@ export default {
   position: relative;
   margin-top: 2em;
   width: 60vw;
-  height: 30vh;
+  height: 35vh;
 
   background: #aec4da;
   border: 2px solid #aec4da;
@@ -188,7 +200,7 @@ export default {
   width: 50px;
   height: 50px;
   left: 5%;
-  top: 9%;
+  top: 12%;
   border-radius: 1000px;
 }
 
@@ -203,6 +215,25 @@ export default {
   box-sizing: border-box;
   border-radius: 10px;
 }
+.btn-primary {
+  position: relative;
+  margin-bottom: 5%;
+  background-color: #2f5ba3;
+  padding-top: 25%;
+  height: 35%;
+  width: 15%;
+}
+.btn-secondary {
+  margin-left: 3%;
+  bottom: 72%;
+  width: 30%;
+  background-color: #8caccb;
+}
+.dropdown-menu {
+  width: 300px;
+  background-color: #aec4da;
+}
+
 #forumContent {
   position: absolute;
   width: 70%;
@@ -231,5 +262,6 @@ export default {
 #submitButton {
   position: absolute;
   left: 115%;
+  bottom: 42%;
 }
 </style>

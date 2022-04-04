@@ -319,7 +319,7 @@ export default {
 #countryContainer {
   text-align: center;
   height: 60%;
-  width: 40%;
+  width: 48%;
   margin-left: 40%;
   background: #dda375;
   border-radius: 20px;
