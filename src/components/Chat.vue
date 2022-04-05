@@ -27,6 +27,9 @@
             </div>
           </div>
         </div>
+        <button class="btn btn-dark float-right" @click="back()">
+            &laquo; Back
+          </button>
       </div>
     </div>
     <div class="right">
@@ -184,6 +187,10 @@ export default {
       });
       this.$router.push({ name: "Room" });
     },
+
+    back() {
+      this.$router.push({ name: "Room" });
+    }
   },
 };
 </script>
