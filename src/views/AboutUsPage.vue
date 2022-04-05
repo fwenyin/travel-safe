@@ -1,7 +1,6 @@
 <template>
 <NavBar/>
 <AboutUs/>
-<br> <br> <br>
 <Footer/>
 </template>
 

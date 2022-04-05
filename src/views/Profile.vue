@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <div class="container-xl px-4 mt-4">
+  <div id="body" class="container-xl px-4 mt-4">
     <h3>{{ userDetails.name }}'s Profile</h3>
     <hr class="mt-0 mb-4" />
     <div class="row">
@@ -69,7 +69,6 @@
       </div>
     </div>
   </div>
-  <br /> <br />
   <Footer />
 </template>
 
@@ -151,4 +150,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+</style>

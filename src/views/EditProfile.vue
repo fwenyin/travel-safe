@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <div class="container-xl px-4 mt-4">
+  <div id="body" class="container-xl px-4 mt-4">
     <h3>Edit Your Profile Here</h3>
     <hr class="mt-0 mb-4" />
     <div class="row">
@@ -106,7 +106,6 @@
       </div>
     </div>
   </div>
-  <br /><br />
   <Footer />
 </template>
 
@@ -253,6 +252,7 @@ export default {
         console.log("User details updated");
         alert("Your Profile Is Successfully Updated");
       }
+      location.reload();
     },
   },
 
@@ -263,10 +263,15 @@ export default {
       }
     });
     this.display();
-  },
-
-  
+  },  
 };
 </script>
 
-<style></style>
+<style>
+#body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+</style>

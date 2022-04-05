@@ -1,24 +1,25 @@
 <template>
   <!-- Remove the container if you want to extend the Footer to full width. -->
-  <div class=" my-0">
+  <div class="my-0">
     <footer class="text-center text-lg-start" style="background-color: #8caccb">
-      <div class=" d-flex justify-content-center py-0">
-        <p style="text-align: center; padding-top: 0.7em; padding-bottom: -2em">Contact Us:</p>
+      <div class="d-flex justify-content-center py-0">
+        <p style="text-align: center; padding-top: 0.7em; padding-bottom: -2em">
+          Contact Us:
+        </p>
         <a
-        class="btn btn-link btn-floating btn-lg text-dark mx-0"
-        href="https://github.com/fwenyin/travel-safe"
-        role="button"
-        data-mdb-ripple-color="dark"
-        ><i class="fab fa-github"></i
-      ></a>
-      <a
-        class="btn btn-link btn-floating btn-lg text-dark mx-0"
-        href="mailto:travelsafe3103@gmail.com"
-        role="button"
-        data-mdb-ripple-color="dark"
-        ><i class="fa fa-envelope"></i
-      ></a>
-
+          class="btn btn-link btn-floating btn-lg text-dark mx-0"
+          href="https://github.com/fwenyin/travel-safe"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark mx-0"
+          href="mailto:travelsafe3103@gmail.com"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fa fa-envelope"></i
+        ></a>
       </div>
 
       <!-- Copyright -->
@@ -42,9 +43,4 @@ export default {
 </script>
 
 <style>
-/* .btn-lg {
-  width: 2em;
-  height: 2em;
-  align-items: center;
-} */
 </style>

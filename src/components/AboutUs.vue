@@ -68,7 +68,10 @@ export default {
   text-align: center;
   padding-left: 15%;
   padding-right: 15%;
-  height: 280px;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  margin: 0;
 }
 
 </style>
