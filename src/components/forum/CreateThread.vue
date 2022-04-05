@@ -138,7 +138,6 @@ export default {
         };
         await setDoc(doc(db, "Posts", updatedCounter + ""), post);
         this.postCounter = updatedCounter + "";
-        alert("Pushing to firestore ");
         location.reload();
       }
     },

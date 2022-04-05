@@ -186,7 +186,6 @@ export default {
         });
         const form = document.getElementById("addComment");
         form.value = "";
-        alert("Pushing to firestore ");
       }
     },
     async display() {
