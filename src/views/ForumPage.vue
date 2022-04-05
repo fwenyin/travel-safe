@@ -44,7 +44,7 @@
               v-model="sortBy"
             />
             <label for="mostLikes" style="margin-left: 12px; padding-top: 20px"
-              >Most Likes</label
+              >Upvotes (descending)</label
             >
             <br />
             <input
@@ -54,7 +54,7 @@
               v-model="sortBy"
             />
             <label for="leastLikes" style="margin-left: 12px; padding-top: 25px"
-              >Least Likes</label
+              >Upvotes (ascending)</label
             >
           </div>
         </div>

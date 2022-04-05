@@ -3,7 +3,7 @@
     <div class="header">
       <div
         class="card text-white bg-black mb-5 justify-content-center"
-        style="height: 70px; width: 500px; position: absolute; margin-top: 14%"
+        style="height: 70px; width: 400px; position: absolute; margin-top: 14%"
       >
         <p class="headerText">About Us</p>
       </div>
@@ -63,7 +63,7 @@ export default {
   font-family: 'Nunito';
   font-style: normal;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 41px;
   text-align: center;
   padding-left: 15%;

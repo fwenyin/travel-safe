@@ -54,7 +54,7 @@
         />
       </div>
       <div id="right">
-        <h2><b>At a Glance</b></h2>
+        <h2><b>Global COVID-19 Statistics</b></h2>
         <hr style="width: 40%" />
         <br />
         <br />
@@ -240,10 +240,6 @@ export default {
 
 * {
   font-family: "Nunito", sans-serif;
-}
-
-p {
-  font-size: 16px;
 }
 
 hr {
