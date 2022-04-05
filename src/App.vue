@@ -56,17 +56,13 @@ export default {
                 DOB: DOB,
                 groups: groups,
               });
+              this.$router.push({ name: "EditProfile" });
               console.log(docRef);
             } catch (error) {
               console.error("Error adding user into docs", error);
             }
           }
         });
-
-        // console.log(uid);
-        // console.log(email);
-        // console.log(name);
-        // console.log(picture);
       }
     });
   },
