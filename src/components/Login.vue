@@ -62,7 +62,9 @@ export default {
 
     var uiConfig = {
       signInSuccessUrl: "/home",
-      signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     };
     ui.start("#firebaseui-auth-container", uiConfig);
   },

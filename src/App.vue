@@ -33,11 +33,16 @@ export default {
         const uid = user.uid;
         const email = user.email;
         const name = user.displayName;
-        const picture = user.photoURL;
         const userName = "username";
         const phone = "-";
         const DOB = "-";
         const groups = [];
+        if (user.photoURL === null) {
+          var picture =
+            "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png";
+        } else {
+          picture = user.photoURL;
+        }
 
         console.log("check if user is already in data base");
         getDoc(doc(db, "Users", user.uid)).then((docSnap) => {
@@ -56,6 +61,7 @@ export default {
                 DOB: DOB,
                 groups: groups,
               });
+              // console.log("pictureURL", user.photoURL);
               this.$router.push({ name: "EditProfile" });
               console.log(docRef);
             } catch (error) {
@@ -70,10 +76,10 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 #app {
-  font-family: 'Nunito', Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nunito", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

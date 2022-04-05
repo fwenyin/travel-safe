@@ -142,11 +142,11 @@ export default {
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
-      let item = [];
+      // let item = [];
       z.forEach((doc) => {
         //console.log(auth.currentUser.uid == doc.data().userId);
-        item = doc.data();
-        console.log(item);
+        // item = doc.data();
+        // console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
           console.log("found current user");
           this.userDetails = doc.data();
@@ -161,7 +161,7 @@ export default {
       img.style =
         "margin: 0px auto; width: 25px; height: 25px; border-radius: 50%;";
       divLoc.append(img);
-      console.log("rendering image");
+      // console.log("rendering image");
     },
   },
 

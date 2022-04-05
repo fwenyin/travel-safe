@@ -82,7 +82,7 @@ import { getDocs, getFirestore, collection } from "firebase/firestore";
 
 const db = getFirestore(firebaseApp);
 const auth = getAuth();
-console.log("in Profile");
+// console.log("in Profile");
 
 export default {
   name: "Profile",

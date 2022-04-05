@@ -130,7 +130,7 @@ import {
 
 const db = getFirestore(firebaseApp);
 const auth = getAuth();
-console.log("in EditProfile");
+// console.log("in EditProfile");
 
 // Create a root reference
 // const storage = getStorage();
