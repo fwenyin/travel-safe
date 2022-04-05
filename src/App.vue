@@ -97,4 +97,9 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+p {
+  font-size: 17px;
+}
+
 </style>
