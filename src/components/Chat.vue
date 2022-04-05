@@ -50,7 +50,7 @@
           >
             <div class="right-bubble">
               <span class="msg-name">Me</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(4, 24) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
@@ -60,7 +60,7 @@
           >
             <div class="left-bubble">
               <span class="msg-name">{{ chat.username }}</span>
-              <span class="msg-date">{{ chat.sendDate.slice(0, 10) + ' ' + chat.sendDate.slice(11, 19) }}</span>
+              <span class="msg-date">{{ chat.sendDate.slice(4, 24) }}</span>
               <p text-wrap>{{ chat.message }}</p>
             </div>
           </div>
@@ -157,7 +157,7 @@ export default {
       await addDoc(collection(db, "Rooms", this.roomname, "Messages"), {
         user: this.user.uid,
         message: this.data.message,
-        sendDate: new Date().toISOString(),
+        sendDate: new Date().toString(),
         username: this.userDetails.userName,
       });
       console.log(this.userDetails.userName);

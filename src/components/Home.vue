@@ -182,10 +182,9 @@ export default {
       });
     },
 
-    // covid19 API data accurate to one day before current day
     getDate() {
       let currentDate = new Date();
-      currentDate.setDate(currentDate.getDate() - 2);
+      currentDate.setDate(currentDate.getDate() - 3);
       return currentDate.toISOString().slice(0, 10);
     },
 
