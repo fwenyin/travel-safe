@@ -9,6 +9,8 @@
         <p id="likeButton" class="fa fa-thumbs-up"></p>
         <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
         <p id="likeCounter" v-else>{{ likes }}</p>
+        <p id="commentButton" class="fa fa-comment"></p>
+        <p id="commentCounter">{{ commentCount }}</p>
       </div>
 
       <div id="forumHeader">
@@ -57,6 +59,7 @@ export default {
     timestamp: String,
     country: String,
     likes: Number,
+    commentCount: Number,
   },
 };
 </script>
@@ -69,8 +72,7 @@ export default {
   flex-direction: column;
   margin-top: 2em;
   width: 60vw;
-  height: 30vh;
-
+  height: 32vh;
   background: #aec4da;
   border: 2px solid #aec4da;
   box-sizing: border-box;
@@ -91,23 +93,24 @@ export default {
   margin-left: 40%;
 }
 
-#likeCounter {
+#likeCounter,
+#commentCounter {
   margin: 2%;
   padding-right: 3%;
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
-  line-height: 30px;
   text-align: center;
   color: #5b5b5b;
 }
 
+#commentButton {
+  margin-top: 30%;
+  margin-left: 40%;
+}
+
 #forumHeader {
-  font-family: "Nunito";
-  font-style: normal;
   font-weight: 700;
   font-size: 22px;
-  line-height: 30px;
   color: black;
 }
 
@@ -137,19 +140,13 @@ export default {
 
 #countryText {
   padding-top: 5%;
-  font-family: "Nunito";
-  font-weight: 400;
   font-size: 22px;
   color: #ffffff;
 }
 .bottomHalf {
   display: flex;
   flex-direction: column;
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 400;
   font-size: 20px;
-  line-height: 27px;
   color: black;
 }
 
@@ -157,7 +154,7 @@ export default {
   position: absolute;
   overflow: hidden;
   width: 80%;
-  height: 40%;
+  height: 45%;
   left: 10%;
   top: 43%;
 }
@@ -165,11 +162,7 @@ export default {
   position: absolute;
   bottom: 5%;
   right: 4%;
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 400;
   font-size: 16px;
-  line-height: 22px;
   text-decoration-line: underline;
   color: #5b5b5b;
 }

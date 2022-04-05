@@ -69,7 +69,6 @@
               >About Us</a
             >
           </li>
-          
         </ul>
       </div>
       <!-- Collapsible wrapper -->
@@ -138,8 +137,8 @@ export default {
       const auth = getAuth();
       const user = auth.currentUser;
       signOut(auth, user);
-      console.log(user.displayName);
-      console.log("user has been signed out");
+      // console.log(user.displayName);
+      // console.log("user has been signed out");
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));

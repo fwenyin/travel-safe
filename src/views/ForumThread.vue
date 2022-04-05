@@ -9,17 +9,15 @@
       />
       <div class="topHalf">
         <div id="buttonsDiv">
-          <p
-            id="likeButton"
-            class="fa fa-thumbs-up"
-            style="color: #808080"
-            @click="pressLike()"
-          ></p>
+          <p id="likeButton" class="fa fa-thumbs-up" @click="pressLike()"></p>
           <p id="likeCounter" v-if="pressedLike">{{ updatedLikeCount }}</p>
           <p id="likeCounter" v-else>{{ likes }}</p>
+
+          <p id="commentButton" class="fa fa-comment"></p>
+          <p id="commentCounter">{{ commentCount }}</p>
         </div>
 
-        <div id="forumHeader">
+        <div id="forumHeader" class="normalText">
           <div id="authorAndDate">
             <p id="forumAuthorAndDate" class="displayText">
               Posted by @{{ poster }} - {{ timestamp }}
@@ -157,7 +155,7 @@ export default {
         this.hasLiked = true;
         this.updatedLikeCount = parseInt(this.likes) + 1;
       } else {
-        document.getElementById("likeButton").style.color = "#808080";
+        document.getElementById("likeButton").style.color = "#464B4F";
         this.hasLiked = false;
         this.updatedLikeCount = parseInt(this.likes);
       }
@@ -247,9 +245,6 @@ export default {
 </script>
 
 <style scoped>
-.footerDiv {
-  margin-top: 44vh;
-}
 #mainThread {
   position: relative;
   display: flex;
@@ -279,31 +274,29 @@ export default {
   cursor: pointer;
 }
 
-#likeCounter {
+#commentButton {
+  margin-top: 30%;
+  margin-left: 40%;
+}
+
+#likeCounter,
+#commentCounter {
   margin: 2%;
   padding-right: 3%;
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
-  line-height: 30px;
   text-align: center;
   color: #5b5b5b;
 }
 
 #forumHeader {
-  align-content: left;
-  font-family: "Nunito";
-  font-style: normal;
   font-weight: 700;
   font-size: 22px;
-  line-height: 30px;
   color: #000000;
 }
 
 #forumAuthorAndDate {
   margin-top: 3%;
-  font-family: "Nunito";
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   color: #5b5b5b;
@@ -327,17 +320,12 @@ export default {
 
 #countryText {
   padding-top: 5%;
-  font-family: "Nunito";
-  font-weight: 400;
   font-size: 22px;
   color: #ffffff;
 }
 .bottomHalf {
   display: flex;
   flex-direction: column;
-  font-family: "Nunito";
-  font-style: normal;
-  font-weight: 400;
   font-size: 20px;
   line-height: 27px;
   color: black;
@@ -348,6 +336,7 @@ export default {
   height: auto;
   width: 80%;
   left: 10%;
+  margin-top: -10%;
 }
 #userIcon {
   position: absolute;

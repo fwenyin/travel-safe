@@ -70,6 +70,7 @@
             :timestamp="post.timestamp"
             :country="post.country"
             :likes="post.likes"
+            :commentCount="post.comments.comment_count"
             :id="post.id"
             :key="post.key"
           ></ShortenedThread>
@@ -130,6 +131,7 @@ export default {
       posts.forEach((doc) => {
         let post = {};
         post = doc.data();
+        console.log("Each post is ", post);
         this.posts.push(post);
       });
     },
