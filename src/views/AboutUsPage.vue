@@ -1,20 +1,20 @@
 <template>
 <NavBar/>
 <AboutUs/>
-<Footer/>
+<!-- <Footer/> -->
 </template>
 
 <script>
 import NavBar from '../components/NavBar.vue'
 import AboutUs from '../components/AboutUs.vue'
-import Footer from '../components/Footer.vue'
+// import Footer from '../components/Footer.vue'
 
 export default {
     name: 'SearchCountry',
     components: {
         NavBar,
         AboutUs,
-        Footer,
+        // Footer,
     },
     data() {
         return {

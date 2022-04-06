@@ -1,8 +1,8 @@
 <template>
   <NavBar />
-  <div id="body" class="container-xl px-4 mt-4">
+  <div id="bodyP" class="container-xl px-4 mt-4">
     <h3>Edit Your Profile Here</h3>
-    <hr class="mt-0 mb-4" />
+    <hr class="mt-2 mb-4" />
     <div class="row">
       <div class="col-xl-4">
         <!-- Profile picture card-->
@@ -106,7 +106,9 @@
       </div>
     </div>
   </div>
-  <Footer />
+  <div id = "footer">
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -234,9 +236,7 @@ export default {
       if (
         !this.validUsername ||
         !this.validFullname ||
-        !this.validEmail ||
-        !this.validPhone ||
-        !this.validBirthday
+        !this.validEmail
       ) {
         alert("Please fill in all the necessary fields");
       } else {
