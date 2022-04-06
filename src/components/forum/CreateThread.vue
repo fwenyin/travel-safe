@@ -5,12 +5,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <div id="iconDiv">
-      <!-- profile pic here -->
-      <!-- <img
-        id="userIcon"
-        :src="require('@/assets/profilephoto.png')"
-        alt="home"
-      /> -->
       <div id="userIcon" class="rounded-circle"></div>
     </div>
     <div id="titleContainer">
@@ -70,7 +64,7 @@ export default {
   name: "CreateThread.vue",
   data() {
     return {
-      postCounter: "",
+      postCounter: 0,
       title: "",
       body: "",
       country: "",
@@ -89,17 +83,11 @@ export default {
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
-      // let item = [];
       z.forEach((doc) => {
-        //console.log(auth.currentUser.uid == doc.data().userId);
-        // item = doc.data();
-        // console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
-          // console.log("found current user");
           this.userDetails = doc.data();
           this.displayImage(this.userDetails.picture);
           this.user = this.userDetails.userName;
-          // console.log(this.user);
         }
       });
     },
@@ -110,8 +98,6 @@ export default {
       img.style =
         "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
       divLoc.append(img);
-      // console.log("rendering image");
-      // console.log(this.user);
     },
 
     async submit() {
@@ -144,7 +130,9 @@ export default {
     async getCounter() {
       let z = await getDocs(collection(db, "Posts"));
       z.forEach((doc) => {
-        this.postCounter = doc.data().id;
+        if (doc.data().id > this.postCounter) {
+          this.postCounter = doc.data().id;
+        }
       });
     },
   },
@@ -172,7 +160,6 @@ export default {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = this.userDetails.userName;
-        // console.log(this.user);
       }
     });
     this.display();

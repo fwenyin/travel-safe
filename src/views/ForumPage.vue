@@ -131,7 +131,6 @@ export default {
       posts.forEach((doc) => {
         let post = {};
         post = doc.data();
-        console.log("Each post is ", post);
         this.posts.push(post);
       });
     },
