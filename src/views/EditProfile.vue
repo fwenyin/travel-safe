@@ -106,7 +106,7 @@
       </div>
     </div>
   </div>
-  <div id = "footer">
+  <div id="footer">
     <Footer />
   </div>
 </template>
@@ -233,11 +233,7 @@ export default {
     },
 
     async submit() {
-      if (
-        !this.validUsername ||
-        !this.validFullname ||
-        !this.validEmail
-      ) {
+      if (!this.validUsername || !this.validFullname || !this.validEmail) {
         alert("Please fill in all the necessary fields");
       } else {
         console.log("Submitting new user data");
@@ -251,8 +247,8 @@ export default {
         await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
         console.log("User details updated");
         alert("Your Profile Is Successfully Updated");
+        location.reload();
       }
-      location.reload();
     },
   },
 
@@ -263,7 +259,7 @@ export default {
       }
     });
     this.display();
-  },  
+  },
 };
 </script>
 

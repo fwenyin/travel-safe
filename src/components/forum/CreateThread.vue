@@ -224,9 +224,8 @@ export default {
 }
 .btn-secondary {
   margin-left: 3%;
-
   bottom: 72%;
-  width: 30%;
+  width: 32%;
   background-color: #8caccb !important;
 }
 .dropdown-menu {
