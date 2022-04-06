@@ -160,8 +160,8 @@ export default {
 }
 #viewFullPost {
   position: absolute;
-  bottom: 5%;
-  right: 4%;
+  bottom: 4%;
+  right: 3%;
   font-size: 16px;
   text-decoration-line: underline;
   color: #5b5b5b;
