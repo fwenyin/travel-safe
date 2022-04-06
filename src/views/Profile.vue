@@ -1,8 +1,8 @@
 <template>
   <NavBar />
-  <div id="body" class="container-xl px-4 mt-4">
+  <div id="bodyP" class="container-xl px-4 mt-4">
     <h3>{{ userDetails.name }}'s Profile</h3>
-    <hr class="mt-0 mb-4" />
+    <hr class="mt-2 mb-4" />
     <div class="row">
       <div class="col-xl-4">
         <!-- Profile picture card-->
@@ -18,7 +18,7 @@
           <div class="card-body">
             <form>
               <!-- Username -->
-              <div class="mb-3">
+              <div class="mb-4">
                 <label class="small mb-1">Username</label>
                 <p id="currUsername" class="form-control">
                   {{ userDetails.userName }}
@@ -69,7 +69,9 @@
       </div>
     </div>
   </div>
-  <Footer />
+  <div id = "footer">
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -151,10 +153,15 @@ export default {
 </script>
 
 <style>
-#body {
+#bodyP {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  margin: 0;
+  overflow: hidden;
+}
+
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0%;
 }
 </style>

@@ -7,21 +7,32 @@
       >
         <p class="headerText">About Us</p>
       </div>
-      <img class="header_image" :src="require('@/assets/aboutus.png')">
+      <img class="header_image" :src="require('@/assets/aboutus.png')" />
     </div>
   </div>
 
   <div class="body">
-    <br>
-    <p> We are a one-stop portal for those in Singapore intending to travel to other countries amidst the COVID-19 pandemic. We provide updated protocols and statistics to help you plan your next travel. </p>
+    <br />
+    <p>
+      We are a one-stop portal for those in Singapore intending to travel to
+      other countries amidst the COVID-19 pandemic. We provide updated protocols
+      and statistics to help you plan your next travel.
+    </p>
     <b> Travel safe for yourself and your loved ones. </b>
+  </div>
+  <div id="footer">
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from "../components/Footer.vue";
 export default {
-
-}
+  name: "About Us",
+  components: {
+    Footer,
+  },
+};
 </script>
 
 <style scoped>
@@ -52,15 +63,14 @@ export default {
   margin-top: 25px;
   color: black;
 
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-style: normal;
-
 }
 
 .body {
   text-align: center;
   margin-top: 50px;
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -68,10 +78,12 @@ export default {
   text-align: center;
   padding-left: 15%;
   padding-right: 15%;
-  display: flex;
-  flex-direction: column;
-  height: 60vh;
-  margin: 0;
+  position: relative;
 }
 
+#footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0%;
+}
 </style>
