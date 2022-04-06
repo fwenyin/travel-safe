@@ -15,6 +15,7 @@ import AboutUs from "@/views/AboutUsPage.vue";
 // import ForumT from "@/components/forum/ForumThreadComponent.vue";
 import Room from "../views/RoomPage.vue";
 import Chat from "../views/ChatPage.vue";
+import NotFound from "../views/NotFound.vue";
 
 const routes = [
   {
@@ -81,6 +82,11 @@ const routes = [
     path: "/footer",
     name: "Footer",
     component: Footer,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 
