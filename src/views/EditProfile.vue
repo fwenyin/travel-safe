@@ -247,7 +247,8 @@ export default {
         await updateDoc(doc(db, "Users", auth.currentUser.uid), userDetails);
         console.log("User details updated");
         alert("Your Profile Is Successfully Updated");
-        location.reload();
+        this.$router.push({ name: "Profile" });
+        
       }
     },
   },
