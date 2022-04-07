@@ -290,7 +290,7 @@ export default {
 
 #forumHeader {
   font-weight: 700;
-  font-size: 22px;
+  font-size: 20px;
   color: #000000;
 }
 
@@ -310,8 +310,8 @@ export default {
 
 #countryContainer {
   text-align: center;
-  height: 60%;
-  width: 48%;
+  height: 52%;
+  width: 45%;
   margin-left: 40%;
   background: #dda375;
   border-radius: 20px;
@@ -319,13 +319,13 @@ export default {
 
 #countryText {
   padding-top: 5%;
-  font-size: 22px;
+  font-size: 18px;
   color: #ffffff;
 }
 .bottomHalf {
   display: flex;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 27px;
   color: black;
 }
@@ -339,7 +339,7 @@ export default {
 }
 #userIcon {
   position: absolute;
-  size: 35px;
+  size: 30px;
   width: 35px;
   height: 35px;
   left: 3%;

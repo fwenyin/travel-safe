@@ -60,7 +60,7 @@
                 </div>
               </div>
               <!-- Save changes button-->
-              <a class="btn btn-primary btn-sm active" href="/editprofile">
+              <a class="btn btn-dark active" href="/editprofile">
                 Edit Profile Here
               </a>
             </form>

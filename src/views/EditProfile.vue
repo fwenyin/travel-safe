@@ -97,7 +97,7 @@
               </div>
               <br />
               <!-- Save changes button-->
-              <a class="btn btn-danger btn-sm active" @click="submit()">
+              <a class="btn btn-danger active" @click="submit()">
                 Save Details
               </a>
             </form>

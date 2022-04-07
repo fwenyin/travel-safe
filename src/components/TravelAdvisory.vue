@@ -365,13 +365,13 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .totalCost {
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .riskAssLevel {
@@ -379,8 +379,8 @@ export default {
     display: flex;
     padding-left: 10px;
     padding-right: 10px;
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .riskAssBox {
@@ -395,23 +395,24 @@ export default {
     padding-right: 15px;
     padding-bottom: 10px;
     padding-top: 10px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .cost {
     float: right;
-    margin-top: 30px;
     font-size: 22px;
     text-align: right;
-    margin-right: 30px;
     width: 8%;
+    margin-top: 2.5%;
+    margin-left: 3%;
+    margin-right: 5%;
 }
 
 .docsCheckListForm {
     background-color: #AEC4DA8F;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .totalCost {
@@ -434,8 +435,8 @@ export default {
     background-color: #AEC4DA8F;
     border-radius: 10px;
     margin-bottom: 5px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 input[type=checkbox] {
@@ -469,7 +470,7 @@ input[type=checkbox]:checked + label {
 
 .docDesc {
     color: #5B5B5B;
-    font-size: 18px; 
+    font-size: 17px; 
     text-align: left;
     margin-left: 52px;
     margin-top: 0px;
@@ -490,7 +491,7 @@ input[type=checkbox]:checked + label {
     margin-top: 8px;
     margin-left: 10px;
     color: black;
-    font-size: 18px;
+    font-size: 17px;
     text-align: left;
 }
 
@@ -500,7 +501,7 @@ input[type=checkbox]:checked + label {
     border: none;
     margin-bottom: 0px;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .fa-circle-xmark {
@@ -556,7 +557,7 @@ input[type=checkbox]:checked + label {
     padding-left: 20px;
     padding-right: 20px;
     text-align: justify;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .application {
@@ -587,7 +588,6 @@ h3 {
 p {
     margin-top: 10px;
     color: black;
-    font-size: 18px;
     text-align: center;
 }
 
@@ -596,7 +596,7 @@ li {
     margin-right: 5px;
     margin-left: 5px;
     color: black;
-    font-size: 18px;
+    font-size: 17px;
 }    
 
 label,input{

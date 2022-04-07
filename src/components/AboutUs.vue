@@ -14,9 +14,10 @@
   <div class="body">
     <br />
     <p>
-      We are a one-stop portal for users in Singapore intending to travel to
-      other countries amidst the COVID-19 pandemic. We provide updated protocols
-      and statistics to help you plan your next trip.
+      We are a one-stop safety-centric portal for users in Singapore intending to travel to other countries amidst the COVID-19 
+      pandemic. We provide updated protocols and statistics to help you plan your next trip. Look no further to connect with others to 
+      share travel experiences and find travel buddies. Ultimately, we hope you can make more informed travel decisions and network with others. 
+
     </p>
     <b> Travel safe for yourself and your loved ones. </b>
   </div>

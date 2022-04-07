@@ -44,7 +44,6 @@ export default {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
   line-height: 27px;
   overflow: auto;
   padding: 20px;

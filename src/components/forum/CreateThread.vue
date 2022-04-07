@@ -204,7 +204,7 @@ export default {
 .btn-primary {
   position: relative;
   margin-bottom: 5%;
-  background-color: #2f5ba3;
+  background-color: black;
   padding-top: 25%;
   height: 35%;
   width: 15%;

@@ -178,8 +178,8 @@ export default {
     font-weight: bold;
     margin-bottom: 8px;
     margin-top: 8px;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
 }
 
 .header_image {
@@ -225,7 +225,7 @@ export default {
 
 .container .box .content {
     position: relative;
-    top: 18px;
+    top: 17px;
     height: calc(100% - 10px);
     text-align: center;
     padding: 20px;
@@ -258,5 +258,10 @@ img {
 h5 {
     text-align: center;
     font-size: 100%;
+}
+
+.final-row {
+    margin-right: 5%;
+    margin-left: 5%;
 }
 </style>
