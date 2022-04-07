@@ -52,7 +52,7 @@
             ></p>
           </div>
           <div id="iconDiv">
-            <div id="userIcon" class="rounded-circle"></div>
+            <div id="userIcon"></div>
           </div>
         </div>
       </div>
@@ -207,7 +207,7 @@ export default {
       let img = document.createElement("img");
       img.src = pictureURL;
       img.style =
-        "margin: 0px auto; width: 45px; height: 45px; border-radius: 50%;";
+        "margin: 0px auto; margin-top: 5%;width: 35px; height: 35px; border-radius: 50%;";
       divLoc.append(img);
     },
   },
@@ -339,12 +339,13 @@ export default {
 }
 #userIcon {
   position: absolute;
-  size: 30px;
-  width: 35px;
-  height: 35px;
-  left: 3%;
-  bottom: 23%;
-  border-radius: 1000px;
+  /* size: 30px;
+  width: 30x;
+  height: 30px; */
+  left: 5%;
+  /* top: 50%; */
+  /* bottom: 23%; */
+  /* border-radius: 1000px; */
 }
 
 #addCommentDiv {

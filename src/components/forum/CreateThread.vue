@@ -182,10 +182,7 @@ export default {
 
 #userIcon {
   position: absolute;
-  size: 50px;
-  width: 50px;
-  height: 50px;
-  left: 5%;
+  left: 7%;
   top: 12%;
   border-radius: 1000px;
 }
