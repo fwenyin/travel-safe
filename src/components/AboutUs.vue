@@ -14,9 +14,9 @@
   <div class="body">
     <br />
     <p>
-      We are a one-stop portal for those in Singapore intending to travel to
+      We are a one-stop portal for users in Singapore intending to travel to
       other countries amidst the COVID-19 pandemic. We provide updated protocols
-      and statistics to help you plan your next travel.
+      and statistics to help you plan your next trip.
     </p>
     <b> Travel safe for yourself and your loved ones. </b>
   </div>
