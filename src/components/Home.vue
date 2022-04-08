@@ -44,7 +44,7 @@
           class="card text-white bg-black mb-5 justify-content-center"
           style="height: 50px"
         >
-          <h4>COVID-19 Stringency Index</h4>
+          <h4>COVID-19 Total Deaths</h4>
         </div>
         <GChart
           :data="stringency"
@@ -135,12 +135,12 @@ import {
   limit,
   getFirestore,
 } from "firebase/firestore";
-import { GChart } from "vue-google-charts";
+import { GChart } from "vue3-googl-chart";
 import axios from "axios";
 import Carousel from './Carousel.vue'
 
 const db = getFirestore(firebaseApp);
-const getCountryISO2 = require("country-iso-3-to-2");
+//const getCountryISO2 = require("country-iso-3-to-2");
 
 export default {
   name: "Home",
@@ -163,7 +163,7 @@ export default {
       ],
       selected: "Select Destination",
       news: [],
-      stringency: [["Country", "Stringency Index"]],
+      stringency: [["Country", "Total Deaths"]],
       options: {
         chart: {},
         colorAxis: { colors: ["#4374e0", "#e7711c"] }, // orange to blue
@@ -185,9 +185,12 @@ export default {
     getDate() {
       let currentDate = new Date();
       currentDate.setDate(currentDate.getDate() - 3);
+      console.log(currentDate.toISOString().slice(0, 10))
       return currentDate.toISOString().slice(0, 10);
     },
 
+    // stringency index discontinued
+    /*
     async displayMap() {
       let url =
         "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/" +
@@ -201,12 +204,27 @@ export default {
       Object.keys(data).forEach((key) => {
         let countryCode = getCountryISO2(data[key].country_code); // convert a country code ISO 3166-1 Alpha-3 to ISO 3166-1 Alpha-2
         if (typeof countryCode == "undefined") {
+          console.log("issue")
           return;
         }
         let stringencyIndex = data[key].stringency;
         this.stringency.push([countryCode, stringencyIndex]);
       });
     },
+    */
+    async displayMap() {
+      let url = "https://api.covid19api.com/summary";
+      let received = await axios.get(url);
+      let data = received.data.Countries;
+      console.log(data);
+      Object.keys(data).forEach((key) => {
+        console.log(data[key])
+        let countryCode = data[key].CountryCode;
+        let totalDeaths = data[key].TotalDeaths;
+        this.stringency.push([countryCode, totalDeaths]);
+      });
+    },
+
 
     async displayCovidStats() {
       let url = "https://api.covid19api.com/summary";
@@ -236,12 +254,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
-
-* {
-  font-family: "Nunito", sans-serif;
-}
-
 hr {
   width: 21%;
   position: absolute;
