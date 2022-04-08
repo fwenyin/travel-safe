@@ -190,12 +190,8 @@ export default {
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
-      let item = [];
       z.forEach((doc) => {
-        item = doc.data();
-        console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
-          console.log("found current user");
           this.userDetails = doc.data();
           this.displayImage(this.userDetails.picture);
           this.user = this.userDetails.userName;

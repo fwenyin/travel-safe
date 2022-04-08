@@ -101,5 +101,4 @@ export default {
 p {
   font-size: 17px;
 }
-
 </style>
