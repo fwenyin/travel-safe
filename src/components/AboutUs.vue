@@ -47,7 +47,7 @@ export default {
 
 .header_image {
   width: 100%;
-  height: 230px; /* 400px */
+  height: 230px; 
 }
 
 .headerText {

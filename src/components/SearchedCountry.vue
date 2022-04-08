@@ -47,7 +47,7 @@
             </div>
             <br>
             <div class="final-row"> 
-                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}"></line-chart>
+                <line-chart :data = "hist_confirmedCases" xmin="2021-07-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}"></line-chart>
                 <br>
                 <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows total COVID-19 cases reported on that day 
                     <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </a>
@@ -101,7 +101,6 @@ export default {
         savingHistoricalData() {
             let data = this.cache
             let latest_data = data[data.length - 1]
-            console.log(latest_data);
 
             this.totalConfirmedCases = latest_data.Confirmed.toLocaleString();
             this.totalActiveCases = latest_data.Active.toLocaleString();
@@ -142,21 +141,15 @@ export default {
   
     created() {
         this.fetchData(this.country).then((res) => {
-            console.log('success', res);
             this.cache = res;
             this.$nextTick(() => this.savingHistoricalData());
         });
         this.calcStringency().then((result) => {
-            console.log('stringency Success', result);
             this.stringencyIdx = result['stringencyData']['stringency']
             // we had to hard code this because the API died 2 days before the deadline and there was no good alternative
             this.stringencyIdx = (Math.random() * 50).toFixed(2)
         });
     },
-
-    mounted() {
-        console.log('mounting');
-    }
 }
 
 </script>
