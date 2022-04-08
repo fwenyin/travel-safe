@@ -144,21 +144,23 @@ export default {
         if (auth.currentUser.uid == doc.data().userId) {
           console.log("found current user");
           this.userDetails = doc.data();
-          this.displayImage(this.userDetails.picture);
+          let picture = document.getElementById("navBarProfilePic");
+          if (picture === null) {
+            this.displayImage(this.userDetails.picture);
+          }
         }
       });
     },
     displayImage(pictureURL) {
-      let divLoc = document.getElementById("userIcon");
-      let picture = document.getElementById("profilePic");
-      if (picture === null) {
-        let img = document.createElement("img");
-        img.src = pictureURL;
-        img.style =
-          "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
-        img.id = "profilePic";
-        divLoc.append(img);
-      }
+      let divLoc = document.getElementById("navImg");
+      console.log("Nav bar divLoc is ", divLoc);
+
+      let img = document.createElement("img");
+      img.src = pictureURL;
+      img.style =
+        "margin: 0px auto; width: 30px; height: 30px; border-radius: 50%;";
+      img.id = "navBarProfilePic";
+      divLoc.append(img);
     },
   },
 
