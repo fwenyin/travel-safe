@@ -47,9 +47,9 @@
             </div>
             <br>
             <div class="final-row"> 
-                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}" @mouseover = "updateNewestData()"></line-chart>
+                <line-chart :data = "hist_confirmedCases" xmin="2021-05-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}"></line-chart>
                 <br>
-                <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows new cases reported since the previous day 
+                <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows total COVID-19 cases reported on that day 
                     <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </a>
                 </p>
             </div>
@@ -106,19 +106,12 @@ export default {
             this.totalConfirmedCases = latest_data.Confirmed.toLocaleString();
             this.totalActiveCases = latest_data.Active.toLocaleString();
             this.totalDeaths = latest_data.Deaths.toLocaleString();
-            // this.totalRecovered = latest_data.Recovered.toLocaleString();
             data.forEach(d => {
                 let date = d.Date
                 let noOfCases = d.Confirmed
                 this.hist_confirmedCases[date] = noOfCases;
             })
 
-        },
-
-        updateNewestData() {
-            console.log('mouse hover')
-            const numbers = this.hist_confirmedCases
-            this.hist_confirmedCases = numbers
         },
 
         getDate() {
