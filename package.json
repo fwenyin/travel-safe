@@ -26,7 +26,7 @@
     "vue-google-charts": "^0.3.3",
     "vue-router": "^4.0.14",
     "vue3-carousel": "^0.1.38",
-    "vue3-google-chart": "^0.0.1"
+    "vue3-googl-chart": "^0.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
