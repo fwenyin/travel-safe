@@ -173,7 +173,6 @@ export default {
   margin-top: 2em;
   width: 60vw;
   height: 35vh;
-
   background: #aec4da;
   border: 2px solid #aec4da;
   box-sizing: border-box;

@@ -83,7 +83,9 @@
                 </div>
                 <!-- Form Group (birthday)-->
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Birthday</label>
+                  <label class="small mb-1" for="inputBirthday"
+                    >Date of birth</label
+                  >
                   <input
                     class="form-control"
                     id="inputBirthday"
@@ -248,7 +250,6 @@ export default {
         console.log("User details updated");
         alert("Your Profile Is Successfully Updated");
         this.$router.push({ name: "Profile" });
-        
       }
     },
   },

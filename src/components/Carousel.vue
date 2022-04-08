@@ -12,7 +12,7 @@
           <br />
           <a
             @click="goToCountry(country)"
-            style="text-align: center; font-size: 150%"
+            style="text-align: center; font-size: 150%; cursor: pointer"
           >
             {{ country }}
           </a>
