@@ -64,6 +64,7 @@ export default {
   name: "CreateThread.vue",
   data() {
     return {
+      hasProfilePic: false,
       postCounter: 0,
       title: "",
       body: "",
@@ -97,7 +98,10 @@ export default {
       img.src = pictureURL;
       img.style =
         "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
+      console.log("Div log is ", divLoc);
+      console.log("Image is is ", img);
       divLoc.append(img);
+      this.hasProfilePic = true;
     },
 
     async submit() {
@@ -162,7 +166,9 @@ export default {
         this.user = this.userDetails.userName;
       }
     });
-    this.display();
+    if (!this.hasProfilePic) {
+      this.display();
+    }
   },
 };
 </script>
