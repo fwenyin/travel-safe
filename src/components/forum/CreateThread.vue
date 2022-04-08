@@ -100,7 +100,6 @@ export default {
         img.style =
           "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
         img.id = "profilePic";
-        console.log("Image is is ", img);
         divLoc.append(img);
       }
     },
