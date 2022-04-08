@@ -24,7 +24,14 @@ export default {
     methods: {
         change() {
             this.refreshComp += 1
+        },
+        moveUp(){
+           window.scrollTo(0,0);
         }
+    },
+
+    created() {
+        this.moveUp();
     }
 }
 </script>
