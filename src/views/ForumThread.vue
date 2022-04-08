@@ -200,11 +200,15 @@ export default {
     },
     displayImage(pictureURL) {
       let divLoc = document.getElementById("userIcon");
-      let img = document.createElement("img");
-      img.src = pictureURL;
-      img.style =
-        "margin: 0px auto; margin-top: 5%;width: 35px; height: 35px; border-radius: 50%;";
-      divLoc.append(img);
+      let picture = document.getElementById("profilePic");
+      if (picture === null) {
+        let img = document.createElement("img");
+        img.src = pictureURL;
+        img.style =
+          "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
+        img.id = "profilePic";
+        divLoc.append(img);
+      }
     },
   },
   watch: {

@@ -137,16 +137,10 @@ export default {
       const auth = getAuth();
       const user = auth.currentUser;
       signOut(auth, user);
-      // console.log(user.displayName);
-      // console.log("user has been signed out");
     },
     async display() {
       let z = await getDocs(collection(db, "Users"));
-      // let item = [];
       z.forEach((doc) => {
-        //console.log(auth.currentUser.uid == doc.data().userId);
-        // item = doc.data();
-        // console.log(item);
         if (auth.currentUser.uid == doc.data().userId) {
           console.log("found current user");
           this.userDetails = doc.data();
@@ -155,13 +149,16 @@ export default {
       });
     },
     displayImage(pictureURL) {
-      let divLoc = document.getElementById("navImg");
-      let img = document.createElement("img");
-      img.src = pictureURL;
-      img.style =
-        "margin: 0px auto; width: 25px; height: 25px; border-radius: 50%;";
-      divLoc.append(img);
-      // console.log("rendering image");
+      let divLoc = document.getElementById("userIcon");
+      let picture = document.getElementById("profilePic");
+      if (picture === null) {
+        let img = document.createElement("img");
+        img.src = pictureURL;
+        img.style =
+          "margin: 0px auto; width: 50px; height: 50px; border-radius: 50%;";
+        img.id = "profilePic";
+        divLoc.append(img);
+      }
     },
   },
 
