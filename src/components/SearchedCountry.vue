@@ -228,25 +228,33 @@ export default {
             this.stringencyIdx = (Math.random() * 50).toFixed(2)
         });
         this.getOtherData().then((result) => {
-            this.totalRecovered = Math.abs(result['recovered']) >= 1.0e+6
 
-                ? (Math.abs(result['recovered']) / 1.0e+6).toFixed(2) + "M"
+            if (this.country == 'South Korea') {
+                // have to hard code South Korea's total recovered number due to its inavailability from API
+                this.totalRecovered = 15042460
+            } else {
+                this.totalRecovered = result['recovered']
+            }
+            
+            this.totalRecovered = Math.abs(this.totalRecovered) >= 1.0e+6
+
+                ? (Math.abs(this.totalRecovered) / 1.0e+6).toFixed(2) + "M"
                 // Three Zeroes for Thousands
-                : Math.abs(result['recovered']) >= 1.0e+3
+                : Math.abs(this.totalRecovered) >= 1.0e+3
 
-                ? (Math.abs(result['recovered']) / 1.0e+3).toFixed(2) + "K"
+                ? (Math.abs(this.totalRecovered) / 1.0e+3).toFixed(2) + "K"
 
-                : Math.abs(result['recovered']);
+                : Math.abs(this.totalRecovered);
 
-            this.totalTests = Math.abs(result['tests']/5) >= 1.0e+6
+            this.totalTests = Math.abs(result['tests']) >= 1.0e+6
 
-                ? (Math.abs(result['tests']/5) / 1.0e+6).toFixed(2) + "M"
+                ? (Math.abs(result['tests']) / 1.0e+6).toFixed(1) + "M"
                 // Three Zeroes for Thousands
-                : Math.abs(result['tests']/5) >= 1.0e+3
+                // : Math.abs(result['tests']/5) >= 1.0e+3
 
-                ? (Math.abs(result['tests']/5) / 1.0e+3).toFixed(2) + "K"
+                // ? (Math.abs(result['tests']/5) / 1.0e+3).toFixed(2) + "K"
 
-                : Math.abs(result['tests']/5);
+                : Math.abs(result['tests']);
 
         })
     },
@@ -293,7 +301,6 @@ export default {
     background: #FFFFFF;
     margin: 1%;
     border: 2px solid #8CACCB;
-    /* box-sizing: border-box; */
     overflow: hidden;
     border-radius: 10px;
     display: inline-block;
@@ -341,6 +348,7 @@ img {
     text-align: center;
     vertical-align: middle;
     font-weight: bold;
+    padding: 20px;
 }
 
 h5 {
