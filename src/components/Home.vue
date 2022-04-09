@@ -44,7 +44,7 @@
           class="card text-white bg-black mb-5 justify-content-center"
           style="height: 50px"
         >
-          <h4>COVID-19 Total Deaths</h4>
+          <h4>COVID-19 Critical Cases</h4>
         </div>
         <GChart
           :data="stringency"
@@ -163,7 +163,7 @@ export default {
       ],
       selected: "Select Destination",
       news: [],
-      stringency: [["Country", "Total Deaths"]],
+      stringency: [["Country", "Critical Cases"]],
       options: {
         chart: {},
         colorAxis: { colors: ["#4374e0", "#e7711c"] }, // orange to blue
@@ -213,15 +213,15 @@ export default {
     },
     */
     async displayMap() {
-      let url = "https://api.covid19api.com/summary";
+      let url = "https://disease.sh/v3/covid-19/countries";
       let received = await axios.get(url);
-      let data = received.data.Countries;
+      let data = received.data;
       console.log(data);
       Object.keys(data).forEach((key) => {
         console.log(data[key])
-        let countryCode = data[key].CountryCode;
-        let totalDeaths = data[key].TotalDeaths;
-        this.stringency.push([countryCode, totalDeaths]);
+        let countryCode = data[key].countryInfo.iso2;
+        let active = data[key].critical;
+        this.stringency.push([countryCode, active]);
       });
     },
 
