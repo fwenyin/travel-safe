@@ -17,20 +17,32 @@
             <div class="container">
                 <div class="box">
                     <div class="content">
-                        <h1 style="text-align: center;">{{ this.totalConfirmedCases }}</h1>
-                        <h5>TOTAL CONFIRMED CASES</h5>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="content">
                         <h1 style="text-align: center;">{{ this.totalActiveCases }}</h1>
                         <h5>TOTAL ACTIVE CASES</h5>
                     </div>
                 </div>
                 <div class="box">
                     <div class="content">
+                        <h1 style="text-align: center;">{{ this.today_new_cases }}</h1>
+                        <h5>TODAY NEW CASES</h5>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content">
                         <h1 style="text-align: center;">{{ this.totalDeaths }}</h1>
                         <h5>TOTAL DEATHS</h5>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content">
+                        <h1 style="text-align: center;">{{ this.totalRecovered }}</h1>
+                        <h5>TOTAL RECOVERED</h5>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content">
+                        <h1 style="text-align: center;">{{ this.totalTests }}</h1>
+                        <h5>TOTAL TESTS PERFORMED</h5>
                     </div>
                 </div>
                 <div class="box">
@@ -49,7 +61,7 @@
             <div class="final-row"> 
                 <line-chart :data = "hist_confirmedCases" xmin="2021-07-01" xmax="2022-05-01" label="Total cases" :messages="{empty: 'Loading data...'}"></line-chart>
                 <br>
-                <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows total COVID-19 cases reported on that day 
+                <p style="color: grey; padding-left:20px; font-size:18px;"> Each day shows total active cases reported on that day 
                     <a href="https://support.google.com/websearch/answer/9814707?p=cvd19_statistics&hl=en&visit_id=637832961477220002-2029545735&rd=1" style="text-decoration: underline; color: blue; font-size:95%; padding-left:4px;"> About this data </a>
                 </p>
             </div>
@@ -74,9 +86,12 @@ export default {
             totalActiveCases: 0,
             totalDeaths: 0,
             totalRecovered: 0,
+            totalTests: 0,
             stringencyIdx: 0,
         
             hist_confirmedCases: {},
+
+            today_new_cases: 0,
 
             cache: []
         };
@@ -102,15 +117,54 @@ export default {
             let data = this.cache
             let latest_data = data[data.length - 1]
 
-            this.totalConfirmedCases = latest_data.Confirmed.toLocaleString();
-            this.totalActiveCases = latest_data.Active.toLocaleString();
-            this.totalDeaths = latest_data.Deaths.toLocaleString();
+            this.totalConfirmedCases = Math.abs(latest_data.Confirmed) >= 1.0e+6
+
+                ? (Math.abs(latest_data.Confirmed) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(latest_data.Confirmed) >= 1.0e+3
+
+                ? (Math.abs(latest_data.Confirmed) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(latest_data.Confirmed);
+            
+            this.totalActiveCases = Math.abs(latest_data.Active) >= 1.0e+6
+
+                ? (Math.abs(latest_data.Active) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(latest_data.Active) >= 1.0e+3
+
+                ? (Math.abs(latest_data.Active) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(latest_data.Active);
+            
+            this.totalDeaths = Math.abs(latest_data.Deaths) >= 1.0e+6
+
+                ? (Math.abs(latest_data.Deaths) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(latest_data.Deaths) >= 1.0e+3
+
+                ? (Math.abs(latest_data.Deaths) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(latest_data.Deaths);
+
+            
             data.forEach(d => {
                 let date = d.Date
-                let noOfCases = d.Confirmed
+                let noOfCases = d.Active
                 this.hist_confirmedCases[date] = noOfCases;
             })
 
+            this.today_new_cases = this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 1]] - this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 2]]
+
+            this.today_new_cases = Math.abs(this.today_new_cases) >= 1.0e+6
+
+                ? (Math.abs(this.today_new_cases) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(this.today_new_cases) >= 1.0e+3
+
+                ? (Math.abs(this.today_new_cases) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(this.today_new_cases);
         },
 
         getDate() {
@@ -135,6 +189,26 @@ export default {
             let received = await fetch(url);
             let data = await received.json();
             return data
+        },
+
+        async getOtherData() {
+
+            var mapper = {
+                'Australia': 'AUS',
+                'Denmark': 'DNK',
+                'Finland': 'FIN',
+                'Malaysia': 'MYS',
+                'South Korea': 'KOR',
+                'United States': 'USA',
+                'United Kingdom': 'GBR'
+            };
+
+            let url = "https://disease.sh/v3/covid-19/countries/" + mapper[this.country] + "?strict=true"
+
+            let received = await fetch(url);
+            let data = await received.json();
+            return data
+
         }
 
     },
@@ -149,6 +223,28 @@ export default {
             // we had to hard code this because the API died 2 days before the deadline and there was no good alternative
             this.stringencyIdx = (Math.random() * 50).toFixed(2)
         });
+        this.getOtherData().then((result) => {
+            this.totalRecovered = Math.abs(result['recovered']) >= 1.0e+6
+
+                ? (Math.abs(result['recovered']) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(result['recovered']) >= 1.0e+3
+
+                ? (Math.abs(result['recovered']) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(result['recovered']);
+
+            this.totalTests = Math.abs(result['tests']/5) >= 1.0e+6
+
+                ? (Math.abs(result['tests']/5) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+                : Math.abs(result['tests']/5) >= 1.0e+3
+
+                ? (Math.abs(result['tests']/5) / 1.0e+3).toFixed(2) + "K"
+
+                : Math.abs(result['tests']/5);
+
+        })
     },
 }
 
@@ -188,7 +284,7 @@ export default {
 
 .box {
     position: relative;
-    width: 22%;
+    width: 14.5%;
     height: calc(200px - 30px);
     background: #FFFFFF;
     margin: 1%;
