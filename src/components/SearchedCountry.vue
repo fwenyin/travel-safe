@@ -18,7 +18,7 @@
                 <div class="box">
                     <div class="content">
                         <h1 style="text-align: center;">{{ this.totalActiveCases }}</h1>
-                        <h5>TOTAL ACTIVE CASES</h5>
+                        <h5>TOTAL CASES</h5>
                     </div>
                 </div>
                 <div class="box">
@@ -55,7 +55,7 @@
             </div>
 
             <div class="header">
-                Total COVID-19 Cases Over Time
+                Total COVID-19 Active Cases Over Time
             </div>
             <br>
             <div class="final-row"> 
@@ -88,6 +88,7 @@ export default {
             totalRecovered: 0,
             totalTests: 0,
             stringencyIdx: 0,
+            totalActiveCasesRaw: 0,
         
             hist_confirmedCases: {},
 
@@ -115,26 +116,6 @@ export default {
 
         savingHistoricalData() {
             let data = this.cache
-            let latest_data = data[data.length - 1]
-
-            this.totalConfirmedCases = Math.abs(latest_data.Confirmed) >= 1.0e+6
-                ? (Math.abs(latest_data.Confirmed) / 1.0e+6).toFixed(2) + "M"
-                : Math.abs(latest_data.Confirmed) >= 1.0e+3
-                ? (Math.abs(latest_data.Confirmed) / 1.0e+3).toFixed(2) + "K"
-                : Math.abs(latest_data.Confirmed);
-            
-            this.totalActiveCases = Math.abs(latest_data.Active) >= 1.0e+6
-                ? (Math.abs(latest_data.Active) / 1.0e+6).toFixed(2) + "M"
-                : Math.abs(latest_data.Active) >= 1.0e+3
-                ? (Math.abs(latest_data.Active) / 1.0e+3).toFixed(2) + "K"
-                : Math.abs(latest_data.Active);
-            
-            this.totalDeaths = Math.abs(latest_data.Deaths) >= 1.0e+6
-                ? (Math.abs(latest_data.Deaths) / 1.0e+6).toFixed(2) + "M"
-                : Math.abs(latest_data.Deaths) >= 1.0e+3
-                ? (Math.abs(latest_data.Deaths) / 1.0e+3).toFixed(2) + "K"
-                : Math.abs(latest_data.Deaths);
-
             
             data.forEach(d => {
                 let date = d.Date
@@ -219,6 +200,20 @@ export default {
             } else {
                 this.totalRecovered = result['recovered']
             }
+
+            this.totalActiveCasesRaw = result['cases']
+
+            this.totalActiveCases = Math.abs(result['cases']) >= 1.0e+6
+                ? (Math.abs(result['cases']) / 1.0e+6).toFixed(2) + "M"
+                : Math.abs(result['cases']) >= 1.0e+3
+                ? (Math.abs(result['cases']) / 1.0e+3).toFixed(2) + "K"
+                : Math.abs(result['cases']);
+
+            this.totalDeaths = Math.abs(result['deaths']) >= 1.0e+6
+                ? (Math.abs(result['deaths']) / 1.0e+6).toFixed(2) + "M"
+                : Math.abs(result['deaths']) >= 1.0e+3
+                ? (Math.abs(result['deaths']) / 1.0e+3).toFixed(2) + "K"
+                : Math.abs(result['deaths']);
             
             this.totalRecovered = Math.abs(this.totalRecovered) >= 1.0e+6
                 ? (Math.abs(this.totalRecovered) / 1.0e+6).toFixed(2) + "M"
