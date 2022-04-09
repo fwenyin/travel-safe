@@ -139,7 +139,7 @@ export default {
 }
 
 #countryText {
-  padding-top: 5%;
+  padding-top: 7%;
   font-size: 18px;
   color: #ffffff;
 }
