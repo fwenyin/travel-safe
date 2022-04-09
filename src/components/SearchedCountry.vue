@@ -118,33 +118,21 @@ export default {
             let latest_data = data[data.length - 1]
 
             this.totalConfirmedCases = Math.abs(latest_data.Confirmed) >= 1.0e+6
-
                 ? (Math.abs(latest_data.Confirmed) / 1.0e+6).toFixed(2) + "M"
-                // Three Zeroes for Thousands
                 : Math.abs(latest_data.Confirmed) >= 1.0e+3
-
                 ? (Math.abs(latest_data.Confirmed) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(latest_data.Confirmed);
             
             this.totalActiveCases = Math.abs(latest_data.Active) >= 1.0e+6
-
                 ? (Math.abs(latest_data.Active) / 1.0e+6).toFixed(2) + "M"
-                // Three Zeroes for Thousands
                 : Math.abs(latest_data.Active) >= 1.0e+3
-
                 ? (Math.abs(latest_data.Active) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(latest_data.Active);
             
             this.totalDeaths = Math.abs(latest_data.Deaths) >= 1.0e+6
-
                 ? (Math.abs(latest_data.Deaths) / 1.0e+6).toFixed(2) + "M"
-                // Three Zeroes for Thousands
                 : Math.abs(latest_data.Deaths) >= 1.0e+3
-
                 ? (Math.abs(latest_data.Deaths) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(latest_data.Deaths);
 
             
@@ -161,13 +149,9 @@ export default {
             }
 
             this.today_new_cases = Math.abs(this.today_new_cases) >= 1.0e+6
-
                 ? (Math.abs(this.today_new_cases) / 1.0e+6).toFixed(2) + "M"
-                // Three Zeroes for Thousands
                 : Math.abs(this.today_new_cases) >= 1.0e+3
-
                 ? (Math.abs(this.today_new_cases) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(this.today_new_cases);
         },
 
@@ -230,30 +214,20 @@ export default {
         this.getOtherData().then((result) => {
 
             if (this.country == 'South Korea') {
-                // have to hard code South Korea's total recovered number due to its inavailability from API
+                // hardcoded South Korea's total recovered number due to its inavailability from API
                 this.totalRecovered = 15042460
             } else {
                 this.totalRecovered = result['recovered']
             }
             
             this.totalRecovered = Math.abs(this.totalRecovered) >= 1.0e+6
-
                 ? (Math.abs(this.totalRecovered) / 1.0e+6).toFixed(2) + "M"
-                // Three Zeroes for Thousands
                 : Math.abs(this.totalRecovered) >= 1.0e+3
-
                 ? (Math.abs(this.totalRecovered) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(this.totalRecovered);
 
             this.totalTests = Math.abs(result['tests']) >= 1.0e+6
-
                 ? (Math.abs(result['tests']) / 1.0e+6).toFixed(1) + "M"
-                // Three Zeroes for Thousands
-                // : Math.abs(result['tests']/5) >= 1.0e+3
-
-                // ? (Math.abs(result['tests']/5) / 1.0e+3).toFixed(2) + "K"
-
                 : Math.abs(result['tests']);
 
         })
