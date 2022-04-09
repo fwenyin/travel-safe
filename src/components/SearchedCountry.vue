@@ -154,7 +154,11 @@ export default {
                 this.hist_confirmedCases[date] = noOfCases;
             })
 
-            this.today_new_cases = this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 1]] - this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 2]]
+            if (this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 1]] <= this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 2]]) {
+                this.today_new_cases = 0
+            } else {
+                this.today_new_cases = this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 1]] - this.hist_confirmedCases[Object.keys(this.hist_confirmedCases)[Object.keys(this.hist_confirmedCases).length - 2]]
+            }
 
             this.today_new_cases = Math.abs(this.today_new_cases) >= 1.0e+6
 
