@@ -37,20 +37,22 @@
         </div>
 
         <div id="addCommentDiv">
-          <div class="commentSection">
-            <input
-              id="addComment"
-              type="text"
-              placeholder="Add a comment"
-              v-model="commentBody"
-            />
-            <p
-              id="submitComment"
-              class="fa fa-mail-reply"
-              @click="submitComment()"
-              value="reset"
-            ></p>
-          </div>
+          <form action="" id="commentInput">
+            <div class="commentSection">
+              <input
+                id="addComment"
+                type="text"
+                placeholder="Add a comment"
+                v-model="commentBody"
+              />
+              <p
+                id="submitComment"
+                class="fa fa-mail-reply"
+                @click="submitComment()"
+                value="reset"
+              ></p>
+            </div>
+          </form>
           <div id="iconDiv">
             <div id="userIcon"></div>
           </div>
@@ -82,7 +84,6 @@ import ForumHeader from "../components/forum/ForumHeader.vue";
 import firebaseApp from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "../components/Footer.vue";
-
 import {
   getFirestore,
   collection,
@@ -90,10 +91,8 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-
 const db = getFirestore(firebaseApp);
 const auth = getAuth();
-
 export default {
   name: "ForumThread",
   components: {
@@ -184,8 +183,7 @@ export default {
         await updateDoc(doc(db, "Posts", this.id + ""), {
           comments: newComments,
         });
-        const form = document.getElementById("addComment");
-        form.value = "";
+        this.commentBody = "";
       }
     },
     async display() {
@@ -252,32 +250,26 @@ export default {
   width: 60%;
   height: auto;
   left: 20%;
-
   background: #aec4da;
   border: 2px solid #aec4da;
   box-sizing: border-box;
   border-radius: 10px;
 }
-
 .topHalf {
   display: flex;
 }
-
 #buttonsDiv {
   width: 10%;
   padding: 5% 0 0 0;
 }
-
 #likeButton {
   margin-left: 40%;
   cursor: pointer;
 }
-
 #commentButton {
   margin-top: 30%;
   margin-left: 40%;
 }
-
 #likeCounter,
 #commentCounter {
   margin: 2%;
@@ -287,13 +279,11 @@ export default {
   text-align: center;
   color: #5b5b5b;
 }
-
 #forumHeader {
   font-weight: 700;
   font-size: 20px;
   color: #000000;
 }
-
 #forumAuthorAndDate {
   margin-top: 3%;
   font-weight: 400;
@@ -307,7 +297,6 @@ export default {
   padding: 2% 0 0 0;
   left: 60%;
 }
-
 #countryContainer {
   text-align: center;
   height: 52%;
@@ -316,7 +305,6 @@ export default {
   background: #dda375;
   border-radius: 20px;
 }
-
 #countryText {
   padding-top: 5%;
   font-size: 18px;
@@ -329,7 +317,6 @@ export default {
   line-height: 27px;
   color: black;
 }
-
 #forumContent {
   position: relative;
   height: auto;
@@ -339,15 +326,8 @@ export default {
 }
 #userIcon {
   position: absolute;
-  /* size: 30px;
-  width: 30x;
-  height: 30px; */
   left: 5%;
-  /* top: 50%; */
-  /* bottom: 23%; */
-  /* border-radius: 1000px; */
 }
-
 #addCommentDiv {
   position: relative;
   left: 10%;
@@ -360,7 +340,6 @@ export default {
   box-sizing: border-box;
   border-radius: 10px;
 }
-
 #addComment {
   position: absolute;
   background: transparent;
@@ -377,7 +356,6 @@ export default {
   top: 20%;
   right: 2%;
 }
-
 #commentsDiv {
   position: relative;
   left: 20%;
