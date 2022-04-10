@@ -28,7 +28,7 @@
         style="background-color: rgba(0, 0, 0, 0.2); color: aliceblue"
       >
         © 2022 Copyright:
-        <a style="color: aliceblue" href="/home">travel-safe.com</a>
+        <a style="color: aliceblue" href="/home">TravelSafe</a>
       </div>
       <!-- Copyright -->
     </footer>
