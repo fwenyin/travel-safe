@@ -23,12 +23,11 @@ Deployed Application Link: https://travelsafe-69761.web.app/
 
 ## Login & Signup Page
 <img width="1250" alt="Screenshot 2022-04-11 at 12 52 AM" src="https://user-images.githubusercontent.com/65524472/162630648-8cbf7287-a0e9-4bb2-bcf6-35d93dfe8acb.png">
-![screencapture-travelsafe-69761-web-app-2022-04-11-00_56_23](https://user-images.githubusercontent.com/65524472/162630849-ee027d45-b343-47a7-a309-8dcc28b24790.png)
-
+<img width="1352" alt="Screenshot 2022-04-11 at 1 08 AM 1" src="https://user-images.githubusercontent.com/65524472/162631117-d2a03b2a-ae54-4b8a-a6df-2205cbf09253.png">
 
 ## Profile Page & Edit Profile Page
 ![screencapture-travelsafe-69761-web-app-profile-2022-04-11-00_53_09](https://user-images.githubusercontent.com/65524472/162630690-8102a948-3f73-404e-a386-a175f395a1de.png)
-![screencapture-travelsafe-69761-web-app-editprofile-2022-04-11-00_53_19](https://user-images.githubusercontent.com/65524472/162630717-3e0b7064-561f-473a-83cd-c89a9c3e921b.png)
+![screencapture-travelsafe-69761-web-app-2022-04-11-01_04_05](https://user-images.githubusercontent.com/65524472/162630954-bb76721c-ad10-4f7a-9d07-ba8fe9c1ac2d.png)
 
 ## Home Page
 ![screencapture-travelsafe-69761-web-app-home-2022-04-11-00_54_13](https://user-images.githubusercontent.com/65524472/162630723-41b8f8aa-a71e-43eb-b914-556989efe566.png)
@@ -48,7 +47,3 @@ Deployed Application Link: https://travelsafe-69761.web.app/
 
 ## About Us Page
 ![screencapture-travelsafe-69761-web-app-aboutus-2022-04-11-00_55_23](https://user-images.githubusercontent.com/65524472/162630709-3bd67149-3204-4ff9-a292-da018118b220.png)
-
-
-
-
