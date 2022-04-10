@@ -1,13 +1,11 @@
 <template>
   <div class="header">
     <img class="headerImage" :src="require('@/assets/forum.png')" alt="home" />
-    <!-- <div class="box"> -->
     <div
       class="card text-white bg-black mb-5 justify-content-center"
       style="height: 70px; width: 400px; position: absolute; margin-top: 9%"
     >
       <p class="headerText">Forum Page</p>
-      
     </div>
   </div>
 </template>
@@ -38,5 +36,4 @@
   margin-top: 3%;
   text-align: center;
 }
-
 </style>

@@ -28,7 +28,6 @@
         /></a>
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="text-align: center">
-          <!-- <img style= "width:15%;height:15%;" :src="require(`../assets/logo.png`)" /> -->
           <li class="nav-item">
             <a
               class="nav-link"
@@ -153,8 +152,6 @@ export default {
     },
     displayImage(pictureURL) {
       let divLoc = document.getElementById("navImg");
-      console.log("Nav bar divLoc is ", divLoc);
-
       let img = document.createElement("img");
       img.src = pictureURL;
       img.style =
